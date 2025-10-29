@@ -1,0 +1,151 @@
+Don't remember any command use man command to understand and become better at Linux
+
+command = command name + options + arguments
+
+
+Here's a breakdown: 
+
+• Command: The primary instruction you want the system to execute. For example, ls, mkdir, cp, rm. 
+• Arguments: The data or parameters that accompany the command. These can be: 
+	• Options/Flags: These usually begin with a hyphen (-) or double hyphen (--) and modify the command's default behavior. For example, in ls -l, -l is an option that tells ls to display a long listing format. In mkdir -p, -p is an option that tells mkdir to create parent directories as needed. 
+	• Positional Arguments: These are typically file or directory names, or other specific values that the command needs to operate on. For example, in cp file1.txt /home/user/documents, file1.txt and /home/user/documents are positional arguments specifying the source and destination for the copy operation. In mkdir new_directory, new_directory is a positional argument specifying the name of the directory to be created. 
+
+Example: 
+cp -r /home/user/documents /backup/documents_backup
+
+In this example: 
+
+• cp is the command (for copying files and directories). 
+• -r is an option (for recursive copying, necessary when copying directories). 
+• /home/user/documents is a positional argument (the source directory). 
+• /backup/documents_backup is another positional argument (the destination directory). 
+
+
+options are case sensitive
+options can be combined
+option short form :cat -n abc.txt
+option long form :cat --number abc.txt
+
+#man command - it is used as document say suppose you don't know what comes with cat command.
+just type: 
+          man cat
+and it will open manual page docs instruction for this command. use up down arrow key to move and view pages.
+
+
+
+#Understanding man
+
+man cp
+
+cp- copy files and directores(folder)
+
+Synopsis cp [Option]... SOURCE... DIRECTORY
+
+here [Option] means you can use say -a archieve with cp. cp [Option] like this cp -a 
+
+... it means multiple options , sources you can give
+
+
+#pwd - print working directory / show current path of folder
+
+command - pwd
+this is used to check where is our current location/path
+
+#ls - list files inside dir/folder
+
+show content of folder and folder colour will be different and files colour will be different
+
+command ls -a
+
+it shows hidden files also which start with .local   .ssh etc 
+
+when you do ls the result will show . and .. here . show current and .. to go back
+so when you type 
+command -
+cd ..
+it take back to previous location say your current pwd is c/home/video then after cd .. it goes back c/home
+
+command ls -l
+this shows full details eg
+total 28
+drwxr-xr-x 3 linuxofpratham pratham 4096 Oct 24 07:39 cloudcomputing
+drwxr-xr-x 2 linuxofpratham pratham 4096 Oct 24 07:28 codecloud
+drwxr-xr-x 2 linuxofpratham pratham 4096 Oct 24 07:31 linux_for_cloud
+drwxr-xr-x 2 linuxofpratham pratham 4096 Oct 25 10:59 newday
+-rw-r--r-- 1 linuxofpratham pratham  155 Oct 25 12:13 newfile.txt
+-rw-r--r-- 1 linuxofpratham pratham   48 Oct 24 07:06 newfileforoutput.txt
+lrwxrwxrwx 1 linuxofpratham pratham   63 Oct 24 07:50 shortcut2of_naramlinkfile -> /home/linuxofpratham/cloudcomputing/codecloud/naramlinkfile.txt
+
+-h this command can help you to read output in humanread form
+
+command: ls -a -l -h
+you can also write togeter which output same
+
+command: ls -alh  which equals to ls -a -l -h
+
+you can practice different command by going to man command: man ls and practicing
+
+
+
+
+#root directory/parent dir 
+this is very first beginning or root from which all directores start and it indicated by " / "
+
+so if you type command: cd /
+it will take you to root then you find out using pwd and ls -l -h to see which directores are there 
+example -- 
+
+
+linuxofpratham@Pratham:~$ cd /
+linuxofpratham@Pratham:/$ pwd
+/
+linuxofpratham@Pratham:/$ ls -lh
+total 2.7M
+lrwxrwxrwx   1 root root    7 Jan  7  2025 bin -> usr/bin
+drwxr-xr-x   2 root root 4.0K Apr 18  2022 boot
+drwxr-xr-x  15 root root 3.8K Oct 29 06:57 dev
+drwxr-xr-x  81 root root 4.0K Oct 29 06:57 etc
+drwxr-xr-x   3 root root 4.0K Oct 22 14:03 home
+-rwxrwxrwx   1 root root 2.7M Aug  7 01:24 init
+lrwxrwxrwx   1 root root    7 Jan  7  2025 lib -> usr/lib
+lrwxrwxrwx   1 root root    9 Jan  7  2025 lib32 -> usr/lib32
+lrwxrwxrwx   1 root root    9 Jan  7  2025 lib64 -> usr/lib64
+lrwxrwxrwx   1 root root   10 Jan  7  2025 libx32 -> usr/libx32
+drwx------   2 root root  16K Oct 22 13:43 lost+found
+drwxr-xr-x   2 root root 4.0K Jan  7  2025 media
+drwxr-xr-x   5 root root 4.0K Oct 22 13:44 mnt
+drwxr-xr-x   2 root root 4.0K Jan  7  2025 opt
+dr-xr-xr-x 238 root root    0 Oct 29 06:57 proc
+drwx------   3 root root 4.0K Oct 22 14:04 root
+drwxr-xr-x  19 root root  560 Oct 29 06:57 run
+lrwxrwxrwx   1 root root    8 Jan  7  2025 sbin -> usr/sbin
+drwxr-xr-x   2 root root 4.0K Oct 22 13:44 snap
+drwxr-xr-x   2 root root 4.0K Jan  7  2025 srv
+dr-xr-xr-x  13 root root    0 Oct 29 06:21 sys
+drwxrwxrwt   7 root root 4.0K Oct 29 06:57 tmp
+drwxr-xr-x  14 root root 4.0K Jan  7  2025 usr
+drwxr-xr-x  13 root root 4.0K Jan  7  2025 var
+linuxofpratham@Pratham:/$ cd home
+linuxofpratham@Pratham:/home$ ls l
+ls: cannot access 'l': No such file or directory
+linuxofpratham@Pratham:/home$ ls -l
+total 4
+drwxr-x--- 8 linuxofpratham pratham 4096 Oct 29 06:48 linuxofpratham
+linuxofpratham@Pratham:/home$ cd linuxofpratham
+linuxofpratham@Pratham:~$ ls -lh
+total 28K
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 24 07:28 codecloud
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 24 07:31 linux_for_cloud
+
+
+
+Also here there is one user linuxofpratham inside home because only 1 user is using so if another user name ram come then two users will be shown
+
+# movement command to reach folder 
+
+command : cd cloudcomputing   this is called relative path
+ or   
+command : cd /home/linuxofpratham/cloudcomputing    this is called absolute path
+
+
