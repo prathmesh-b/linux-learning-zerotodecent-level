@@ -1,0 +1,50 @@
+Linux filemanagement
+
+to move to home dir which is starting point
+
+ls ~
+
+u will move to home dir even if you are anywhere
+
+1) mkdir
+you can create folders multiple or single 
+
+eg mkdir movie
+ cd movie
+result--
+mkdir horror action thriller
+
+== To create folder inside folder
+if you do this mkdir kids/animation it will not work
+do this
+command: mkdir -p kids/animation
+so -p tells parent folder 
+kids parent folder
+animation child foler
+
+
+2) touch
+
+touch command can be used to create file
+
+touch hello.html 
+
+also multiple files
+
+touch hello.html bye.txt
+
+3)file
+file command tells the file type
+
+also if you write txt in .mp4 the file type will not accept it. the linux do some test to determine file type. you can't fool it.
+
+linuxofpratham@Pratham:~$ file 30oct.txt
+30oct.txt: ASCII text
+
+== tip ==
+when you create file or anything
+file a b this cmd consider a and b as separate file
+file 'a' this says consider as one file when it goes into ' ' quotation
+
+
+
