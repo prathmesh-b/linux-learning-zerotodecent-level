@@ -1,0 +1,77 @@
+cat - concatenate (links things together in series)
+
+cat command is used to read the files
+
+cat can read more than 1 files together
+
+$ cat apple.txt orange.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+2) cat file1 file2 > file3      
+> it means overwrite
+you can print output of one files into other and it will create newfile
+
+
+$ cat apple.txt orange.txt > fruits.txt
+~$ cat fruits.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+It also overwrite and latest result will be printed
+
+$ cat apple.txt > fruits.txt
+$ cat fruits.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+
+== append means to print output under already file output==
+~$ cat fruits.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+~$ cat orange.txt >> fruits.txt
+:~$ cat fruits.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+== write directly from terminal without opening nano or any editor ==
+cat > citrus.txt
+
+$ cat > citrus.txt
+citrus is khata fruits which helps to reduce acidity
+should be consumed 1 daily
+C
+D
+
+after writing to exit press Ctrl + D
+
+checking output
+linuxofpratham@Pratham:~$ cat citrus.txt
+citrus is khata fruits which helps to reduce acidity
+should be consumed 1 daily
+
+
+2) echo is being used to print the statement
+
+~$ echo "it takes time to suceed don't regret because you are behind. trust the process one day will be happy day where u say i finally done it "
+
+it takes time to suceed don't regret because you are behind. trust the process one day will be happy day where u say i finally done it
+
+
+3) tac 
+it prints in reverse ulta order like Z to A
+
+$ cat fruits.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+
+~$ tac fruits.txt
+orange is citrus family food and act like medicine to reduce heat in the body.
+apple is called doctor of fruit because it helps to cure diseseases.
+
+
+4) rev
+reverse the line characterwise
+
+$ rev fruits.txt
+.sesaesesid eruc ot spleh ti esuaceb tiurf fo rotcod dellac si elppa
+.ydob eht ni taeh ecuder ot enicidem ekil tca dna doof ylimaf surtic si egnaro

@@ -1,0 +1,38 @@
+Virtualisation helps you to run/test apps/software anything on different OS other than your current OS
+
+Hypervisor Software creates virtual machines (VMs)
+
+VM eg oracle virtual box opensource software
+
+How Hypervisor works?
+- virtual box share hardware resources from Host OS 
+- Separate set of virtual CPU,RAM,Storage etc
+- VMs are fully isolated (independent of hosted OS)
+
+
+
+Host machine
+(current pc 8GB RAM, 100GB HDD) ---> using Hypervisor software (VMs) ----> VM 1 Virtual Pc (2GB RAM, 20GB HDD) LINUX Installed                            ---> VM 2 Virtual pc (2GB RAM  10GB HDD)  Mac OS 
+
+here 1pc with 8GB RAM, 100GB HDD) ---> using Hypervisor software (VMs) created ----> 2 virtual pcs which share hardware resources and run independently like pc and different OS can be installed
+
+
+== Benefits of VMs ==
+We don't need new resources to use different OS for testing any app on different OS
+No risk of any issues with your primary OS
+
+
+== Types of Hypervisor ==
+Type1 (Bare Metal)     Type2 (Hosted)
+
+Type2 (Hosted) -- we created VMs on HOST OS like on already top of present OS to run VMS using hypervisor
+
+
+Type1 (Bare Metal) -- there is no host OS instead Hypervisor is directly setuped on hardware level. eg VMware vSphere/ ESXi, Xen etc and various VMs with diff OS will be runned. basic os is present in software to setup vms
+- Used by Cloud Providers and Enterprise Servers. so many organisation has huge hardware which they create many VMs and use for diff purposes by various diff teams.
+
+== Virtualisation Use Case ==
+- cheap 
+- reduces workload,space,energy
+- easy backup using snapshot
+- easy recovery

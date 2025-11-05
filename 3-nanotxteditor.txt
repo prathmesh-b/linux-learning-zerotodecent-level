@@ -1,0 +1,17 @@
+Nano editor is within terminal editor
+and you can edit files txt 
+
+command- nano car.txt
+it will open the editor
+
+to save ^X this means 
+Ctrl + X and save and exit
+Ctrl + O write the current file
+
+^ means ctrl in nano editor
+
+Alt + U to Undo the txt change
+
+Cltrl + Shift + C to copy global
+
+don't remember command just search and use it

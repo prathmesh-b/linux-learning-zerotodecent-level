@@ -1,0 +1,30 @@
+Exploring Head, Tail, and Less Commands
+
+if we want to read the smaller part of file instead of full big file
+
+head and tail command
+
+head is use to see starting character of file
+
+1) head fruits.txt
+
+it gives starting 10 elements
+
+2) tails fruits.txt
+
+it gives starting 10 elements
+
+mostly tails is being used to check latest ending
+
+3) -f 
+it follows check output continuosly mostly used in software to see if anyone doing changes or working on file
+
+
+4) less
+cat command prints the whole output but less print page wise output so that you easily move and view
+
+this also prints on new window and not on terminal which looks clean after this
+
+q - quit the viewing result
+/ - to search result in the file
+

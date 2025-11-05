@@ -1,0 +1,101 @@
+Mastering Linux File Management: Remove, Rename, Copy, and Move Files and Folder
+
+rm,cp file management
+
+1) rm  
+rm is remove directories/files also means to delete permanently
+
+ls
+f2.txt  f4.txt  file1.txt
+linuxofpratham@Pratham:~/gyab$ rm file1.txt
+linuxofpratham@Pratham:~/gyab$ ls
+f2.txt  f4.txt
+
+== to delete folder (empty folder) ==
+rm -d foldername
+
+and it delete it
+
+
+== what if there are files in folder=
+
+created file and then try to delete the folder 
+linuxofpratham@Pratham:~$ touch gyab/file9.txt
+linuxofpratham@Pratham:~$ cd gyab
+linuxofpratham@Pratham:~/gyab$ ls
+f2.txt  f4.txt  file9.txt
+linuxofpratham@Pratham:~/gyab$ rm -d gyab
+rm: cannot remove 'gyab': No such file or directory
+
+
+== to remove folder with files ==
+you have to remove recursively (repeatafterrpeat delete)
+
+$ ls
+30oct.txt  a  cloudcomputing  gyab             movies  newfile.txt       newfileforoutput.txt
+30ot.txt   b  codecloud       linux_for_cloud  newday  newfile.txt.save  shortcut2of_naramlinkfile
+
+~$ rm -r -d gyab
+~$ ls
+30oct.txt  a  cloudcomputing  linux_for_cloud  newday       newfile.txt.save      shortcut2of_naramlinkfile
+30ot.txt   b  codecloud       movies           newfile.txt  newfileforoutput.txt
+
+gyab folder deleted and its inside files also
+
+
+
+2) cp copy files 
+
+$ ls
+car1.html  car2.txt  car3
+l~/movies/kids/cartoon$ cp car1.html car2.txt car3 ../../
+Pratham:~/movies/kids/cartoon$ ls
+action  car1.html  car2.txt  car3  horror  kids  thriller
+
+=== ../ === this means back so u can copy from 1 dir forward and move back back and paste like above
+
+3) mv  move 
+you can do same like cp to mv files
+
+
+
+4) to do cp/mv with dir/folders 
+use -r 
+
+~/movies$ ls
+action  car1.html  car2.txt  car3  horror  kids  thriller
+linuxofpratham@Pratham:~/movies$ cp -r action ../
+linuxofpratham@Pratham:~/movies$ ls
+action  car1.html  car2.txt  car3  horror  kids  thriller
+linuxofpratham@Pratham:~/movies$ cd ..
+linuxofpratham@Pratham:~$ ls
+30oct.txt  a       b               codecloud        movies  newfile.txt       newfileforoutput.txt
+30ot.txt   action  cloudcomputing  linux_for_cloud  newday  newfile.txt.save  shortcut2of_naramlinkfile
+
+
+5) Rename file
+
+to rename file you can
+
+Renaming a single file:
+Open your terminal and Use the mv command with the following syntax.
+Code
+
+    mv old_filename new_filename
+
+old_filename: The current name of the file you want to rename.
+new_filename: The desired new name for the file. 
+
+Example: To rename a file named document.txt to report.txt:
+Code
+
+    mv document.txt report.txt
+
+
+$ ls
+avengers.mp4  bagghimovie.txt
+linuxofpratham@Pratham:~/movies/action$ mv avengers.mp4 avengersendofgame.mp4
+linuxofpratham@Pratham:~/movies/action$ ls
+avengersendofgame.mp4  bagghimovie.txt
+
+
