@@ -1,0 +1,336 @@
+ this symbol which u see when it blinks
+$ - normal user
+# - root or admin user
+
+== hostname ==
+this cmd used to identify ur machine name over network
+
+=== whoami ===
+use to find which user currently logged in 
+
+linuxofpratham@Pratham:~$ hostname
+Pratham
+linuxofpratham@Pratham:~$ whoami
+linuxofpratham
+
+=== how to find ip address of yours ===
+cmd - ip addr
+IP Address - is a unique address that identifies a device on intenet/local machine 
+inet saysabout ip 
+
+=== pwd ===
+present working directory/current path where u are 
+
+===ls===
+shows folders/files in current dir
+
+=== mkdir foldername ===
+to create folder 
+
+=== cd foldername ===
+if your write cd then starting foldername and press TAB it autocomplete. it's fast
+
+=== how to move back step ===
+cd ..
+
+cd ../../   this is 2 step back
+
+=== how to go at home location ===
+~ represent home location
+
+just press cd
+
+== to find folder use find command ==
+find foldername*
+
+find mov*
+:~$ find mov*
+movies
+movies/thriller
+movies/car2.txt
+movies/kids
+movies/kids/car2.txt
+movies/kids/cartoon
+movies/kids/cartoon/car2.txt
+movies/kids/cartoon/car1.html
+
+=== how to create file ===
+touch filename
+touch sholay.mp4
+
+=== how to delete dir===
+rmdir foldername
+
+=== to delete files inside folder ===
+rm -r foldername/
+
+rm -r movies/
+
+=== nano editor to write in file ===
+
+nano filename
+
+press i to write text
+press Cltrl + x to exit
+
+
+=== understanding folder,file naming===
+-rw-r--r-- 1 linuxofpratham pratham   48 Oct 24 07:06 newfileforoutput.txt
+drwxr-xr-x 2 linuxofpratham pratham 4096 Oct 24 07:31 linux_for_cloud
+drwxr-xr-x 3 linuxofpratham pratham 4096 Oct 24 07:39 cloudcomputing
+
+drwxr (this dr starting shows its directory/folder ) rwxr read,write.x-means execute
+
+-rw- (this means file)
+
+
+=== how to login as root user ===
+su -
+
+type password
+
+if authentication failed it maybe due to wrong password
+
+linuxofpratham@Pratham:~$ su -
+Password:
+su: Authentication failure
+linuxofpratham@Pratham:~$ su -
+
+The su: Authentication failure error occurs when the password entered for the target user (by default, the root user) is incorrect, or if the root account is disabled or improperly configured on your system. 
+
+Common Causes and Solutions
+Here are the most common reasons for this error and how to address them:
+
+1. Incorrect Password
+The most frequent cause is simply typing the wrong password. 
+Solution: Double-check the password for the root user. Note that when you type a password in the terminal, nothing appears on the screen (no asterisks or dots); this is a security feature. 
+
+2. Root Account is Disabled by Default (Common in Ubuntu/Debian) 
+Many Linux distributions, like Ubuntu, disable the root account by default and do not set a password for it. In such systems, the su - command will fail because there is no valid root password to use. 
+Solution 1 (Recommended): Use sudo instead of su
+To run commands with administrative privileges, use sudo followed by the command. You will be prompted for your own user's password, not the root password.
+To get a root shell (an interactive session as the root user), use sudo -i or sudo su.
+
+i used su -i and i gone to root terminal because i am using wsl2
+
+linuxofpratham@Pratham:~$ sudo -i
+[sudo] password for linuxofpratham:
+
+root@Pratham:~# pwd
+/root
+
+so here root user is superadmin which can create/perform operation at admin level and now he will create file in linuxofpratham user
+
+
+root@Pratham:~# cd /home/linuxofpratham
+root@Pratham:/home/linuxofpratham# ls
+30oct.txt  apple.txt   cloudcomputing  fruits.txt       movies  newfile.txt       newfileforoutput.txt  shortcut2of_naramlinkfile
+30ot.txt   citrus.txt  codecloud       linux_for_cloud  newday  newfile.txt.save  orange.txt
+root@Pratham:/home/linuxofpratham# touch newroot.txt
+root@Pratham:/home/linuxofpratham# nano newroot.txt
+root@Pratham:/home/linuxofpratham# ls -ltr
+
+-rw-r--r-- 1 linuxofpratham pratham  148 Nov  2 07:08 fruits.txt
+-rw-r--r-- 1 linuxofpratham pratham   84 Nov  2 07:37 citrus.txt
+-rw-r--r-- 1 linuxofpratham pratham  308 Nov  9 13:35 newfile.txt
+-rw-r--r-- 1 root           root     122 Nov  9 14:05 newroot.txt
+
+did u see last line root mentioned and -rw-r--r it shows root can read,write and other only read -r--r 
+
+
+== let's exit from root mode ===
+write exit
+
+and u switchback to user login
+
+when i opened file using cat
+
+==== how to open file ====
+cat filename
+
+linuxofpratham@Pratham:~$ cat newroot.txt
+i am created by root user permission. the super user who has all permission has created this file in linuxofpratham user
+
+linuxofpratham@Pratham:~$ nano newroot.txt
+this below is shown
+
+
+-- writen inside file --
+
+ root user permission. the super user who has all permission has created this file in linuxofpratham user
+
+ [ File 'newroot.txt' is unwritable ]
+
+-- writen inside file --
+
+=== 2nd way apart from cat to open file ===
+less filename
+
+it open files in separate win if it is very big and it not hang terminal
+
+to exit :wq
+
+=== wordcount cmd ===
+this tells wordcount
+
+ wc newroot.txt
+  1  21 122 newroot.txt
+1- line
+21 - words
+122 byte/character
+
+
+=== how to check difference between files ===
+diff filename1 filename2
+
+it shows by line by line
+
+
+
+=== compressing and decompressing file ===
+suppose you want to send the file so u first compress it
+
+tar cvf files.tar file1 file2
+
+tar cvf is option and files.tar is package name and files u want to compress
+
+
+ tar cvf fruitszipped.tar apple.txt citrus.txt
+apple.txt
+citrus.txt
+
+:~$ ls
+30oct.txt  citrus.txt   fruits.txt    movies fruitszipped.tar  
+
+so here two files have become single packaged name fruitszipped.tar
+
+== in order to make zip file use gzip ==
+.tar extension files
+gzip package name
+
+:gzip fruitszipped.tar
+
+:~$ ls
+30oct.txt  citrus.txt      fruits.txt           movies       newfile.txt.save      orange.txt
+30ot.txt   cloudcomputing  fruitszipped.tar.gz
+
+
+.tar filesize is big and
+.tar.gz filesize is low
+
+
+=== how to unzip ===
+
+ gunzip fruitszipped.tar.gz
+
+this convert package into .tar then
+
+tar xvf packagename.tar
+
+files get unzipped
+
+
+~$ tar xvf fruitszipped.tar
+apple.txt
+citrus.txt
+
+
+== how to rename file ==
+mv oldfilename newfilename
+
+mv apple.txt redapple.txt
+
+== how to combine contents of two separate files into new single file==
+cat file1 file2 > file3
+
+cat apple.txt orange.txt > sweet.txt
+
+$ cat redapple.txt orange.txt > sweet.txt
+:~$ cat sweet.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+
+== how to split file using 'split' cmd==
+split -l 1 filename
+
+$ split -l 1 sweet.txt
+
+it splitted into xaa and xab files
+
+$ cat xaa
+apple is called doctor of fruit because it helps to cure diseseases.
+linuxofpratham@Pratham:~$ cat xab
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+
+
+== how to search something in big file ==
+open file using less, nano
+different commands for vim, nano
+
+== grep command / to find word and which para it belong to show in terminal ==
+
+grep command findout word in para and showcase in terminal
+
+cat filename | grep searchterm
+
+
+$ cat bigfile.txt | grep fly
+
+the fly term is highlighted in red in terminal
+
+It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
+It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
+It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
+It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
+It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
+
+
+=== head and tail command ===
+if i want to see first lines head
+if i want to see last lines tail
+
+
+head -1 filename
+
+-1 shows 1 line 
+
+~$ head -1 sweet.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+
+:~$ head -2 sweet.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+=== sorting ===
+cat sort filename
+
+sort filename
+
+~$ sort abc.txt
+A
+A
+B
+BG
+DGGA
+G
+H
+J
+W
+X
+
+
+
+:~$ cat sort abc.txt
+A
+B
+X
+H
+J
+W
+G
+BG
+A
+DGGA
+
