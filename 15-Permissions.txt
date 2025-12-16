@@ -1,0 +1,59 @@
+15 - Linux permissions
+
+Giving permissions to others read/write etc
+
+ls -lh
+
+-rw-r--r-- 1 linuxofpratham pratham   84 Nov  2 07:37 citrus.txt
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 30 20:27 codecloud
+-rw-r--r-- 1 linuxofpratham pratham    6 Nov 14 06:17 e.txt
+-rw-r--r-- 1 linuxofpratham pratham   64 Nov 14 06:20 errorprinted.txt
+-rw-r--r-- 1 linuxofpratham pratham  534 Dec  4 11:10 fruits.txt
+-rw-r--r-- 1 linuxofpratham pratham  10K Nov  9 14:28 fruitszipped.tar
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:38 gracias.txt
+
+pratham - group name
+linuxofpratham - user name
+
+lrwxrwxrwx
+
+here the first character l can take 3 values like - / l / d 
+- = file
+l = link
+d = directory/folder
+
+-rw-r--r-- 1 linuxofpratham pratham   84 Nov  2 07:37 citrus.txt
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+
+here 1st line is file txt
+2nd is dir
+
+so now remaining 9 characters after first divide into 3 parts
+
+l rwx rwx rwx
+   1   2   3
+
+1 group rwx after 1st l denotes permission 
+r= read w= write x= execute
+
+2 group represent  group permission suppose there are A B C users on linux system 
+and A and B are part of group G so permission belong to group G
+
+3 group belongs to others and their permissison
+
+also at position of rwx after 1st character there may be - which reperesnt no permission to r or w or x
+
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+
+d rwx r-x r-x 
+here r-x means user can read but not write or do changes in file but it can run/open the file
+
+- rw- r-- r-- 1 linuxofpratham pratham    6 Nov 14 06:17 e.txt
+- at start represent file and owner can read,write
+
+
+==== impt for dir ====
+drwxr-xr-x 
+d rwx r-x r-x 
+In case of directory x represent permission to execute and go into directory if there was - u can't go into dir

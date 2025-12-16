@@ -1,0 +1,134 @@
+28-Linux Cron Jobs: A Beginner's Guide to Automated Tasks!
+
+Linux cron jobs are a mechanism for scheduling repetitive tasks to run automatically in the background at specific times and dates. They are widely used for system maintenance, backups, and general automation. 
+
+there is single cron file in which commands are written which need to start at what time interval etc
+
+linuxofpratham@Pratham:~$ crontab -e
+this command open that crontab file and choose nano 1 number if asked
+-e means here editing crontab file
+
+Inside crontab file
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+
+========= syntax=====
+***** command_to_be_executed
+
+1st character * represent Minute (0 - 59)
+2nd character * represent Hour (0 - 23)
+3rd character * represent Day of month (1 - 31)
+4th character * represent Month (1 - 12)
+5th character * represent Day of week (0 - 6, where Sunday is 0 and Saturday is 6)
+
+Asterisk (*): Matches any value for the respective time unit.
+Comma (,) Specifies a list of values.
+Hypen (-) Specifies a range of values.
+Slash (/) specifies a step value for the range.
+
+for eg */5 in the minute field means every 5 minutes.
+
+let's say we want to run file morning at 3:30 am 
+30 3 ***
+
+the command will run every day at 3:30 AM. 
+
+The five fields in a cron expression represent the following:
+Field 	Meaning	          Allowed Values	Your Value
+1st	Minute	            0 - 59	          30
+2nd	Hour             (24-hour format)	0 - 23	3
+3rd	Day of Month      	1 - 31	         * (any)
+4th	Month	         1 - 12 (or names)	  * (any)
+5th	Day of Week	 0 - 6 (Sunday=0 or 7)	 * (any)
+
+Breakdown of 30 3 * * *
+30 in the minute field: Specifies the 30th minute of the hour.
+3 in the hour field: Specifies the 3rd hour, which is 3:00 AM.
+* in the day of month, month, and day of week fields: These wildcards mean the task will run regardless of the day of the month, the month, or the day of the week. 
+
+
+we want every 3 30 am to print hello in hello.log file 
+ 30 3 *** echo "hello" >> ~/hello.log           so in the crontab file added this.
+
+
+--- quick example testing ----
+
+***** echo "hello" >> ~/hello.log
+
+above not worked but i don changes
+
+* * * * * /bin/echo "hello" >> /home/linuxofpratham/crondir/hello.log
+
+between * * need spaces so that 5 stars not count as 1 star
+
+so the hello wil be printed every min and log file is created in crondir
+
+$ crontab -e
+crontab: installing new crontab
+
+this will be shown after u saved file because crontab background process runs which checks command to run from file
+
+
+15 13 * * 1
+
+this means 1 15 pm afternoon evry monday code will be run
+
+
+0 * 5 * *
+code will run 5th of month every hr at 0th minute
+
+-------------
+0 0 */2 * *
+*/2 means every two day at night 12 pm 00 . code will be execute
+
+so let's say now it run at time of 12pm then after 48 hr it will run again
+
+-----------
+45 4 * 1,2 0
+
+Runs at 04:45 AM on Sundays in January and February every minute
+
+every sunday 4 45 am of every1,2nd month of year
+
+1,2 means range of month 1 for jan 2 for feb
+
+
+-----------
+30 8 * * 1-5 
+
+1-5 give range from 1 to 5 only
+
+from mon to fri 8 30 am every min and every hour 
+
+
+linuxofpratham@Pratham:~/crondir$ cat hello.log
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+
+
+this hello printed in log file $ cat hello.log this says previous command is working from ecron file 
+
+
+==== the real use case is say sometimes say high speed net will be flown for sepcific hr/ data consumed then macaddress will be changed via this crom feature .
+
+but be cautions is it legal or not ====

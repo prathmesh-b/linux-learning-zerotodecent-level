@@ -6,7 +6,7 @@ $ - normal user
 this cmd used to identify ur machine name over network
 
 === whoami ===
-use to find which user currently logged in 
+use to find which username currently logged in 
 
 linuxofpratham@Pratham:~$ hostname
 Pratham
@@ -14,7 +14,7 @@ linuxofpratham@Pratham:~$ whoami
 linuxofpratham
 
 === how to find ip address of yours ===
-cmd - ip addr
+cmd: ip addr
 IP Address - is a unique address that identifies a device on intenet/local machine 
 inet saysabout ip 
 
@@ -79,7 +79,9 @@ press Cltrl + x to exit
 drwxr-xr-x 2 linuxofpratham pratham 4096 Oct 24 07:31 linux_for_cloud
 drwxr-xr-x 3 linuxofpratham pratham 4096 Oct 24 07:39 cloudcomputing
 
-drwxr (this dr starting shows its directory/folder ) rwxr read,write.x-means execute
+drwxr (this dr starting shows its directory/folder ) 
+rwxr read,write.x-means execute
+x - execute means delete
 
 -rw- (this means file)
 
@@ -107,6 +109,7 @@ Solution: Double-check the password for the root user. Note that when you type a
 
 2. Root Account is Disabled by Default (Common in Ubuntu/Debian) 
 Many Linux distributions, like Ubuntu, disable the root account by default and do not set a password for it. In such systems, the su - command will fail because there is no valid root password to use. 
+
 Solution 1 (Recommended): Use sudo instead of su
 To run commands with administrative privileges, use sudo followed by the command. You will be prompted for your own user's password, not the root password.
 To get a root shell (an interactive session as the root user), use sudo -i or sudo su.
@@ -183,7 +186,7 @@ this tells wordcount
 === how to check difference between files ===
 diff filename1 filename2
 
-it shows by line by line
+it shows by line by line difference
 
 
 

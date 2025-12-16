@@ -1,0 +1,140 @@
+The Linux alias command creates a user-defined shortcut for a longer command or sequence of commands, which simplifies command-line usage and saves typing. 
+
+How to Use the alias Command
+The basic syntax for creating an alias is:
+
+alias shortcut_name='the original command to run'
+
+Quotes are generally required if the command contains spaces or special characters. There should be no space immediately before or after the equals sign (=). 
+
+Creating Aliases
+Temporary Aliases: An alias defined directly in the terminal only lasts for the current session. It will disappear when the terminal is closed.
+Example: alias ll='ls -la'
+Permanent Aliases: To make an alias persist across sessions, you must add it to your shell's configuration file (e.g., ~/.bashrc for Bash or ~/.zshrc for Zsh).
+Open the configuration file using a text editor, such as nano ~/.bashrc.
+Add your alias command to the end of the file.
+Save the file and exit the editor.
+Apply the changes to your current session by running source ~/.bashrc (or the relevant file for your shell). 
+
+Managing Aliases
+List all current aliases: Run the alias command without any arguments.
+Remove a specific alias: Use the unalias command followed by the alias name.
+Example: unalias ll
+Remove all aliases in the current session: Use the unalias -a option. 
+
+Practical Examples
+Here are a few useful aliases you can add to your configuration file: 
+Alias 	Command	Description
+ll	ls -la	Lists all files in a directory in a detailed format.
+update	sudo apt update && sudo apt upgrade	Updates package lists and installs upgrades (for Debian-based systems).
+home	cd ~	Navigates directly to the home directory.
+rm	rm -i	Asks for confirmation before deleting files, enhancing safety.
+gst	git status	A shortcut for checking Git repository status.
+
+Note on Functions
+For more complex scenarios, especially when you need to pass arguments to different parts of a command, shell functions are generally recommended over aliases as they offer more flexibility. 
+
+
+
+type command helps to determine type of command
+
+linuxofpratham@Pratham:~$ type pwd
+pwd is a shell builtin
+
+linuxofpratham@Pratham:~$ type cd
+cd is a shell builtin
+
+linuxofpratham@Pratham:~$ type echo
+echo is a shell builtin
+
+linuxofpratham@Pratham:~$ type cat
+cat is /usr/bin/cat
+this is binary command
+
+linuxofpratham@Pratham:~$ type ls
+ls is aliased to `ls --color=auto'
+
+ ls
+30ot.txt                   citrus.txt        gracias.txt      movies                orange.txt            rootfoldertest
+abc.txt                    cloudcomputing    hello.txt        newday
+
+
+so when i type ls the actual command run behind scene is `ls --color=auto'
+
+
+how to create shortcut for our own work when we do particular type daily repeat. 
+eg u created quote.txt file in doucment dir to start ur day fresh. but opening documents and then file and read so much steps but 
+you can create short cut for it.
+
+linuxofpratham@Pratham:~/newday$ ls
+newdayfile.txt  quotes.txt
+
+linuxofpratham@Pratham:~/newday$ cd
+linuxofpratham@Pratham:~$ cat newday/quotes.txt
+1. every day is new chance to reach closer towards goal even if your previous day not go as well.
+2. Just don't stop or change direcion of your goal because of new shiny things.
+
+let's create alias for it to read quotes with simple command
+
+with below command u can read .bashrc file which has existing alias
+ratham:~$ cat .bashrc
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+
+====lets create alias for quotes==
+
+
+linuxofpratham@Pratham:~$ alias quotes='cat ~/newday/quotes.txt'
+linuxofpratham@Pratham:~$ quotes
+1. every day is new chance to reach closer towards goal even if your previous day not go as well.
+2. Just don't stop or change direcion of your goal because of new shiny things.
+
+
+this command run only in current session but we want it to run permanent so where to write
+so we want to add this into .bashrc file 
+
+~$ nano .bashrc
+
+added at last this txt
+alias quotes='cat ~/newday/quotes.txt'
+
+so u can save program in .bashrc file and which need very frequent repeatly which u can
+save as alias
+
+whenever u create new alias save it in .bash_aliases which consist personal alias instead of adding to .bashrc file system
+-----------------------------------------------------------------------
+that code will run when typed shortcut. code is called binary in terms of linux.
+In Linux, the term "binary" most commonly refers to executable files containing compiled machine code that the computer's processor can run directly. These files are not human-readable text but a sequence of bytes (0s and 1s) representing instructions. 
+
+Key Concepts
+Machine Code: Source code written by programmers in languages like C or C++ is translated into machine code by a compiler. This resulting file is the "binary".
+
+Executable vs. Binary: The terms are often used interchangeably, but they have distinct meanings.
+Binary file: Strictly speaking, any file that is not plain, human-readable text (images, audio, compressed archives, compiled libraries, etc.) is a binary file.
+
+Executable file: A file that the operating system can run as a program. This can be a binary file (compiled machine code) or a text file (a script with a "shebang" line, like #!/bin/bash) that invokes an interpreter.
+
+In common Linux parlance, "a binary" usually means a binary executable file.
+
+File Format: Linux binaries typically use the Executable and Linkable Format (ELF).
+Platform Specificity: Binaries are compiled for a specific hardware architecture and operating system combination. A binary compiled for Linux generally cannot run on Windows or macOS without a compatibility layer or re-compilation. 
+
+Binary Directories in the Linux Filesystem
+Binaries are stored in specific directories following the Filesystem Hierarchy Standard (FHS). 
+/bin: Contains essential user command binaries required for basic system function, available to all users (e.g., ls, cp, mv, cat).
+/sbin: Contains system binaries, primarily for system administration and maintenance tasks (e.g., ifconfig, fdisk, shutdown). These typically require root privileges to execute.
+/usr/bin: Contains most user-level executable programs.
+/usr/sbin: Contains more system administration binaries that are not strictly essential for the system to boot or run in single-user mode.
+/lib and /usr/lib: These directories hold shared libraries that the binaries in /bin and /usr/bin need to function. 
+
+--------------------------------------------------------------------
+
+

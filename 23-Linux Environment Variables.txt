@@ -1,0 +1,57 @@
+23-Linux Environment Variables: Boost Your System's Performance!
+
+variable specific to environment
+
+suppose u working on project and u have some secret codes or say tokens u want your program have access to it but not other people. so then i will create that environament variable and store values in it.
+
+whenever u start terminal session start and shell keep information and that information is called environment variable.
+
+variable means location for storing a value, referred to with its symbolic name, the value stored can be displayed,deleted,edited and resaved.
+
+Environment Variables has dynamic values,exist in every operating system, can be created,edited,saved and deleted. also gives information about the system behavior. change the way software/programs behave
+
+eg $LANG enviornment variable store value of language such that if application is run then app read this variable and shows chinese to china user and en to usa people.
+
+== how to access variable values ===
+
+syntax
+echo $VARIABLE
+
+echo $PATH 
+
+this variable contains a colon (:)- separated list of directories in which your system looks for executable files.
+
+
+the shell look for command in dir and if it correc it shows result else not
+
+
+$USER
+it shows user name
+
+
+env 
+it prints all environment info eg user name, home pwd etc
+----------------
+
+different user will have diff env values like name and other
+
+
+==== how to add new variable to system env=======
+and all this env variables are being used by program to run eg lang etc
+
+
+linuxofpratham@Pratham:~$ export my_mail=mail@mail.com
+linuxofpratham@Pratham:~$ env
+
+u will see my_mail=mail@mail.com
+
+linuxofpratham@Pratham:~$ echo $my_mail
+mail@mail.com
+
+
+so u see your new variable is ready to be used by program
+
+linuxofpratham@Pratham:~$ printenv | grep mail@
+my_mail=mail@mail.com
+
+so if u do bash which means ending nested shell then env variable saved in system will be shown. 

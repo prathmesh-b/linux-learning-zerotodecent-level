@@ -1,0 +1,30 @@
+13- Linux Terminal Shortcuts: Boost Your Productivity!
+
+~$ touch one two thee hij
+
+here suppose u want to move curoser blinking at
+start of word touch
+
+curosr start postion - Ctrl + A
+end postion - Ctrl + E
+
+Skips word backword - ALT B
+Skips word forword - ALT F
+
+== how to remove line from forward == 
+Cltrl + K
+
+$ touch one two three
+$ touch one
+
+Cltrl + Y
+if you want to paste deleted line from Cltrl + K
+
+Alt + D
+linux delete characters of word instead of line like Cltrl + K
+
+Cltrl + R
+to search history
+
+TAB 
+automcomplete filename/dir name

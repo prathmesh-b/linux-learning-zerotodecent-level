@@ -1,0 +1,57 @@
+12 -Arithmetic Operations and Expressions in Linux
+
+~$ echo 2+3
+2+3
+
+~$ echo $((2+3))
+5
+
+~$ echo 2+3
+2+3
+
+~$ echo $((2+3))
+5
+
+~$ echo $((2*3))
+6
+
+~$ echo $((2**3))
+8
+
+~$ echo $(8/4))
+-bash: syntax error near unexpected token `)'
+
+~$ echo $((8/4))
+2
+~$ echo $((11%7))
+4
+~$ echo $((2**(3-2))
+> ^C
+~$ echo $((2**(3-2)))
+2
+~$ echo $((2**3-2))
+6
+~$ echo $((2**2))
+4
+
+if u don't write echo then it will treat as command
+~$  $((2**2))
+4: command not found
+
+here $() is treated as command
+~$ echo $(ls)
+30oct.txt 30ot.txt abc.txt bigfile.txt bye.
+
+
+
+== you can also findout folders without moving to actual path=====
+here subshell is created 
+~$ (cd parentfold/ && ls)
+childfol_1  childfol_2  xfile.txt  yfile.txt  zcombine.txt
+
+$ pwd
+/home/linuxofpratham
+
+
+&& - this is logical end which means first cd command run then ls
+; 

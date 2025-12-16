@@ -1,0 +1,126 @@
+29-  Linux's History Command: Uncover Hidden Secrets!
+
+to check history of commands
+
+linuxofpratham@Pratham:~$ history
+  236  cat naramlinkfile.txt
+  237  pwd
+  238  ln -s /home/linuxofpratham/cloudcomputing/codecloud/naramlinkfile.txt softlink-fileshortcut
+  239  ls -l
+  240  cd ../cloudcomputing
+  241  cd ..
+  242  ls -l
+  243  cd ..
+  244  ls -l
+  245  ln -s /home/linuxofpratham/cloudcomputing/codecloud/naramlinkfile.txt shortcut2of_naramlinkfile
+  246  ls
+  247  ls -l
+  248  cd cloudcomputing
+  249  ls
+  250  cd codecloud
+  251  ls
+  252  cat naramlinkfile.txt
+  253  echo "hi,this is soft link now changes has been done " > naramlinkfile.txt
+  254  ls
+  255  cat naramlinkfile.txt
+  256  cd ../
+  257  ls
+  258  cat shortcut2of_naramlinkfile
+  259  exit
+  260  echo hello
+
+u can also find specific command at point 
+linuxofpratham@Pratham:~$ history | grep "mkdir"
+  263  mkdir newday
+  385  mkdir movies
+  389  mkdir horror thriller action
+
+== to check last 9 commands ====
+
+linuxofpratham@Pratham:~$ history 9
+ 1230  cat hello.log
+ 1231  time
+ 1232  date
+ 1233  history
+ 1234  cd
+ 1235  history
+ 1236  linuxofpratham@Pratham:~$ history
+ 1237  history | grep "mkdir"
+ 1238  history 9
+
+  391  man mkdir
+  396  mkdir -p kids/cartoon/2020
+  439  mkdir gyab
+  450  mkdir uwo
+  654  mkdir mamals
+
+=== history run ===
+linuxofpratham@Pratham:~$ !!
+history 9
+ 1230  cat hello.log
+ 1231  time
+ 1232  date
+ 1233  history
+ 1234  cd
+ 1235  history
+ 1236  linuxofpratham@Pratham:~$ history
+ 1237  history | grep "mkdir"
+ 1238  history 9
+
+
+== how to run command from history ===
+
+linuxofpratham@Pratham:~$ !!
+history 9
+ 1230  cat hello.log
+ 1231  time
+ 1232  date
+ 1233  history
+ 1234  cd
+ 1235  history
+ 1236  linuxofpratham@Pratham:~$ history
+ 1237  history | grep "mkdir"
+ 1238  history 9
+
+linuxofpratham@Pratham:~$ !1230
+cat hello.log
+hello
+hello
+hello
+hello
+
+
+=== how to delete specific command from history ====
+linuxofpratham@Pratham:~$ history -d 1236
+ 
+1232  date
+ 1233  history
+ 1234  cd
+ 1235  history
+ 1236  linuxofpratham@Pratham:~$ history
+ 1237  history | grep "mkdir"
+ 1238  history 9
+ 1239  cat hello.log
+ 1240  history -d date
+ 1241  history
+
+if u check now
+linuxofpratham@Pratham:~$ history 9
+ 1233  history
+ 1234  cd
+ 1235  history
+ 1236  history 9
+ 1237  cat hello.log
+ 1238  history -d date
+ 1239  history
+ 1240  history -d 1236
+ 1241  history 9
+
+the prev command gone
+
+
+----
+linuxofpratham@Pratham:~$ echo $HISTSIZE
+1000
+
+why there is 1241 and i can't see 1,2 history entry because the $HISTSIZE store it

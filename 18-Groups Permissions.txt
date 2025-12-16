@@ -1,0 +1,90 @@
+ Linux Groups Organize Permissions
+
+
+suppose there are 10 people in company who want to work on file. so what u do divide into group and give them 5 got read or 5 got write
+
+Linux group permissions are a core part of the system's security model, controlling what members of an assigned group can do with a specific file or directory. 
+
+Understanding Group Permissions
+Every file and directory in Linux is assigned to a single owning group and has a specific set of permissions for that group. When a user tries to access a file, the system checks if they are the owner, a member of the owning group, or "other" (everyone else), and applies the corresponding permissions. 
+The three basic permission types are: Read (r or 4), Write (w or 2), and Execute (x or 1). Read allows viewing contents, write allows modification, and execute allows running a file or entering a directory. 
+
+Viewing and Changing Permissions
+The ls -l command displays permissions as a 10-character string (e.g., -rwxr-xr--). The first character indicates file type, the next three are user permissions, the following three are group permissions, and the last three are for others. 
+
+The chmod command is used to modify permissions. You can use symbols or numeric codes: 
+Command 	Description
+chmod g+w filename	Adds write permission for the group.
+chmod g-x filename	Removes execute permission for the group.
+chmod g=rw filename	Sets the group's permissions to read and write.
+
+Numeric mode uses octal values. For instance, chmod 755 filename sets permissions for user, group, and others; the middle digit 5 (4+1) grants read and execute to the group. 
+
+Managing Group Ownership
+To change the group that owns a file or directory, use the chgrp or chown commands. 
+Command 	Description
+chgrp groupname filename	Changes the group ownership of a file.
+chown user:groupname filename	Changes both user and group ownership.
+chown -R :groupname directory	Recursively changes the group for a directory and its contents.
+
+
+=============
+
+linuxofpratham@Pratham: $ groups
+pratham adm dialout cdrom floppy sudo audio dip video plugdev netdev
+
+this shows which part of group ur current user is . there are many group because linuxofpratham is admin type user so it is part of various groups
+
+
+=== addgroup ====
+$ addgroup backENDTeam
+addgroup: Only root may add a user or group to the system.
+
+
+root@Pratham:~# addgroup backENDTeam
+addgroup: Please enter a username matching the regular expression configured
+via the NAME_REGEX[_SYSTEM] configuration variable.  Use the `--force-badname'
+option to relax this check or reconfigure NAME_REGEX.
+
+
+This error telling that your groupname does not follow rule. let's see what rule is
+
+so last rule says
+# check user and group names also against this regular expression.
+#NAME_REGEX="^[a-z][-a-z0-9_]*\$"
+
+this means your name is capital     backENDTeam         and it should be smallcase
+
+
+=== adding user to group===
+root@Pratham:~# adduser kayaba backendteam
+Adding user `kayaba' to group `backendteam' ...
+Adding user kayaba to group backendteam
+Done.
+
+now checking from kayaba acc
+groups kayaba
+kayaba : kayaba backendteam
+
+
+so u see kayaba is part of backendteam
+
+=====
+now lets create dir of backend_project_1
+
+root@Pratham:~# sudo mkdir backend_project_1
+root@Pratham:~# ls -lha
+total 36K
+drwx------  5 root root 4.0K Dec 13 20:28 .
+drwxr-xr-x 24 root root 4.0K Dec 13 20:08 ..
+-rw-------  1 root root 1.4K Dec 13 20:24 .bash_history
+-rw-r--r--  1 root root 3.1K Oct 15  2021 .bashrc
+drwx------  2 root root 4.0K Oct 22 13:44 .cache
+-rw-------  1 root root   20 Dec  3 11:48 .lesshst
+drwxr-xr-x  3 root root 4.0K Nov  9 14:04 .local
+-rw-r--r--  1 root root    0 Dec 13 19:54 .motd_shown
+-rw-r--r--  1 root root  161 Jul  9  2019 .profile
+-rw-r--r--  1 root root    0 Dec 13 20:07 .sudo_as_admin_successful
+drwxr-xr-x  2 root root 4.0K Dec 13 20:28 backend_project_1
+
+so we created dir for backend team now i want to change owner of this backend_project_1 to someone else follow 19-rootuser and sudo explained

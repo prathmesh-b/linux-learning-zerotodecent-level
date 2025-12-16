@@ -1,0 +1,70 @@
+The su command, short for 'substitute user' or 'switch user', is a Linux command that allows you to execute commands with the privileges of another user. It is commonly used to switch to the root user, granting access to administrative commands and functions.
+
+Key Usage and Syntax
+The general syntax is su [options] [user]. If you omit the [user], the command defaults to the root user. You will be prompted for the password of the target user you are switching to. 
+su vs. su - (The Important Difference)
+The most important distinction in using the su command is the difference between running it with and without a hyphen (-). 
+Difference 	su (Non-Login Shell)	su - (Login Shell - Recommended)
+Environment Variables	Retains the current user's environment variables.	Resets environment variables to those of the target user.
+Working Directory	Keeps your current working directory.	Changes the directory to the target user's home directory.
+Shell Settings	Retains the current user's shell settings.	Resets shell settings and loads login scripts (.bashrc, .profile).
+Recommendation: Always use su - when performing administrative tasks, as it provides a clean and predictable environment, mimicking a full login as the target user. 
+Common Examples
+Switch to the root user (recommended method):
+bash
+su -
+Enter the root password when prompted.
+Switch to a specific user (e.g., 'john'):
+bash
+su - john
+Enter 'john's password when prompted.
+
+sudo --login username
+
+
+but in my case it show
+su -
+
+type password
+
+if authentication failed it maybe due to wrong password
+
+linuxofpratham@Pratham:~$ su -
+Password:
+su: Authentication failure
+linuxofpratham@Pratham:~$ su -
+
+
+i used su -i and i gone to root terminal because i am using wsl2
+
+linuxofpratham@Pratham:~$ sudo -i
+[sudo] password for linuxofpratham:
+
+root@Pratham:~# pwd
+/root
+
+so here root user is superadmin which can create/perform operation at admin level and now he will create file in linuxofpratham user
+
+
+
+
+===== here is tip for you when u work at corporate/actual real case=====
+Before starting to work first create 2 account 1 for root level and 2nd yourname user account which has less privelages.
+and work via useraccount because for security purpose something wrong happen it does not affect company work.
+
+for sometime like software installation or migration login to root user and do work for sometime.
+
+so you will be out of tension when working in useraccount because less privilage.
+
+
+
+
+
+==tried createing file from root user and then via chmod given permission to w for a allusers 
+
+useracc
+linuxofpratham@Pratham:~$ chmod u+w biofilecreatedviaroot.txt
+chmod: changing permissions of 'biofilecreatedviaroot.txt': Operation not permitted
+
+
+root@Pratham:/home/linuxofpratham# chmod a+w biofilecreatedviaroot.txt

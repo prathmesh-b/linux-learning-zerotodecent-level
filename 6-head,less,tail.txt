@@ -19,6 +19,11 @@ mostly tails is being used to check latest ending
 3) -f 
 it follows check output continuosly mostly used in software to see if anyone doing changes or working on file
 
+this is applied at end lines of file to see changes
+eg tail -f apple.txt
+
+it shows continusly blinking dot which says someone is changing
+to exit the this press Cltrl + C
 
 4) less
 cat command prints the whole output but less print page wise output so that you easily move and view

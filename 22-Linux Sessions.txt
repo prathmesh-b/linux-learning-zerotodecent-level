@@ -1,0 +1,31 @@
+22- Linux Sessions
+
+whenver we open terminal and user login then session starts and whenever logout and exit terminal session get off.
+
+whever session starts the shell id created u can check that
+
+echo $$
+prints current session id
+
+linuxofpratham@Pratham:~$ echo $$
+317
+
+
+linuxofpratham@Pratham:~$ bash
+linuxofpratham@Pratham:~$ echo $$
+589
+
+when u run bash it runs nested session and u can see u can't see previous cmmands suggestion when u press up arrow
+
+linuxofpratham@Pratham:~$ bash
+linuxofpratham@Pratham:~$ echo $$
+589
+linuxofpratham@Pratham:~$ exit
+exit
+linuxofpratham@Pratham:~$ echo $$
+317
+
+now u exited nested 
+
+
+

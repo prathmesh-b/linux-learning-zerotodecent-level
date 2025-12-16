@@ -1,0 +1,199 @@
+suppose u done ls and u want to sort result according to some order
+
+~$ cat fruits.txt 
+
+Tangerine
+Watermelon
+
+apple is called doctor of fruit because it helps to cure diseseases.
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+apple
+orange
+grape
+banana
+blackgrape
+guava
+chiku
+
+$ sort fruits.txt
+
+Strawberry
+Tangerine
+Watermelon
+apple
+apple is called doctor of fruit because it helps to cure diseseases.
+banana
+blackgrape
+chiku
+grape
+guava
+orange
+orange is citrus family food and act like medicine to reduce heat in the body.
+papaya
+
+== NUMBERS ==
+
+$ cat numbers.txt
+03
+35
+267
+0220
+004
+24
+11
+355
+020
+033
+
+
+~$ sort numbers.txt
+
+004
+020
+0220
+03
+033
+11
+24
+267
+35
+355
+
+it sorted from position of 0 then 01 then 001 like that
+
+if we want with correct number sort 
+
+~$ sort -n  numbers.txt
+
+03
+004
+11
+020
+24
+033
+35
+0220
+267
+355
+
+== what if we want to sort the file which has coloumn and diff category ==
+
+we will print output in diff file
+$ ls -lhtr >> lsfiles.txt
+
+if we sort normally
+
+sort lsfiles.txt
+-rw-r--r-- 1 linuxofpratham pratham    0 Dec  4 11:26 lsfiles.txt
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:34 hello.txt
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:38 gracias.txt
+-rw-r--r-- 1 linuxofpratham pratham    6 Nov 14 06:17 e.txt
+-rw-r--r-- 1 linuxofpratham pratham   13 Nov 14 06:27 cat.txt
+-rw-r--r-- 1 linuxofpratham pratham   24 Nov  9 15:20 abc.txt
+-rw-r--r-- 1 linuxofpratham pratham   38 Dec  4 11:17 numbers.txt
+-rw-r--r-- 1 linuxofpratham pratham   48 Oct 24 07:06 newfileforoutput.txt
+
+the result is sorted acc to size see 4th column of 0,0,0,6 Nov
+
+
+
+
+~$ head -5 lsfiles.txt
+total 144K
+-rw-r--r-- 1 linuxofpratham pratham   48 Oct 24 07:06 newfileforoutput.txt
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 24 07:31 linux_for_cloud
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+lrwxrwxrwx 1 linuxofpratham pratham   63 Oct 24 07:50 shortcut2of_naramlinkfile -> /home/linuxofpratham/cloudcomputing/codecloud/naramlinkfile.txt
+
+
+what if we want to sort acc to 5th column of size base check above from left to right column no 5 where 48,4.0k, 4.0k written
+
+
+== to sort acc to specific column type ==
+check man sort and there is 
+
+-k, --key=KEYDEF
+              sort via a key; KEYDEF gives location and type
+
+linuxofpratham@Pratham:~$ sort -k5 lsfiles.txt
+
+
+total 144K
+-rw-r--r-- 1 root           root     122 Nov  9 14:05 newroot.txt
+-rw-r--r-- 1 linuxofpratham pratham    0 Dec  4 11:26 lsfiles.txt
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:34 hello.txt
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:38 gracias.txt
+drwxr-xr-x 2 root           root    4.0K Dec  3 11:46 rootfoldertest
+drwxr-xr-x 2 root           root    4.0K Nov 11 05:08 rootfolderbyrootwal
+-rw-r--r-- 1 linuxofpratham pratham   69 Nov  2 06:57 redapple.txt
+-rw-r--r-- 1 linuxofpratham pratham   69 Nov  9 15:00 xaa
+-rw-r--r-- 1 linuxofpratham pratham   79 Nov  2 06:58 orange.txt
+-rw-r--r-- 1 linuxofpratham pratham   79 Nov  9 15:00 xab
+-rw-r--r-- 1 linuxofpratham pratham   84 Nov  2 07:37 citrus.txt
+-rw-r--r-- 1 linuxofpratham pratham   93 Oct 30 20:40 30oct.txt
+-rw-r--r-- 1 linuxofpratham pratham   94 Oct 30 20:42 30ot.txt
+
+
+
+but we also want to sort acc to human readibilty
+
+~$ sort -k5h lsfiles.txt
+
+-rw-r--r-- 1 linuxofpratham pratham    0 Dec  4 11:26 lsfiles.txt
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:34 hello.txt
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:38 gracias.txt
+total 144K
+-rw-r--r-- 1 linuxofpratham pratham    6 Nov 14 06:17 e.txt
+-rw-r--r-- 1 linuxofpratham pratham   13 Nov 14 06:27 cat.txt
+-rw-r--r-- 1 linuxofpratham pratham   24 Nov  9 15:20 abc.txt
+-rw-r--r-- 1 linuxofpratham pratham   38 Dec  4 11:17 numbers.txt
+-rw-r--r-- 1 linuxofpratham pratham   48 Oct 24 07:06 newfileforoutput.txt
+lrwxrwxrwx 1 linuxofpratham pratham   63 Oct 24 07:50 shortcut2of_naramlinkfile -> /home/linuxofpratham/cloudcomputing/codecloud/naramlinkfile.txt
+-rw-r--r-- 1 linuxofpratham pratham   64 Nov 14 06:20 errorprinted.txt
+-rw-r--r-- 1 linuxofpratham pratham   64 Nov 14 06:34 bye.txt
+-rw-r--r-- 1 linuxofpratham pratham   69 Nov  2 06:57 redapple.txt
+-rw-r--r-- 1 linuxofpratham pratham   69 Nov  9 15:00 xaa
+-rw-r--r-- 1 linuxofpratham pratham   79 Nov  2 06:58 orange.txt
+-rw-r--r-- 1 linuxofpratham pratham   79 Nov  9 15:00 xab
+-rw-r--r-- 1 linuxofpratham pratham   84 Nov  2 07:37 citrus.txt
+-rw-r--r-- 1 linuxofpratham pratham   93 Oct 30 20:40 30oct.txt
+-rw-r--r-- 1 linuxofpratham pratham   94 Oct 30 20:42 30ot.txt
+-rw-r--r-- 1 root           root     122 Nov  9 14:05 newroot.txt
+-rw-r--r-- 1 linuxofpratham pratham  148 Nov  9 14:56 sweet.txt
+-rw-r--r-- 1 linuxofpratham pratham  308 Nov  9 13:35 newfile.txt
+-rw-r--r-- 1 linuxofpratham pratham  336 Nov  1 15:26 newfile.txt.save
+-rw-r--r-- 1 linuxofpratham pratham  534 Dec  4 11:10 fruits.txt
+-rw-r--r-- 1 linuxofpratham pratham 1.7K Nov 14 06:14 outputinfile.txt
+-rw-r--r-- 1 linuxofpratham pratham 2.1K Nov 14 06:38 hola.txt
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 24 07:31 linux_for_cloud
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 25 10:59 newday
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 30 20:27 codecloud
+drwxr-xr-x 2 root           root    4.0K Dec  3 11:46 rootfoldertest
+drwxr-xr-x 2 root           root    4.0K Nov 11 05:08 rootfolderbyrootwale
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+drwxr-xr-x 4 linuxofpratham pratham 4.0K Dec  3 12:06 parentfold
+drwxr-xr-x 6 linuxofpratham pratham 4.0K Nov  1 17:44 movies
+-rw-r--r-- 1 linuxofpratham pratham  10K Nov  9 14:28 fruitszipped.tar
+-rw-r--r-- 1 linuxofpratham pratham  12K Nov  9 15:09 bigfile.txt
+
+
+=== if we want to sort acc to unique ===
+
+$ sort wateranimal.txt
+crab
+dolphin
+fish
+fish
+jellyfish
+turtle
+
+~$ sort -u wateranimal.txt
+crab
+dolphin
+fish
+jellyfish
+turtle
+
+here fish which was 2times earlier gone unique result
+

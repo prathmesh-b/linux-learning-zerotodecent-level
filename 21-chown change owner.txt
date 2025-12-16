@@ -1,0 +1,68 @@
+chown - change owner
+there is file and want to chane owner of that file.
+
+The chown command in Unix-like operating systems is used to change the user and/or group ownership of files and directories. This is crucial for managing access control and security on a multi-user system. 
+
+Syntax
+
+chown [OPTIONS] OWNER[:GROUP] FILE(s)
+
+chown: The base command.
+[OPTIONS]: Optional flags that modify the command's behavior (e.g., -R for recursive changes).
+OWNER: The username or numeric user ID (UID) of the new owner.
+[:GROUP]: An optional group name or ID (GID), preceded by a colon, to also change the group ownership simultaneously.
+FILE(s): The name of one or more target files or directories. 
+
+Note: In most cases, changing the owner of a file requires sudo or root privileges, as regular users cannot give away ownership of their files for security reasons. 
+
+Common Examples
+Change only the owner of a file:
+
+chown john filename.txt
+This changes the owner of filename.txt to the user john, leaving the group unchanged.
+
+========================
+let's change owner of this file
+-rw-r--r--  1 linuxofpratham pratham 3.2K Dec  4 12:12 meditation.txt
+
+
+linuxofpratham@Pratham:~$ chown kayaba meditation.txt
+chown: changing ownership of 'meditation.txt': Operation not permitted
+
+here we don't have root user privilage but using sudo we can do it
+
+linuxofpratham@Pratham:~$ chown kayaba meditation.txt
+chown: changing ownership of 'meditation.txt': Operation not permitted
+linuxofpratham@Pratham:~$ sudo chown kayaba meditation.txt
+[sudo] password for linuxofpratham:
+
+-rw-r--r--  1 kayaba         pratham 3.2K Dec  4 12:12 meditation.txt
+
+
+we created backend_project_1 dir but the other users can't access it so we going to change the group and permissions
+
+root@Pratham:~# ls -lh
+total 4.0K
+drwxr-xr-x 2 root root 4.0K Dec 13 20:28 backend_project_1
+
+
+we will change owner to backendteam and permissions
+
+trying to do
+
+linuxofpratham@Pratham:~$ sudo chown :backendteam backend_project_1/
+chown: cannot access 'backend_project_1/': No such file or directory
+
+not worked so changed to root acc
+
+root@Pratham:~# chown :backendteam backend_project_1/
+drwxr-xr-x  2 root backendteam 4.0K Dec 13 20:28 backend_project_1
+
+group change from root to backendteam, let's also change permission
+
+root@Pratham:drwxrwxr-x  2 root backendteam 4.0K Dec 13 20:28 backend_project_1~# chmod g+w backend_project_1/
+
+so if one person of team created file by himself but others can't access or write just add them to group 
+
+
+

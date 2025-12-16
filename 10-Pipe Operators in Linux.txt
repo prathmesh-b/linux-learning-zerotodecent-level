@@ -1,0 +1,48 @@
+we want to combine commands in linux so we do with pipe
+
+suppose u want to see file u do cat but u also want to find something u use grep
+so what if we want to use this combine u do grep
+
+also if we want to give one command output to other command we use pipe
+
+~$ ls -lh | sort -k6h
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:34 hello.txt
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:38 gracias.txt
+-rw-r--r-- 1 linuxofpratham pratham    6 Nov 14 06:17 e.txt
+-rw-r--r-- 1 linuxofpratham pratham   13 Nov 14 06:27 cat.txt
+-rw-r--r-- 1 linuxofpratham pratham   24 Nov  9 15:20 abc.txt
+-rw-r--r-- 1 linuxofpratham pratham   38 Dec  4 11:17 numbers.txt
+-rw-r--r-- 1 linuxofpratham pratham   40 Dec  4 11:38 wateranimal.txt
+
+pipe | this symbol is being used
+
+
+== if we want to find something in file ===
+
+cat filename.txt | grep 'searchterm'
+
+that's how u find
+
+$ cat wateranimal.txt | grep 'crab'
+crab
+
+~$ cat wateranimal.txt
+fish
+fish
+dolphin
+crab
+jellyfish
+turtle
+
+
+=== we can use multi commands via pipe ===
+
+~$ ls -lh | sort -k5h | tail -5
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+drwxr-xr-x 4 linuxofpratham pratham 4.0K Dec  3 12:06 parentfold
+drwxr-xr-x 6 linuxofpratham pratham 4.0K Nov  1 17:44 movies
+-rw-r--r-- 1 linuxofpratham pratham  10K Nov  9 14:28 fruitszipped.tar
+-rw-r--r-- 1 linuxofpratham pratham  12K Nov  9 15:09 bigfile.txt
+
+
+here ls -lh output given to sort -k5h which sorted and then given output to forward tail command to show -5 last big size files

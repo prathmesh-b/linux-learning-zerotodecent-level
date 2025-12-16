@@ -1,0 +1,36 @@
+11 - mastering grep command
+
+suppose u want to search something in txt file in linux how u do it.
+
+advance case ur manager said to open log files and there is issue in API . so u know to use tail -f but what if log file is updating fast and u want to search for pattern of sepcific 
+
+finding using filter 
+
+here how u find something in log file which constantly updating
+:~$ tail -f app.log | grep "ERROR"
+
+here u will find which 
+
+
+~$ grep "meditation" meditation.txt
+so result highlitted mediatation
+
+If stress has you anxious, tense and worried, you might try meditation. Spending even a few minutes in meditation can help restore your calm and inner peace.
+Anyone can practice meditation. It's simple and doesn't cost much. And you don't need any special equipment.
+You can practice meditation wherever you are. You can meditate when you're out for a walk, riding the bus, waiting at the doctor's office or even in the middle of a business meeting.
+
+=== word count of ===
+~$ grep -c "meditation" meditation.txt
+14
+
+to find word how many times it come 
+
+== -rw find recursively "word" in present directory and its all folder"  w means word here full ====
+~$ grep -rw "apple"
+redapple.txt:apple is called doctor of fruit because it helps to cure diseseases.
+sweet.txt:apple is called doctor of fruit because it helps to cure diseseases.
+xaa:apple is called doctor of fruit because it helps to cure diseseases.
+grep: .bash_history: binary file matches
+fruits.txt:apple is called doctor of fruit because it helps to cure diseseases.
+fruits.txt:apple
+grep: fruitszipped.tar: binary file matches

@@ -1,0 +1,69 @@
+19 - What is root user in linux | What is sudo in linux
+
+root user - The root user is the default superuser account in Linux and other Unix-like operating systems that has unrestricted access to all commands, files, and resources on the system. It is identified by the special User ID (UID) of 0. 
+
+Key Characteristics
+Unlimited Privileges: The root user can perform any action, including modifying system files, changing permissions, installing/removing software, managing user accounts, and formatting disks.
+
+Security Risk: Due to its immense power, routinely operating as the root user is a significant security risk, as accidental or malicious actions can severely damage the system.
+
+Best Practice: Modern Linux distributions recommend using a regular, unprivileged user account for daily tasks and employing specific tools like sudo to perform administrative functions when necessary.
+Default State: In many distributions (like Ubuntu), the direct root login is disabled by default, and the root account may not have a password set initially. 
+
+other users can;t make folder in root user account . or anything 
+
+=== sudo == 
+
+using sudo u can create dir with root permission without logged as root user
+
+The sudo command (short for "superuser do" or "substitute user do") is a powerful utility in Unix-like operating systems that allows an authorized user to execute a command with the security privileges of another user, typically the root user. 
+
+Purpose and Function
+Privilege Elevation: The primary use of sudo is to safely perform administrative tasks without needing to log in to the powerful, unrestricted root account directly.
+Security: By default, it asks for your own password, not the root password, which prevents the need to share sensitive root credentials. This also limits the elevated privileges to a single command or for a short time (typically 5 minutes), reducing the risk of accidental system damage.
+Auditing: Every command run with sudo is logged, providing a clear audit trail of who performed which administrative actions. 
+Basic Usage
+To use sudo, simply prepend it to the command you want to run with elevated privileges: 
+
+syntax
+sudo [command]
+
+===
+so let's create folder with root type permission
+
+linuxofpratham@Pratham:~$ sudo mkdir boxing
+[sudo] password for linuxofpratham:
+
+drwxr-xr-x  2 root           root    4.0K Dec 13 20:51 boxing
+
+so for 15min your normal user has become root user level power so u able to create dir 
+
+let's see what we permission of root level have 
+linuxofpratham@Pratham:~$ sudo -l
+Matching Defaults entries for linuxofpratham on Pratham:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
+
+User linuxofpratham may run the following commands on Pratham:
+    (ALL : ALL) ALL
+
+
+== let's see does other user has root permission
+kayaba@Pratham:~$ sudo -l
+[sudo] password for kayaba:
+Sorry, user kayaba may not run sudo on Pratham.
+
+
+let's try updating via user acc
+linuxofpratham@Pratham:~$ apt update
+Reading package lists... Done
+E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)
+E: Unable to lock directory /var/lib/apt/lists/
+W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)
+W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)
+
+but if sudo apt update is written
+
+linuxofpratham@Pratham:~$ sudo apt update
+0% [Connecting to archive.ubuntu.com (2a06:bc80:0:1000::18)] [Connecting to security.ubuntu.com (2a06:bc80:0:1000::18)]
+
+it is working for 15min it will not ask password of root acc

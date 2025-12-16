@@ -1,0 +1,94 @@
+Standard Output - when a program or command is executed in the terminal, it generates output that can be displayed directly in the terminal window. This output is known as the standard output.
+
+when u do ls command is shown in terminal. u can also transport that output into file
+
+:~$ ls -lhtr > outputinfile.txt
+
+$ cat outputinfile.txt
+
+total 108K
+-rw-r--r-- 1 linuxofpratham pratham   48 Oct 24 07:06 newfileforoutput.txt
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 24 07:31 linux_for_cloud
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+lrwxrwxrwx 1 linuxofpratham pratham   63 Oct 24 07:50 shortcut2of_naramlinkfile -> /home/linuxofpratham/cloudcomputing/codecloud/naramlinkfile.txt
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 25 10:59 newday
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 30 20:27 codecloud
+-rw-r--r-- 1 linuxofpratham pratham   93 Oct 30 20:40 30oct.txt
+-rw-r--r-- 1 linuxofpratham pratham   94 Oct 30 20:42 30ot.txt
+
+======================
+> to put input in file/ overwrite old result and print new one
+>> to append/put input next line not to overwrite
+
+
+1> for standard output
+2> for standard error
+======================
+you can also print error into file using 2>
+
+-- here error is shown in terminal but we also want to print that in file --
+~$ ls -z
+ls: invalid option -- 'z'
+Try 'ls --help' for more information.
+
+:~$ ls -z 2> errorprinted.txt
+:~$ cat errorprinted.txt
+ls: invalid option -- 'z'
+Try 'ls --help' for more information.
+
+like to print in error ls -z 2> newf.txt here 2> is used and to print standard output 1> is used but we don't usually write
+when printing result of standard output in file
+the 1 is used
+
+$ echo "cat is funny" > cat.txt
+linuxofpratham@Pratham:~$ cat cat.txt
+cat is funny
+linuxofpratham@Pratham:~$  echo "cat is funny" 1> cat.txt
+linuxofpratham@Pratham:~$ cat cat.txt
+cat is funny
+
+what if there is no error and u use 2> then file will be empty
+
+echo "heelo" 2> new.txt
+hello
+
+cat new.txt
+shows nothing/empty
+
+
+
+==== what if i don't know result be success/error then but if there is error print in file and if not error then empty ===
+
+ls -z > hello.txt 2> bye.txt
+
+
+so here if error is there only then it will be printed in bye.txt and if command show no error then it will be empty.
+
+
+$ ls -z > hello.txt 2> bye.txt
+:~$ cat hello.txt
+:~$ cat bye.txt
+ls: invalid option -- 'z'
+Try 'ls --help' for more information.
+
+so here error printed and it was not right so hello.txt is empty
+
+
+
+=== what if we gave right command ===
+then error file will be empty and other right file will show result
+
+
+~$ ls -lh > hola.txt 2> gracias.txt
+linuxofpratham@Pratham:~$ cat hola.txt
+total 128K
+-rw-r--r-- 1 linuxofpratham pratham   93 Oct 30 20:40 30oct.txt
+-rw-r--r-- 1 linuxofpratham pratham   94 Oct 30 20:42 linuxofpratham pratham   13 Nov 14 06:27 cat.txt
+-rw-r--r-- 1 linuxofpratham pratham   84 Nov  2 07:37 citrus.txt
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 30 20:27 codecloud
+
+$ cat gracias.txt
+:~$
+
+file is empty

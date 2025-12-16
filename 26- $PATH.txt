@@ -1,0 +1,75 @@
+What is $PATH ?
+A path is a way or track for movement, literally a physical trail for walking or driving, but also figuratively a course of life or action, and technically a sequence of directories to find a file in computing (e.g., C:\Users\Docs\file.txt) or the list of directories the command line searches for programs (the $PATH variable). It defines a route, whether for a person, an object in motion (like a planet), or data in a system. 
+
+----------------------------------------
+The $PATH variable in Linux is an environment variable that tells the shell which directories to search for executable programs when a command is typed. 
+
+What the $PATH does
+When you enter a command in the terminal (like ls, grep, or cd), the shell does not search every directory on your system. Instead, it consults the $PATH variable, which contains a colon-separated list of specific directories. It checks these directories in the order they are listed, from left to right, until it finds an executable file with that name. 
+If the command's executable file is located in a directory listed in your $PATH, you can simply type the command name to run it from any current working directory. 
+
+Example of $PATH content
+You can view your current $PATH variable in the terminal using the command: 
+
+echo $PATH
+The output might look something like this (paths may vary by system):
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games 
+
+In this example, the directories are:
+/usr/local/sbin
+/usr/local/bin
+/usr/sbin
+/usr/bin
+/sbin
+/bin
+/usr/games 
+
+Why is it important?
+Convenience: It allows you to run commonly used system commands and programs (e.g., ls instead of /bin/ls) without having to remember or type the full absolute path every time.
+Customization: You can add your own directories containing personal scripts or newly installed applications to the $PATH variable, making them easily accessible from anywhere in the filesystem. 
+
+Key Terminology Note
+It is important not to confuse the environment variable $PATH (uppercase) with the general computing term "path" (lowercase), which refers to a file's or directory's address on a filesystem (either an absolute path starting from the root /, or a relative path from your current location). 
+--------------------------------------------------------
+if i do
+linuxofpratham@Pratham:~$ hi
+hi: command not found
+
+linuxofpratham@Pratham:~$ which pwd
+/usr/bin/pwd
+
+we get path of pwd but not of hi. this is because we did not add script to directory in the PATH
+
+PATH - The PATH environment variable contains a list of directories where the shell looks for executable files.
+
+linuxofpratham@Pratham:~$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:oftCorporationII.WindowsSubsystemForLinux_2.6.1.0_x64__8wekyb3d8bbwe:/mnt/c/Program Files/Oracle/Java/javapath:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/msys64/mingw64/bin:/mnt/c/Program Files/Cloudflare/Cloudflare WARP:/mnt/c/Program Files/Cloudflare/Cloudflare WARP/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Java/jdk-18.0.1.1/bin:/mnt/c/Users/PRATHMESH B/AppData/Local/Programs/Python/Python310/Sc
+
+/usr/local/sbin this is folder : means separated : /usr/sbin:/usr/bin  this is folder
+
+
+linuxofpratham@Pratham:~$ which ls
+/usr/bin/ls
+
+this which ls command and shell find the path where ls will be available from $PATH 
+
+for ls command to run we have place the executable files in $PATH dir
+
+
+===== let's create own hi command and put executable files that into $PATH===========
+
+In Linux, "bin" most commonly refers to the /bin directory, which contains essential command-line binaries (executable files) needed for the system to boot and operate. These are fundamental commands like ls, cp, and mv that are accessible to all users. The term "bin" can also refer to any user-created or third-party binary/executable files, often stored in a user's home directory under a ~/bin folder. 
+
+we can do this 2 way either add executable files for hi command in $PATH directly or create new dir and put that dir in $PATH
+
+so we created bin dir and hi script in it and then added path into .bashrc file and try to run it
+
+linuxofpratham@Pratham:~$ cd bin
+linuxofpratham@Pratham:~/bin$ ls
+hi
+linuxofpratham@Pratham:~/bin$ pwd
+/home/linuxofpratham/bin
+linuxofpratham@Pratham:~/bin$ cd
+linuxofpratham@Pratham:~$ nano .bashrc
+linuxofpratham@Pratham:~$ source ../.bashrc
+-bash: ../.bashrc: No such file or directory

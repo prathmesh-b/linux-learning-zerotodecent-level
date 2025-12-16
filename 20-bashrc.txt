@@ -1,0 +1,54 @@
+20-Mastering Bashrc in Linux: Boost Your Productivity !
+
+you would have encounter whatever work u done of commands written it just udjate hae when u restart the terminal. but there is solution where u can save this in .bashrc
+
+.bashrc file always run in background whenever terminal is running. so u can save it there
+
+You can change starting line which is called prompt whenever u start terminal, but u can change the name 
+
+linuxofpratham@Pratham:~$ export PS1=likhnabhai:
+likhnabhai:
+likhnabhai:
+likhnabhai:
+likhnabhai:
+likhnabhai:
+likhnabhai:
+
+but if you now close terminal and restart again the prev prompt will be gone
+
+linuxofpratham@Pratham:~$
+
+so in order to save this we can store this in .bashrc file 
+
+so let's store prev setting we want permanently in .bashrc file
+
+nano .bashrc
+
+at the end we added 
+
+---content inside .bashrc file----
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+
+PS1=likhnabhai:
+------------------------
+
+so we added at last part. so in order to apply this change permanently either restart terminal or run source .bashrc
+
+linuxofpratham@Pratham:~$ source .bashrc
+
+this run file and apply chnages without restarting terminal
+
+i checked and it shows
+likhnabhai:
+
+
+if you want to revert/delete change  overwrited file just remove this from .bashrc file
+
+likhnabhai:source .bashrc
+linuxofpratham@Pratham:~$
+
+see we come back to default

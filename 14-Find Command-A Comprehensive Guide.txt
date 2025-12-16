@@ -1,0 +1,223 @@
+14-Find Command: A Comprehensive Guide
+
+find command helps to find file
+
+Syntax - find [path...] [expression]
+
+The -name option in the find command accepts patterns that follow standard shell wildcard characters.
+
+find /path/to/search -name "filename"
+
+if u know path
+
+~$ find /home/linuxofpratham/ -name "newday"
+/home/linuxofpratham/newday
+
+
+=== what if u just know some word of file name then how u find ===
+you use wildcard characters. 
+
+So previous above instead of "filename" u write
+* - characters, including an empty string.
+? - matches any single character
+[] - Matches any one of the enclosed characters. For example, [abc] matches 'a', 'b', or 'c'
+! - When used as the first character in a pattern, it negates the pattern. 
+
+Find files with specific names 
+
+find /path/to/search -name "filename"
+
+
+=== if you want to find from extension ===
+find /path -name "*.pdf"
+
+$ find -name "*.pdf"
+./mediam.pdf
+
+but remeber this is casesentive means exact filename was what if there is Mediam.pdf
+
+so here -i which bypass whether filename small or capital not matter
+~$ find -iname "Mediam.pdf"
+
+./mediam.pdf
+
+
+=== if u write find only in directory it gives all dir/files ====
+~$ cd codecloud/
+linuxofpratham@Pratham:~/codecloud$ find
+.
+./newfile.txt
+./democodefile.txt
+./newdayfile.txt
+
+
+==== find path -type f ====
+only lists files
+
+
+ham@Pratham:~/codecloud$ find -type f
+./newfile.txt
+./democodefile.txt
+./newdayfile.txt
+
+
+$ find -type f -iname "*newfile*"
+./newfile.txt
+
+
+== find file from size ===
+
+syntax-
+find /path -size +100M      for files larger than 100 MB
+find /path -size -50k      for files smaller than 50 kb
+
+~$ find -size -50k
+.
+./redapple.txt
+./.ssh
+./.ssh/known_hosts
+./.ssh/known_hosts.old
+./gracias.txt
+./newfileforoutput.txt
+./shortcut2of_naramlinkfile
+./newroot.txt
+
+
+== find files modified within a certain time frame ===
+
+mtime = modification time
+atime = access time
+ctime = change time
+
+find /path -mtime -7              # for files modified in the last 7 days
+find /path -mtime +7              # for files modified more than last 7 days ago
+find /path -mtime 7              # for files modified exactly 7 days ago
+
+in place of -mtime time  :
+   -atime #access time of file
+   -ctime #change time of file
+
+for finding based on min : 
+-amin
+-cmin 
+
+
+
+- reperesent less
++ more than 
+-30 less than30 days
+
+
+here we finding files of less than 50kb which atime accessed -30 less than30 days
+$ find -size -50k -atime -30
+.
+./redapple.txt
+./.ssh
+./.ssh/known_hosts
+./.ssh/known_hosts.old
+./gracias.txt
+./newfileforoutput.txt
+./shortcut2of_naramlinkfile
+./newroot.txt
+./xab
+
+
+==== combining with logical operators === 
+
+find /path -type f -name ".txt" -and -size +1M
+find /path \( -name "*.txt" =or -name "*.pdf" \)
+find /path !-name "*.txt"
+
+
+find /path \( -name "*.txt" =or -name "*.pdf" \)
+here \ is use to run command inside () both command
+
+
+this file is not accesed more than 30 days
+~$ find -size -50k -atime +30 
+./cloudcomputing/codecloud/softlink-fileshortcut
+
+
+$ find '(' -size +200M -atime -30 -not -size +1G ')'
+not found because not file of that match criteria
+
+
+=== Locate empty files and directories within a specified directory ===
+find -atime -30 -emtpy -type f
+
+find -atime -30 -type f -emtpy 
+find: unknown predicate `-emtpy'
+
+he error message "find: unknown predicate `-empty'" indicates that the version of the find command being used does not support the -empty predicate. This typically happens when using older versions of find or on systems where the find utility is not GNU find.
+To find empty files modified in the last 7 days using a more widely compatible find command, you can use the -size 0 predicate, which checks for files with a size of zero bytes.
+
+Here is the corrected command:
+Code
+find . -mtime -7 -type f -size 0
+
+Explanation of the command:
+find .: Starts the search in the current directory (.).
+-mtime -7: Filters for files modified in the last 7 days.
+-type f: Specifies that only regular files should be considered.
+-size 0: Filters for files that have a size of 0 bytes (i.e., empty files).
+
+$ find . -mtime -7 -type f -size 0
+./mediam.pdf
+./.motd_shown
+./rootfoldertest/r3.txt
+./rootfoldertest/r2.txt
+
+
+=== execute a specific command on the files or directories that match the search criteria ====
+
+find /path -name "*.txt" -exec command {} ';'
+
+-exec is followed by the command you want to execute.
+{} represents the placeholder for the found file or directory.
+';' marks the end of the command to be executed.
+
+
+so we want to delete empty file 
+$ find -empty
+./car2.txt
+./cartoon/car2.txt
+./cartoon/car1.html
+./cartoon/car3
+./car1.html
+./car3
+
+m@Pratham:~/movies/kids$ find -empty -exec rm {} ';'
+m@Pratham:~/movies/kids$ ls
+cartoon
+m@Pratham:~/movies/kids$ find -empty
+./cartoon
+
+this command deleted empty files/dir
+m@Pratham:~/movies/kids$ find -empty -exec rm {} ';'
+
+here command is run like in {} this the file goes and line wise it get deleted first file at postion 1 then 2nd position then 3rd position 
+
+you can also use diff command to do same
+
+find | xargs file
+
+$ find | xargs echo
+. ./redapple.txt ./.ssh ./.ssh/known_hosts ./.ssh/known_hosts.old ./gracias.txt ./newfileforoutput.txt ./shortcut2of_naramlinkfile ./newroot.txt ./xab ./hola.txt ./mediam.pdf ./.motd_shown ./movies ./movies/thriller ./movies/car2.txt ./movies/kids ./movies/kids/cartoon ./movies/action ./movies/action/avengersendofgame.mp4 ./movies/action/bagghimovie.txt ./movies/horror ./movies/horror/annabella.mp4 ./movies/car1.html ./movies/car3 ./sweet.txt ./linux_for_cloud ./xaa ./meditation.txt ./cloudcomputing ./cloudcomputing/newfile.txt ./cloudcomputing/codecloud ./cloudcomputing/codecloud/newfile.txt ./cloudcomputing/codecl
+
+while xargs is powerful, it might not handle special characters and spaces in file names as gracefully as the -exec option with find, which has built-in mechanisms to handle these situations more effectively.
+
+suppose ur file name a b.mp4 then it will be ignored when u try to delete
+
+$ touch 'x y.mp4'
+linuxofpratham@Pratham:~/pokemon$ ls
+'a b.mp4'   meowto.txt   pickacho.txt   ratelo.mp4  'x y.mp4'
+
+linuxofpratham@Pratham:~/pokemon$ find | xargs rm
+rm: cannot remove '.': Is a directory
+rm: cannot remove './x': No such file or directory
+rm: cannot remove 'y.mp4': No such file or directory
+rm: cannot remove './a': No such file or directory
+rm: cannot remove 'b.mp4': No such file or directory
+
+see 'x y.mp4' treated as separate file ./x and y.mp4
+

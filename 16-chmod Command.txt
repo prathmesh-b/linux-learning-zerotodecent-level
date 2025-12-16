@@ -1,0 +1,78 @@
+chmod Command
+
+The chmod command in Linux (short for change mode) is used to modify the access permissions of files and directories. 
+Permissions determine who can read, write, or execute a file, and are assigned to three classes of users: the file's owner (u), members of the file's group (g), and others (o). 
+
+syntax
+chmod ___ filename/dir
+
+Syntax
+The basic syntax is chmod [options] mode file_name. You can specify the mode using either symbolic (letters and symbols) or numeric (octal numbers) notation. 
+
+==Permissions and User Classes==
+Class 	Symbol	Description
+User	u	The owner of the file.
+Group	g	Users who are members of the file's group.
+Others	o	All other users not in the above categories.
+All	a	All users (u, g, and o).
+
+Permission Symbol	Octal Value	Description
+Read	     r	            4	                  Allows viewing file contents or listing directory contents.
+Write	     w	             2	                 Allows modifying/deleting a file or creating/deleting files in a directory.
+Execute	     x	              1	                 Allows running an executable file or entering (searching) a directory.
+
+
+chmod ___ filename/dir
+__ will include who  what  which
+
+so combination of who/what/which comes
+
+who include u/g/o
+what include -/+/=
+which include r/w/x
+
+chmod u+x sample.txt
+
+here i want to give u user + x execute permssion
+
+$ ls -l
+-rw-r--r-- 1 linuxofpratham pratham   534 Dec  4 11:10 fruits.txt
+-rw-r--r-- 1 linuxofpratham pratham 10240 Nov  9 14:28 fruitszipped.tar
+-rw-r--r-- 1 linuxofpratham pratham   160 Dec 11 15:08 gracias.txt
+-rw-r--r-- 1 linuxofpratham pratham     0 Nov 14 06:34 hello.txt
+
+$ chmod u+x gracias.txt
+~$ ls -lah
+
+-rwxr--r--  1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
+-rw-r--r--  1 linuxofpratham pratham    0 Nov 14 06:34 hello.txt
+
+here i given/added permssion to user to execute gracias txt
+
+
+==== eg 2 let's give permission to others to execute x
+
+chmod o+w gracias.txt
+
+before -
+-rwxr--r--  1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
+
+after permission
+-rwxr--rw- 1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
+
+see  w permission at last  -rw-
+
+here other user means who is on your system 
+
+===== lets try = permission of +/-/= 
+chmod o=w gracias.txt
+
+so here i want other user to set permission of write only if read/x permission was aleady available it will be removed
+
+chmod o=w gracias.txt
+
+see last chracter rw 
+before
+-rwxr--rw- 1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
+after
+-rwxr---w- 1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
