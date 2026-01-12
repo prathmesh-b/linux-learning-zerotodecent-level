@@ -1,0 +1,29 @@
+TYPES OF FILES IN LINUX
+
+In Linux, which follows the philosophy that "everything is a file," there are seven standard POSIX file types. You can identify the type of a file using the ls -l command, which indicates the type with a specific character at the start of the permissions field. 
+The main file types are:
+
+Regular Files (-): These are the most common files used to store data, such as text documents, images, executable programs, and scripts. Linux does not impose an internal structure on them, so their interpretation depends entirely on the software using them.
+
+Directory Files (d): Directories (folders) are special files that store the names and locations (addresses) of other files and subdirectories, organizing the filesystem hierarchically.
+
+Symbolic Links (l): Also known as soft links or symlinks, these act as pointers or shortcuts to other files or directories elsewhere in the file system. Deleting a symbolic link does not affect the original file.
+
+Character Device Files (c): These files represent devices that handle data as a serial stream of characters (bytes), such as a keyboard, mouse, or terminal. Most are located in the /dev directory.
+
+we can create file using mknod command
+
+example: /dev/input/mouse2
+
+Block Device Files (b): These files represent devices that transfer data in fixed-size blocks, such as hard drives, SSDs, or USB drives. They are also typically found in the /dev directory.
+
+Named Pipes (p) or FIFO: Also known as FIFO (First-In, First-Out) special files, these are used for inter-process communication (IPC). Data written to the pipe by one process can be read by another, following the FIFO mechanism.
+
+Can be created using mkfifo command
+
+require root permission to view files
+
+Socket Files (s): These special files provide an endpoint for communication between processes, which can be on the same system or across a network. They are commonly used in client-server applications. 
+
+Find under /run/
+Example:  /run/chrony/chrony.sock

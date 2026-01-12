@@ -1,0 +1,252 @@
+Linux file system for beginners
+
+~ means home directory
+
+linuxofpratham@Pratham:~$ cd /etc/
+linuxofpratham@Pratham:/etc$ pwd
+/etc
+
+/etc/ is directory which not shown normally
+
+=== / dir ===
+linuxofpratham@Pratham:~$ cd /
+linuxofpratham@Pratham:/$ pwd
+/
+
+/ is also dir and it is parent dir/root directory
+
+
+linuxofpratham@Pratham:/$ ls
+bin   dev  home  lib    lib64   lost+found  mnt  proc  run   snap  sys  usr  wslELbCcb  wslPgkNdb  wslpHhaOb
+boot  etc  init  lib32  libx32  media       opt  root  sbin  srv   tmp  var  wslKJfOeb  wsliaDfcL
+
+so normally it is not shown at home dir at starting.
+we will understand what are this by default directoires
+
+== What is Filesystem? ===
+OS operating system store and manage data on disk or partitions using a structure called Filesystem. oraganised way
+
+Filesystem includes files, directories and it's related permissions.
+
+It Store data in hierarchy of directories and files.
+
+The Linux File System is a hierarchical, tree-like structure starting from the root (/), treating everything as a file (devices, processes, data) for unified management, organized by the Filesystem Hierarchy Standard (FHS) into directories like /bin (commands), /etc (config), /home (users), and /var (logs). 
+It's case-sensitive and uses mount points for storage, offering flexibility with different underlying filesystems like ext4 or XFS, providing a robust way to organize system and user data. 
+
+--Key Concepts--
+Hierarchy: A tree structure where everything branches from the single root directory (/).
+Everything is a File: Devices (like drives), processes, and configurations are represented as files, simplifying interaction.
+
+Case-Sensitivity: File.txt and file.txt are different files.
+Mount Points: Locations where other file systems (like USB drives, partitions) are connected into the main hierarchy.
+FHS: Defines standard locations for directories to ensure consistency across distributions. 
+
+=== Common Directories (FHS)
+/bin: Essential user command binaries (e.g., ls, cp).
+/boot: Boot loader files and kernel.
+/dev: Device files representing hardware.
+/etc: System-wide configuration files.
+/home: User's personal directories.
+/lib: Essential system libraries.
+/mnt / /media: Mount points for temporary or removable media.
+/opt: Optional software packages.
+/root: Superuser's home directory.
+/tmp: Temporary files.
+/usr: Contains most user utilities and applications.
+/var: Variable data like logs, mail, and spool files. 
+
+=== Location/path format ====
+
+Windows - 
+C:\Users\JohnSmith
+
+Linux -
+ /etc/folder
+
+=== Common Linux Filesystems ==
+ext4: Default, mature, reliable (used by Ubuntu, Debian).
+XFS/Btrfs: High performance, scalable, advanced features like snapshots.
+ZFS: Focuses on data integrity and volume management. 
+
+== How to check your linux filesystem? ==
+
+write this command to check
+1. lsblk -f
+2. df -Th
+3. cat /etc/fstab
+
+linuxofpratham@Pratham:/$ lsblk -f
+NAME FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+sda  ext4   1.0
+sdb  ext4   1.0
+sdc  swap   1           1d4efc39-3183-493d-a557-2b435d8fc8c7                [SWAP]
+sdd  ext4   1.0         325c849f-8a89-4c6f-96f8-e6c22181d2fb  954.1G     0% /mnt/wslg/distro
+                                                                            /
+linuxofpratham@Pratham:/$ df -Th
+Filesystem     Type     Size  Used Avail Use% Mounted on
+none           overlay  1.8G     0  1.8G   0% /usr/lib/modules/6.6.87.2-microsoft-standard-WSL2
+none           tmpfs    1.8G  4.0K  1.8G   1% /mnt/wsl
+drivers        9p       477G  268G  209G  57% /usr/lib/wsl/drivers
+/dev/sdd       ext4    1007G  1.6G  955G   1% /
+none           tmpfs    1.8G   76K  1.8G   1% /mnt/wslg
+none           overlay  1.8G     0  1.8G   0% /usr/lib/wsl/lib
+rootfs         rootfs   1.8G  2.7M  1.8G   1% /init
+none           tmpfs    1.8G  512K  1.8G   1% /run
+none           tmpfs    1.8G     0  1.8G   0% /run/lock
+none           tmpfs    1.8G     0  1.8G   0% /run/shm
+none           overlay  1.8G   96K  1.8G   1% /mnt/wslg/versions.txt
+none           overlay  1.8G   96K  1.8G   1% /mnt/wslg/doc
+C:\            9p       477G  268G  209G  57% /mnt/c
+tmpfs          tmpfs    358M  8.0K  358M   1% /run/user/1000
+linuxofpratham@Pratham:/$ cat/etc/fstab
+-bash: cat/etc/fstab: No such file or directory
+linuxofpratham@Pratham:/$ cat /etc/fstab
+# UNCONFIGURED FSTAB FOR BASE SYSTEM
+
+
+
+filesystem how it work on data and requirement base on that filesystem type is used
+====== XFS and EXT4 difference ======
+XFS excels with large files, big storage, and parallel I/O (high-performance servers, media), 
+while ext4 is the reliable, general-purpose default, better for smaller files, limited resources, and workloads needing strong security features like ACLs. 
+Choose XFS for massive data, high throughput, and ext4 for desktops, standard servers, or when resizing partitions is crucial, as it's better at shrinking.  
+
+--- XFS (eXtended File System)
+Best For: Large files, large storage volumes (exabytes), high-performance computing, media streaming, databases. 
+Strengths: Superior parallel I/O, excellent scalability, efficient with large datasets, built-in backup/recovery tools. 
+Weaknesses: Less efficient with many small files; can't shrink online (requires offline shrinking). 
+
+----ext4 (Fourth Extended File System)
+Best For: General-purpose use, desktops, workstations, smaller file servers, resource-constrained systems. 
+Strengths: Mature, stable, good for small files, supports online resizing (though shrinking is tricky), better directory security (ACLs). 
+Weaknesses: Slower with very large files and heavy parallel I/O compared to XFS. 
+
+
+---------How to Choose
+XFS: For servers with huge databases, video storage, or big analytics:. 
+ext4: For your laptop, desktop, or a standard file server: is usually sufficient and performs well. 
+ext4: If you need to shrink a partition: (XFS generally requires offline shrinking). 
+
+
+In Linux, higher throughput means the system can successfully process a large volume of tasks or data in a given timeframe, while extensive parallel processing capabilities refers to the ability to execute multiple program tasks or sub-problems simultaneously across multiple processors or cores.
+
+In the context of Linux systems, these capabilities mean:
+Higher Throughput: Efficiently managing and completing a large number of jobs or transactions over time.
+Extensive Parallel Processing: Using multiple processors concurrently to significantly speed up the execution time of a single, complex computational task. 
+Together, they allow Linux systems to power demanding applications in areas like scientific simulations, big data analytics, and artificial intelligence, offering performance that scales with the available hardware resources. 
+
+===== in enterprise redhat/centos XFS type is being used =====
+
+
+
+===== Inode and inode number in linux ======
+An inode (index node) is a fundamental data structure in Unix-like file systems, including Linux, that stores all the information (metadata) about a file or a directory, except its name and its actual data content. Each file and directory is associated with exactly one unique inode, identified by an inode number. 
+
+---What Inodes Contain
+Inodes store essential metadata about files and directories. This includes: 
+File Type
+Permissions
+Ownership (UID and GID)
+Size
+Timestamps (atime, mtime, ctime)
+Link Count
+Pointers to data blocks on disk where the file's content is stored 
+
+----The Role of Inodes in File Management
+Inodes play a key role in how the file system manages and accesses files. Unlike the filename, which is stored separately in a directory entry and links to an inode number, the inode contains the actual details about the file. When you access a file by name, the system uses the directory to find the inode number, then accesses the inode to locate the file's data. Multiple filenames can point to the same inode (hard links). Deleting a hard link only removes that filename; the data remains until the last link is removed. File systems have a limited number of inodes, and you can run out even if there is free disk space, especially with many small files. 
+
+---Commands to Interact with Inodes
+You can use standard commands to work with inodes:
+ls -i: Shows inode numbers.
+df -i: Reports inode usage per file system.
+stat [filename]: Displays detailed inode information for a specific file. 
+
+linuxofpratham@Pratham:~$ ls -li
+total 188
+47566 -rw-r--r-- 1 linuxofpratham pratham    94 Oct 30 20:42 30ot.txt
+47631 -rw-r--r-- 1 linuxofpratham pratham    24 Nov  9 15:20 abc.txt
+47633 -rw-r--r-- 1 linuxofpratham pratham 11627 Nov  9 15:09 bigfile.txt
+50623 drwxr-xr-x 2 linuxofpratham pratham  4096 Dec 16 10:17 bin
+47685 -rw-rw-rw- 1 root           root      251 Dec 12 13:36 biofilecreatedviaroot.txt
+
+
+Here the starting number eg 47566 column is inode number of 30ot.txt file . Inode is location in memory block 
+
+
+=== file directories explained one by one ===
+
+== / (root) directories ===
+Linux filesystem starts at the root dirctory, denoted by a single slash / from which all other files and directories branch out. like tree
+
+
+In Linux, directories organize the file system in a hierarchical, tree-like structure starting from a single root directory (/). This structure is defined by the Filesystem Hierarchy Standard (FHS), ensuring consistency across distributions. 
+
+----The Linux Directory Structure
+Each directory serves a specific purpose for system and user data: 
+/ – The Root Directory: The primary, top-level directory of the entire file system.
+/bin – User Binaries: Contains essential executable commands available to all users, such as ls, cp, and mv.
+/sbin – System Binaries: Stores essential system administration binaries, typically run by the root user (superuser).
+/etc – Configuration Files: Houses system-wide configuration files, which can often be edited manually.
+/dev – Device Files: Contains special files that represent hardware devices like disks and terminals.
+/proc – Process and Kernel Information: A virtual file system containing information about currently running processes and kernel parameters in real-time.
+/var – Variable Data Files: Stores variable data like system logs, caches, and other files that grow over time (e.g., /var/log).
+/usr – User Programs/Data: Contains most user applications, libraries, and read-only data (e.g., /usr/bin, /usr/lib).
+/home – User Home Directories: Contains personal directories for each standard user, where they store their personal files and user-specific configurations.
+/root – Root User Home Directory: The home directory for the superuser (administrator), separate from /home.
+/tmp – Temporary Files: A directory for temporary files created by applications and users. Contents are often deleted upon system restart.
+/boot – Boot Files: Contains the static files required to boot the system, including the Linux kernel and boot loader files.
+/media – Removable Media: The standard mount point for removable media like USB drives, DVDs, and SD cards when automatically connected.
+/mnt – Mount Directory: A directory for system administrators to manually mount temporary file systems.
+/opt – Optional Software: Used to install third-party, optional software packages not included in the distribution's main repositories. 
+
+Navigating Directories
+You can manage and navigate the file system using commands in the terminal: 
+pwd: Prints the current working directory.
+ls: Lists the contents of a directory.
+cd [directory_name]: Changes the current directory. cd .. moves up one level to the parent directory, and cd / moves to the root directory.
+mkdir [directory_name]: Creates a new directory.
+rmdir [directory_name]: Removes an empty directory.
+cp -r [source] [destination]: Recursively copies a directory and its contents.
+mv [source] [destination]: Moves or renames a directory. 
+
+
+=== /home/ contains all users who access the system ====
+cd /home/
+:/home$ ls
+kayaba  linuxofpratham
+
+here 2 account use the system
+
+
+
+====== /var/  important for troubleshooting and cloud related all logs stored here ====
+
+
+ham@Pratham:~$ cd /var/
+lam@Pratham:/var$ ls
+backups  cache  crash  lib  local  lock  log  mail  opt  run  snap  spool  tmp
+ham@Pratham:/var$ cd log
+atham@Pratham:/var/log$ ls
+alternatives.log  bootstrap.log  dmesg       dmesg.2.gz  dpkg.log        journal    lastlog  ubuntu-advantage.log
+apt               btmp           dmesg.0     dmesg.3.gz  faillog         kern.log   private  unattended-upgrades
+auth.log          dist-upgrade   dmesg.1.gz  dmesg.4.gz  fontconfig.log  landscape  syslog   wtmp
+
+tham@Pratham:/var/log$ less auth.log
+
+Oct 22 13:44:47 Pratham systemd-logind[177]: New seat seat0.
+Oct 22 13:44:54 Pratham login[398]: pam_unix(login:session): session opened for user root(uid=0) by (uid=0)
+Oct 22 13:44:54 Pratham systemd-logind[177]: New session 1 of user root.
+Oct 22 13:44:54 Pratham systemd: pam_unix(systemd-user:session): session opened for user root(uid=0) by (uid=0)
+Oct 22 13:44:54 Pratham login[460]: ROOT LOGIN  on '/dev/pts/1'
+Oct 22 13:45:12 Pratham systemd-logind[177]: Failed to get load state of reboot.target: Message recipient disconnected from message bus without replying
+Oct 22 13:45:33 Pratham systemd-logind[193]: New seat seat0.
+Oct 22 13:45:42 Pratham login[373]: pam_unix(login:session): session opened for user root(uid=0) by (uid=0)
+Oct 22 13:45:42 Pratham systemd-logind[193]: New session 3 of user root.
+Oct 22 13:45:42 Pratham login[407]: ROOT LOGIN  on '/dev/pts/1'
+Oct 22 13:45:42 Pratham groupadd[420]: group added to /etc/group: name=pratham, G
+
+
+log folder is important
+
+========== /usr/  =========
+unique system resources
