@@ -8,7 +8,9 @@ Here's a breakdown:
 • Command: The primary instruction you want the system to execute. For example, ls, mkdir, cp, rm. 
 • Arguments: The data or parameters that accompany the command. These can be: 
 	• Options/Flags: These usually begin with a hyphen (-) or double hyphen (--) and modify the command's default behavior. For example, in ls -l, -l is an option that tells ls to display a long listing format. In mkdir -p, -p is an option that tells mkdir to create parent directories as needed. 
-	• Positional Arguments: These are typically file or directory names, or other specific values that the command needs to operate on. For example, in cp file1.txt /home/user/documents, file1.txt and /home/user/documents are positional arguments specifying the source and destination for the copy operation. In mkdir new_directory, new_directory is a positional argument specifying the name of the directory to be created. 
+	• Positional Arguments: These are typically file or directory names, or other specific values that the command needs to operate on. For example, in 
+cp file1.txt /home/user/documents
+file1.txt and /home/user/documents are positional arguments specifying the source and destination for the copy operation. In mkdir new_directory, new_directory is a positional argument specifying the name of the directory to be created. 
 
 Example: 
 cp -r /home/user/documents /backup/documents_backup
@@ -25,6 +27,7 @@ options are case sensitive
 options can be combined
 option short form :cat -n abc.txt
 option long form :cat --number abc.txt
+
 
 #man command - it is used as document say suppose you don't know what comes with cat command.
 just type: 

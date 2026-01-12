@@ -1,7 +1,8 @@
 chmod Command
 
 The chmod command in Linux (short for change mode) is used to modify the access permissions of files and directories. 
-Permissions determine who can read, write, or execute a file, and are assigned to three classes of users: the file's owner (u), members of the file's group (g), and others (o). 
+Permissions determine who can read, write, or execute a file, 
+and are assigned to three classes of users: the file's owner (u), members of the file's group (g), and others (o). 
 
 syntax
 chmod ___ filename/dir

@@ -1,0 +1,107 @@
+sed command work like find and replace in windows. you can do delete,overwrite etc in files.  
+
+========
+:~$ cat orange.txt
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+:~$  sed 's/family/friend/' orange.txt
+orange is citrus friend food and act like medicine to reduce heat in the body.
+
+This replaces word family with friend. In each line of file. It did not overwrited file.
+========
+
+-- how to overwrite the file -- aka find and replace
+
+just add -i after sed command.  
+syntax - 
+  sed -i 's/oldword/newword' filename
+
+=====
+sed -i 's/family/friend/' orange.txt
+
+
+linuxofpratham@Pratham:~$ cat orange.txt
+orange is citrus family food and act like medicine to reduce heat in the body.
+
+linuxofpratham@Pratham:~$ sed  -i 's/family/dog/' orange.txt
+
+linuxofpratham@Pratham:~$ cat orange.txt
+orange is citrus dog food and act like medicine to reduce heat in the body.
+
+This changed the word family with dog in file permanently.
+
+=====
+
+sed -i 's/family/friend/' orange.txt
+
+Here / is delimener and this command can also work with . if / not worked
+
+sed -i 's.family.friend.' orange.txt
+
+
+-- u can also store changes after find and replace into different file -----
+linuxofpratham@Pratham:~$ cat redapple.txt
+apple is called doctor of fruit because it helps to cure diseseases.
+
+linuxofpratham@Pratham:~$ sed 's/apple/citrus fruits/' redapple.txt > redapple2.txt
+linuxofpratham@Pratham:~$ cat redapple2.txt
+citrus fruits is called doctor of fruit because it helps to cure diseseases.
+
+---- what if want to replace /etc word starting with / ----
+
+here is file contains txt
+/etc/ldap/ldap.conf
+/etc/newt/palette.ubuntu
+/etc/newt/palette.original
+/etc/gshadow-
+/etc/ethertypes
+/etc/screenrc
+/etc/update-motd.d/99-wsl
+/etc/update-motd.d/00-header
+/etc/update-motd.d/91-contract-ua-esm-status
+/etc/update-motd.d/10-help-text
+/etc/update-motd.d/91-release-upgrade
+/etc/update-motd.d/50-motd-news
+/etc/update-motd.d/92-unattended-upgrades
+/etc/deluser.conf
+/etc/apparmor.d/usr.bin.man
+/etc/apparmor.d/abstractions/hosts_access
+/etc/apparmor.d/abstractions/qt5-settings-write
+
+
+what if i want to remove /etc from each words
+
+linuxofpratham@Pratham:~$ sed 's//etc/fonts /pickachu/' etcfileresult.txt
+sed: -e expression #1, char 8: unknown option to `s'
+
+want to replace /etc/fonts  with pickachu . but it throwing error.
+
+=========
+linuxofpratham@Pratham:~$ sed 's./etc.pickachu.' etcfileresult.txt
+
+pickachu/ldap/ldap.conf
+pickachu/newt/palette.ubuntu
+pickachu/newt/palette.original
+pickachu/gshadow-
+pickachu/ethertypes
+pickachu/screenrc
+pickachu/update-motd.d/99-wsl
+pickachu/update-motd.d/00-header
+pickachu/update-motd.d/91-contract-ua-esm-status
+pickachu/update-motd.d/10-help-text
+pickachu/update-motd.d/91-release-upgrade
+pickachu/update-motd.d/50-motd-news
+pickachu/update-motd.d/92-unattended-upgrades
+pickachu/deluser.conf
+pickachu/apparmor.d/usr.bin.man
+
+	
+=====
+It worked 
+
+
+
+
+
+
+
