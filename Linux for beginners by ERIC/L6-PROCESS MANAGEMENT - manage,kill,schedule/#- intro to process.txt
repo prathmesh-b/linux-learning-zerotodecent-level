@@ -1,0 +1,10 @@
+Any good LINUX Adminstartor/hacker working need to know how to manage the process which are running. which may break the system or any problem so optimisation is impt.
+
+Process - is simply any program that running and useing the resources, whether it be terminal, web server, any running commands, any databases, GUI interferace or something else.
+
+why learning process impt?
+example, once a hacker takes control of a target system, they might want to
+find and stop an antivirus application or firewall. To do so, the hacker
+would first need to know how to find this process. The hacker might also
+want to set a scanning script that runs periodically to find vulnerable
+systems, so we’ll also look at how to schedule such a script.

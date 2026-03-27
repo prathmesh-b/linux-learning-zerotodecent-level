@@ -1,0 +1,74 @@
+Network Statistics with netstat and ss
+
+
+netstat (network statistics). The netstat
+tool shows us all the connections coming or going from our system, which
+can help with monitoring and troubleshooting network connections.
+
+command: netstat -a
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 127.0.0.53:domain       0.0.0.0:*               LISTEN
+udp        0      0 127.0.0.53:domain       0.0.0.0:*
+udp        0      0 localhost:323           0.0.0.0:*
+udp6       0      0 ip6-localhost:323       [::]:*
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  3      [ ]         STREAM     CONNECTED     3897
+unix  3      [ ]         STREAM     CONNECTED     9253
+unix  3      [ ]         STREAM     CONNECTED     1214     /run/systemd/journal/stdout
+unix  2      [ ACC ]     STREAM     LISTENING     9235     /run/WSL/2_interop
+unix  2      [ ACC ]     STREAM     LISTENING     6407     /run/WSL/1_interop
+unix  2      [ ACC ]     SEQPACKET  LISTENING     1049     /mnt/wslg/weston-notify.sock
+unix  2      [ ACC ]     STREAM     LISTENING     9251     /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     2261
+unix  3      [ ]         STREAM     CONNECTED     1253
+unix  2      [ ACC ]     STREAM     LISTENING     10243    /mnt/wslg/runtime-dir/wayland-0
+unix  2      [ ACC ]     STREAM     LISTENING     10246    /tmp/.X11-unix/X0
+
+This output is from netstat -a (network statistics - all), which shows you every "conversation" your computer is currently having or waiting to have.It is divided into two main sections: Internet Connections (networking over IP) and UNIX Domain Sockets (internal communication between programs on the same machine)
+.1. Active Internet ConnectionsThese are the connections using the TCP/UDP protocols (the "Internet" part of your system).
+
+ColumnMeaningProtoThe protocol being used (TCP for reliable connections, UDP for fast/stateless ones).Recv-Q / Send-QData waiting to be processed. Ideally, these should be 0.Local AddressThe IP and Port on your machine. 127.0.0.53:domain means your system is running a DNS resolver on its own loopback address.Foreign AddressThe IP and Port of the remote machine. 0.0.0.0:* means it's not connected to anyone yet; it's just waiting.StateLISTEN means the program is waiting for someone to connect.Key Takeaway: Your system is currently acting as its own DNS server (127.0.0.53:domain) and has a few time-sync/management services (port 323) open.2. Active UNIX Domain SocketsThis section is often overlooked, but it's how different parts of the Linux OS talk to each other without using the network card.Type: * STREAM: Like a phone call (continuous connection).SEQPACKET: Similar to stream but with fixed-size "messages."Path: This is the most important part. It tells you which service is talking./run/systemd/journal/stdout: System logs are being sent to the logging service./run/WSL/2_interop: Confirmation! This confirms you are running WSL (Windows Subsystem for Linux). This socket allows Linux and Windows to communicate./var/run/dbus/system_bus_socket: The "D-Bus," which is like the central nervous system for Linux desktop services.
+
+
+
+
+
+
+If you are looking for a specific connection, you can pipe (see Chapter 2)
+the netstat command to grep and filter for key words. If you have an Apache
+web server running on your system listening for connections, you can check
+by piping netstat –a to grep http, such as:
+kali> netstat –a | grep http
+
+
+
+
+
+
+============== ss   command ====================
+
+The ss tool can display even more information than netstat in a more
+readable format, When you run the ss command, you get a display of every connection to
+your system with the local address and port, as well as the port on the peer
+system.
+
+$ ss
+Netid      State        Recv-Q      Send-Q                          Local Address:Port                  Peer Address:Port           Process
+u_str      ESTAB        0           0                                           * 3897                             * 11415
+u_str      ESTAB        0           0                                           * 9253                             * 9254
+u_str      ESTAB        0           0                 /run/systemd/journal/stdout 1214                             * 7297
+u_str      ESTAB        0           0                                           * 2261                             * 2260
+u_str      ESTAB        0           0                                           * 1253                             * 7360
+u_str      ESTAB        0           0                 /run/dbus/system_bus_socket 7392                             * 8432
+u_dgr      ESTAB        0           0                                           * 11297                            * 11296
+u_str      ESTAB        0           0                                           * 1256                             * 1255
+u_str      ESTAB        0           0                                           * 9254                             * 9253
+
+
+You've just moved from the older netstat to the modern ss (Socket Statistics) command. In the world of DevOps and systems engineering, ss is the preferred tool because it pulls data directly from the Linux kernel’s "tcp_diag" module, making it much faster and more accurate than netstat.
+The output you see shows UNIX Stream Sockets (u_str), which are the internal communication lines within your Linux system.Breakdown of the ColumnsNetid (u_str): This stands for Unix Stream. These are bidirectional, connection-oriented data streams (think of them as internal TCP pipes for local processes).State (ESTAB): Short for Established. These "conversations" are currently active and healthy.Recv-Q / Send-Q: The receive and transmit queues. Both being 0 is perfect—it means data is being processed as fast as it's being sent.Local Address:Port: This is the "source" of the connection.
+
+Example: /run/dbus/system_bus_socket is the path to the socket file.The numbers (like 7392) are not network ports, but rather I-node numbers or internal identifiers.Peer Address:Port: This is the "destination" (the other program at the end of the pipe).Why this looks different from netstat -aWhen you run ss without any flags, it defaults to showing established non-listening sockets. This is why you don't see the "LISTEN" entries you saw earlier; those are waiting for a connection, not actively "established" yet.Key "First Principles" ObservationsSince you are working in WSL, these sockets are the "glue" that keeps your environment running:System Communication: The /run/systemd/journal/stdout entry shows that a service is currently pumping its logs into the system journal.The Message Bus: The /run/dbus/system_bus_socket entry confirms that a process is communicating with the system's message bus to coordinate tasks.Anonymous Sockets (*): Many entries show * instead of a file path. These are unnamed sockets created by processes to talk to their own child processes or temporary helpers.Useful ss Cheat SheetIf you want to see the same "Internet" info you saw in your previous netstat output, use these flags:GoalCommandAll connections (including listening)ss -aTCP onlyss -tUDP onlyss -uShow Process names (very useful)ss -pNumeric ports (don't resolve '80' to 'http')ss -n
+

@@ -1,0 +1,85 @@
+Special Permissions - set user ID (or SUID) for file owner, set group ID (or SGID) root file owner group, and sticky bit ====================
+
+In addition to the three general-purpose permissions, rwx, Linux has three
+special permissions that are slightly more complicated. These special
+permissions are set user ID (or SUID), set group ID (or SGID), and sticky bit.
+
+-------------------------------------------------------------
+--------- Granting Temporary Root Permissions with SUID -----
+
+As you should know by now, a user can execute a file only if they have
+permission to execute that particular file. If the user has only read and/or
+write permissions, they cannot execute the file. 
+
+This may seem straightforward, but there are exceptions to this rule.
+
+a file that allows users to change their password would need access to the /etc/shadow
+file, which holds the users’ passwords in Linux, and so requires root-user
+privileges in order to execute.
+
+In such case
+You can grant temporary permission to the user
+==========
+In such a case, you can temporarily grant the owner’s privileges to execute
+the file by setting the SUID bit on the program. 
+
+Basically, the SUID bit says that
+any user can execute the file with the permissions of the owner but that
+those permissions don’t extend beyond the use of that file.
+
+---- How to set SUID for file ----------
+
+To set the SUID bit, enter a 4 before the regular permissions. 
+
+For example, a file with a new resulting permission of 644 is represented as 4644 when the
+SUID bit is set. 
+
+before 644  in chmod command after 4644 to set SUID for file
+
+Setting the SUID on a file is not something a typical user would
+do, but if you want to do so, you’ll use the chmod command, as in 
+
+Command: chmod 4644 filename.
+---------------------------------------------
+
+
+
+
+---------------------------------------------------------------
+-------2. Granting the Root User’s Group Permissions SGID -----
+
+The SGID bit also grants temporary elevated permissions, but it grants the
+permissions of the file owner’s group, rather than of the file’s owner which was of SUID.
+
+This means with an SGID bit set, someone without execute permission can
+execute a file if the 
+owner belongs to the group that has permission to
+execute that file.
+
+SGID on directory ---------
+The SGID bit works slightly differently when applied to a directory: when the
+bit is set on a directory, ownership of new files created in that directory
+goes to the directory creator’s group, rather than the file creator’s group.
+
+
+This is very useful when a directory is shared by multiple users, as all users
+in that group, not just a single user, can execute the files.
+
+---- How to set SG ID for file ----------
+SGID bit = 2 
+The SGID bit is represented as 2 before the regular permissions, so a new file
+with the resulting permissions 644 would be represented as 2644 when the
+SGID bit is set. 
+Again, you would use the chmod command for this—for
+example, 
+command - chmod 2644 filename.
+
+
+----------------------------------------------------------
+------- 3. The Outmoded Sticky Bit ------------------
+
+The sticky bit is a permission bit that you can set on a directory to allow a
+user to delete or rename files within that directory. However, the sticky bit
+is a legacy of older Unix systems, and modern systems (like Linux) ignore
+it. As such, I will not discuss it further here, but you should be familiar with
+the term because you might hear it in the Linux world.

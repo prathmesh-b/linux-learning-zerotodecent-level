@@ -1,0 +1,212 @@
+Granting Permissions
+
+root user can grants level of permissions to the file depending on what they need to do with file.
+
+
+Each and every file must be allocated a particular permission level for the different identities using it. 
+
+The three levels of permission are as follows:
+     r  -   Permission to read grants permission only to open and view a file.
+     w  -   Permission to write allows users to view and edit a file.
+     x  -   Permission to execute allows users to execute a file (but not
+necessarily view or edit it).
+
+r - able to open and view/read a file
+w - make edit to file
+x - to execute file but not necessarily view or edit
+
+
+By default the owner who create file is owner and owning's group is user's current group. so he can add other user to his group
+to give full access or create seprate group to just file and add other user to it etc.
+
+
+
+============ 1. Granting Ownership to an Individual User/Owner ================
+
+To move ownership of a file to a different user so that they have the ability
+to control permissions, we can use the chown (or change owner) 
+
+------------
+-- chown ---
+------------
+
+command: chown bob/tmp/bobsfile
+Here, we give the command, the name of the user we are giving ownership
+to, and then the location and name of the relevant file. This command grants
+the user account for Bob ownership of bobsfile.
+
+chown - change owner
+there is file and want to chane owner of that file.
+
+The chown command in Unix-like operating systems is used to change the user and/or group ownership of files and directories. This is crucial for managing access control and security on a multi-user system. 
+
+Syntax
+
+chown [OPTIONS] OWNER[:GROUP] FILE(s)
+
+chown: The base command.
+[OPTIONS]: Optional flags that modify the command's behavior (e.g., -R for recursive changes).
+OWNER: The username or numeric user ID (UID) of the new owner.
+[:GROUP]: An optional group name or ID (GID), preceded by a colon, to also change the group ownership simultaneously.
+FILE(s): The name of one or more target files or directories. 
+
+Note: In most cases, changing the owner of a file requires sudo or root privileges, as regular users cannot give away ownership of their files for security reasons. 
+
+Common Examples
+Change only the owner of a file:
+
+chown john filename.txt
+This changes the owner of filename.txt to the user john, leaving the group unchanged.
+
+========================
+let's change owner of this file
+-rw-r--r--  1 linuxofpratham pratham 3.2K Dec  4 12:12 meditation.txt
+
+
+linuxofpratham@Pratham:~$ chown kayaba meditation.txt
+chown: changing ownership of 'meditation.txt': Operation not permitted
+
+here we don't have root user privilage but using sudo we can do it
+
+linuxofpratham@Pratham:~$ chown kayaba meditation.txt
+chown: changing ownership of 'meditation.txt': Operation not permitted
+
+linuxofpratham@Pratham:~$ sudo chown kayaba meditation.txt
+[sudo] password for linuxofpratham:
+
+-rw-r--r--  1 kayaba         pratham 3.2K Dec  4 12:12 meditation.txt
+
+
+
+============= 2.Granting Ownership to a Group ============
+To transfer ownership of a file from one group to another, we can use the
+chgrp (or change group) command.
+
+------------
+-- chgrp ---
+------------
+
+In organisation when different groups/team working on project clients. You need some group have root permission and some have less permissions.
+
+root group install new software and they need to give to seniordesign group for their work.
+Let’s say the root group downloads and installs a design program named
+newIDSdesign; they will then need to transfer ownership to the senior design group name seniordesign so
+the senior design group can use it at will. To do so, 
+
+the root group can enter the following command:
+ sudo chgrp seniordesign newIDSdesign
+ 
+ sudo chgrp grpnamewhichinherit programname/file
+This command passes the seniordesign group ownership of newIDSdesign software. 
+
+
+Now you need to know how to check whether these allocations have worked. You’ll
+do that by checking a file’s permissions.
+
+-- practical -------------------
+linuxofpratham@HP-LapyMachine:~/community-design$ ls -ltr
+total 4
+-rw-r--r-- 1 root root 37 Mar 23 13:13 figma.txt
+linuxofpratham@HP-LapyMachine:~/community-design$ chmod g+w figma.txt
+chmod: changing permissions of 'figma.txt': Operation not permitted
+linuxofpratham@HP-LapyMachine:~/community-design$ sudo chmod g+w figma.txt
+[sudo] password for linuxofpratham:
+linuxofpratham@HP-LapyMachine:~/community-design$ ls -ltr
+total 4
+-rw-rw-r-- 1 root root 37 Mar 23 13:13 figma.txt
+
+
+linuxofpratham@HP-LapyMachine:~/community-design$ chgrp figma-design-clan figma.txt
+chgrp: changing group of 'figma.txt': Operation not permitted
+
+linuxofpratham@HP-LapyMachine:~/community-design$ sudo chgrp figma-design-clan figma.txt
+linuxofpratham@HP-LapyMachine:~/community-design$ ls -ltr
+total 4
+-rw-rw-r-- 1 root figma-design-clan 37 Mar 23 13:13 figma.txt
+
+by default root was was grp we changed to figma-design-clan 
+after this just add the member/user to this group to access files in it
+
+=============== 3. Checking Permissions =========================
+use command 
+
+ls -ltrh
+
+to see long detailed list about file/dir
+
+On each line, we get information about:
+The file type (this is the first character listed)
+The file’s permissions for the owner, groups, and users, respectively (this
+is the rest of this section)
+The number of links (a topic that is beyond the scope of the book)
+The owner of the file
+The size of the file in bytes
+The time at which the file was created or last modified
+The name of the file
+
+
+-rw-r--r-- 1 linuxofpratham pratham   84 Nov  2 07:37 citrus.txt
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+drwxr-xr-x 2 linuxofpratham pratham 4.0K Oct 30 20:27 codecloud
+-rw-r--r-- 1 linuxofpratham pratham    6 Nov 14 06:17 e.txt
+-rw-r--r-- 1 linuxofpratham pratham   64 Nov 14 06:20 errorprinted.txt
+-rw-r--r-- 1 linuxofpratham pratham  534 Dec  4 11:10 fruits.txt
+-rw-r--r-- 1 linuxofpratham pratham  10K Nov  9 14:28 fruitszipped.tar
+-rw-r--r-- 1 linuxofpratham pratham    0 Nov 14 06:38 gracias.txt
+
+pratham - group name
+linuxofpratham - user name
+
+lrwxrwxrwx
+
+here the first character l can take 3 values like - / l / d 
+- = file
+l = link
+d = directory/folder
+
+-rw-r--r-- 1 linuxofpratham pratham   84 Nov  2 07:37 citrus.txt
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+
+here 1st line is file txt
+2nd is dir
+
+so now remaining 9 characters after first divide into 3 parts
+
+l rwx rwx rwx
+   1   2   3
+
+1 group rwx after 1st l denotes permission 
+r= read w= write x= execute
+
+2 group represent  group permission suppose there are A B C users on linux system 
+and A and B are part of group G so permission belong to group G
+
+3 group belongs to others and their permissison
+
+also at position of rwx after 1st character there may be - which reperesnt no permission to r or w or x
+
+drwxr-xr-x 3 linuxofpratham pratham 4.0K Oct 24 07:39 cloudcomputing
+
+d rwx r-x r-x 
+here r-x means user can read but not write or do changes in file but it can run/open the file
+
+- rw- r-- r-- 1 linuxofpratham pratham    6 Nov 14 06:17 e.txt
+- at start represent file and owner can read,write
+
+
+==== impt for dir ====
+drwxr-xr-x 
+d rwx r-x r-x 
+In case of directory x represent permission to execute and go into directory if there was - u can't go into dir
+
+The next set of permissions (r--) represents those of the group and shows
+that the group has read permission but not write or execute permissions.
+And, finally, we see that the rest of the users also have only read permission
+(r--).
+
+These permissions aren’t set in stone. As a root user or file owner, you can
+change them. Next, we’ll do just that.
+
+Changing Permissions
+We can use the Linux command chmod (or change mode) to change the
+permissions. Only a root user or the file’s owner can change permissions.

@@ -1,0 +1,151 @@
+Analyzing Networks with ifconfig
+
+ifconfig can help u to find ipaddress
+
+The ifconfig command is one of the most basic tools for examining and
+interacting with active network interfaces. You can use it to query your
+active network connections by simply entering ifconfig in the terminal.
+
+ifconfig is a Linux networking utility used to view and adjust the configuration of network interfaces. It provides control over interface behavior and displays essential network-related information.
+
+Displays technical details such as IP address, MAC address, MTU, and packet statistics
+Enables or disables network interfaces as required
+Assists in monitoring interface activity and link status
+Classified as a legacy command, now largely replaced by the ip utility in modern Linux systems
+
+
+Finding Your IP Address in Linux
+To view information about all network interfaces on your Linux system,
+
+Command: ifconfig
+This command will provide a comprehensive list of all network interfaces along with their respective IP addresses, MAC addresses, and other relevant details.
+
+$ ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.28.246.18  netmask 255.255.240.0  broadcast 172.28.255.255
+        inet6 fe80::215:5dff:fe9a:abd3  prefixlen 64  scopeid 0x20<link>
+        ether 00:15:5d:9a:ab:d3  txqueuelen 1000  (Ethernet)
+        RX packets 34  bytes 12195 (12.1 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 48  bytes 4980 (4.9 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0, which is short for Ethernet0 (Linux starts counting
+at 0 rather than 1). This is the first wired network connection. If there were
+more wired Ethernet interfaces, they would show up in the output using the
+same format (eth1, eth2, and so on).
+
+UP: Interface is enabled
+RUNNING: Cable is connected & link is active
+BROADCAST: Can send broadcast packets
+MULTICAST: Supports multicast traffic
+mtu 1500: Maximum data size per packet
+Practical use:
+
+Used when your laptop is connected via LAN cable
+MTU matters in VPNs, corporate networks, performance tuning
+--------------------
+ inet 172.28.246.18  netmask 255.255.240.0  broadcast 172.28.255.255
+
+inet: IPv4 address
+netmask/subnet mask: Defines network range           network mask (netmask), which is
+used to determine what part of the IP address is connected to the local
+network.
+
+broadcast: Address to reach all devices in this network
+Practical use:
+
+Helps identify which network you are connected to
+Used while configuring routers, DHCP, static IPs
+
+------------------
+inet6 fe80::215:5dff:fe9a:abd3  prefixlen 64  scopeid 0x20<link>
+
+
+
+
+
+
+
+
+
+That is a classic snapshot of a Linux network configuration! You're looking at two different types of interfaces: eth0 (your primary network connection) and lo (the internal "loopback" address).
+
+Here is the breakdown of what those specific lines actually mean.
+
+1. The Interface Name and Status (eth0)
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+
+eth0: The name of the interface. eth stands for Ethernet (though it could be a virtualized card).
+
+UP: The interface is active and turned on.
+
+BROADCAST: The interface supports sending data to everyone on the local network at once. Bcast, or
+broadcast address, which is the address used to send information to all IP
+addresses on the subnet
+
+RUNNING: This means the physical/virtual cable is "plugged in." If you see UP but not RUNNING, you might have a bad cable or no link.
+
+MULTICAST: Supports sending data to a specific group of devices.
+
+mtu 1500: Maximum Transmission Unit. This is the largest packet size (1500 bytes) the interface can send in one go.
+
+2. IP Address Info (inet & inet6)
+inet 172.28.246.18  netmask 255.255.240.0  broadcast 172.28.255.255
+inet6 fe80::215:5dff:fe9a:abd3  prefixlen 64  scopeid 0x20<link>
+
+inet: Your IPv4 address. This is how other devices on your local network find you.
+
+netmask: Defines the size of your network (which part of the IP is the "neighborhood" and which part is "your house").
+
+broadcast: The special address used to shout to every device on your subnet.
+
+inet6: Your IPv6 address.
+
+scopeid <link>: This means the IPv6 address is only valid for communicating with devices on the same local physical network.
+
+3. Hardware Identity (ether)
+ether 00:15:5d:9a:ab:d3  txqueuelen 1000  (Ethernet)
+
+ether: This is your MAC Address. It is the unique hardware ID assigned to your network card at the factory.
+
+txqueuelen 1000: The "Transmit Queue Length." It tells the kernel how many packets it can queue up before the hardware gets overwhelmed.
+
+4. Traffic Statistics (RX and TX)
+RX packets 34  bytes 12195 (12.1 KB) ... TX packets 48  bytes 4980 (4.9 KB)
+
+RX (Receive): Data coming into your computer. You’ve received 34 packets (about 12 KB).
+
+TX (Transmit): Data going out of your computer. You’ve sent 48 packets.
+
+errors/dropped: These should ideally be 0. If they are high, you likely have a physical connection issue, a bad driver, or a very congested network.
+
+5. The Loopback (lo)
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+inet 127.0.0.1  netmask 255.0.0.0
+
+This is a "virtual" interface. It doesn't connect to the outside world.
+
+What it's for: It allows the computer to talk to itself. For example, if you're developing a website on your machine, you'd visit 127.0.0.1 to see it.
+
+IP 127.0.0.1: This is the universal "home" address (often called localhost).
+
+Quick Observation: Your IP (172.28.x.x) and the MAC address (beginning with 00:15:5d) suggest you are likely running this inside a Windows Subsystem for Linux (WSL) or a Hyper-V Virtual Machine.
+
+
+
+
+
+
+
+This information from ifconfig enables you to connect to and manipulate
+your local area network (LAN) settings

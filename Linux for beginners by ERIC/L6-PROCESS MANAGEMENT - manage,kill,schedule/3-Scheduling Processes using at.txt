@@ -1,0 +1,48 @@
+Scheduling Processes using at tool/command
+
+Both Linux system administrators and hackers often need to schedule processes to run at a particular time of day. 
+
+A system administrator might want to schedule a system backup to run every Saturday night at 2:00 AM,
+for example. A hacker might want to set a script to run on a regular basis
+that looks for open ports or vulnerabilities. 
+
+In Linux, you can accomplish this in at least two ways: with 
+1) at and  2) crond.
+
+The at command is used to set up the daemon (a background process) atd,
+which is useful for scheduling a job to run once at some point in the future.
+
+The crond daemon is more suited for scheduling tasks to occur every day,
+week, or month
+
+To use at first install in your system.
+sudo apt install at
+
+We use the at daemon to schedule the execution of a command or set of
+commands in the future, following the command by the time at which to
+execute the process.
+
+Time Formats Accepted by the at Command
+
+Time format Meaning
+at 7:20pm          	Scheduled to run at 7:20 PM on the current day
+at 7:20pm June 25  	 Scheduled to run at 7:20 PM on June 25
+at noon 		Scheduled to run at noon on the current day
+at noon June 25 	Scheduled to run at noon on June 25
+at tomorrow 		Scheduled to run tomorrow
+at now + 20 minutes 	Scheduled to run in 20 minutes from them current time
+at now + 10 hours 	Scheduled to run in 10 hours from the current time
+at now + 5 days 	Scheduled to run in five days from the current date
+at now + 3 weeks 	Scheduled to run in three weeks from the current date
+at 7:20pm 06/25/2025 	Scheduled to run at 7:20 PM on June 25,2025
+
+When you enter the at daemon with the specified time, at goes into
+interactive mode, and you’ll be greeted with an at> prompt. Here is where
+you enter the command you want executed at the specified time:
+
+
+kali> sudo at 7:20am
+at> /root/myscanningscript
+
+This code snippet will schedule myscanningscript to execute today at 7:20
+AM. When you want to stop entering commands, press CTRL-D.

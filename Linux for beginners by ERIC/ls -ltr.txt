@@ -1,0 +1,33 @@
+ls -ltr 
+this command run in present directory. It present info of files list in systematic way
+
+:~/planets$ ls -ltr
+total 0
+-rw-rw-r-- 1 kayaba kayaba 0 Mar 18 12:12 sun
+-rw-rw-r-- 1 kayaba kayaba 0 Mar 18 12:12 saturn
+-rw-rw-r-- 1 kayaba kayaba 0 Mar 18 12:12 moon
+-rw-rw-r-- 1 kayaba kayaba 0 Mar 18 12:12 earth.txt
+
+
+=== add a to see hidden file ===
+:~/planets$ ls -latr
+total 8
+drwxr-x--- 5 kayaba kayaba 4096 Mar 18 12:12 ..
+-rw-rw-r-- 1 kayaba kayaba    0 Mar 18 12:12 sun
+-rw-rw-r-- 1 kayaba kayaba    0 Mar 18 12:12 saturn
+-rw-rw-r-- 1 kayaba kayaba    0 Mar 18 12:12 moon
+-rw-rw-r-- 1 kayaba kayaba    0 Mar 18 12:12 earth.txt
+drwxrwxr-x 2 kayaba kayaba 4096 Mar 18 12:12 .
+
+
+== add h to present in human readable===
+
+see k added which says K
+:~/planets$ ls -latrh
+total 8.0K
+drwxr-x--- 5 kayaba kayaba 4.0K Mar 18 12:12 ..
+-rw-rw-r-- 1 kayaba kayaba    0 Mar 18 12:12 sun
+-rw-rw-r-- 1 kayaba kayaba    0 Mar 18 12:12 saturn
+-rw-rw-r-- 1 kayaba kayaba    0 Mar 18 12:12 moon
+-rw-rw-r-- 1 kayaba kayaba    0 Mar 18 12:12 earth.txt
+drwxrwxr-x 2 kayaba kayaba 4.0K Mar 18 12:12 .

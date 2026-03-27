@@ -33,12 +33,13 @@ here we don't have root user privilage but using sudo we can do it
 
 linuxofpratham@Pratham:~$ chown kayaba meditation.txt
 chown: changing ownership of 'meditation.txt': Operation not permitted
+
 linuxofpratham@Pratham:~$ sudo chown kayaba meditation.txt
 [sudo] password for linuxofpratham:
 
 -rw-r--r--  1 kayaba         pratham 3.2K Dec  4 12:12 meditation.txt
 
-
+----------------------------------------------------------------------------------------------
 we created backend_project_1 dir but the other users can't access it so we going to change the group and permissions
 
 root@Pratham:~# ls -lh

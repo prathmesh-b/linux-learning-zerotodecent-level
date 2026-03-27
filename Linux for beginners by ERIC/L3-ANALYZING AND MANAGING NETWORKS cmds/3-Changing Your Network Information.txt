@@ -1,0 +1,108 @@
+Changing Your Network Information
+
+Being able to change your IP address and other network information is a
+useful skill because it will help you access other networks while appearing
+to be a trusted device on those networks. For example, in a denial-ofservice
+(DoS) attack, you can spoof your IP address so that that the attack
+appears to come from another source, which will cover your tracks during
+forensic analysis. This is a relatively simple task in Linux, and it’s done
+with the ifconfig command.
+
+========= Assigning a New IP Address ===========
+To change your IP address, enter ifconfig followed by the interface you want
+to reassign and the new IP address you want assigned to that interface.
+
+to assign the IP address 192.168.181.115 to interface eth0 
+
+before changing here is current ip
+$ ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.28.246.18  netmask 255.255.240.0  broadcast 172.28.255.255
+        inet6 fe80::215:5dff:fe76:394a  prefixlen 64  scopeid 0x20<link>
+        ether 00:15:5d:76:39:4a  txqueuelen 1000  (Ethernet)
+
+lets change
+
+command : sudo ifconfig eth0 192.168.181.115
+
+
+new ip u can see    inet 192.168.181.115
+ command: ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.181.115  netmask 255.255.255.0  broadcast 192.168.181.255
+        inet6 fe80::215:5dff:fe76:394a  prefixlen 64  scopeid 0x20<link>
+        ether 00:15:5d:76:39:4a  txqueuelen 1000  (Ethernet)
+
+===== Changing Your Network Mask and Broadcast Address=====
+You can also change your network mask (netmask) and broadcast address
+with the ifconfig command. For instance, if you want to assign that same
+eth0 interface with a netmask of 255.255.0.0 and a broadcast address of
+192.168.1.255, 
+you would enter the following:
+$ sudo ifconfig eth0 192.168.181.115 netmask 255.255.0.0
+
+so previously
+netmask was inet 172.28.246.18  netmask 255.255.240.0  broadcast 172.28.255.255
+
+now it changed to     netmask 255.255.0.0
+$ ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.181.115  netmask 255.255.0.0  broadcast 192.168.255.255
+        inet6 fe80::215:5dff:fe76:394a  prefixlen 64  scopeid 0x20<link>
+        ether 00:15:5d:76:39:4a  txqueuelen 1000  (Ethernet)
+        RX packets 55  bytes 13679 (13.6 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 79  bytes 7030 (7.0 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+
+----------------- Assigning New IP Addresses from the DHCP Server--------------
+DHCP Server - Usually, to connect to the internet from a LAN, you must have a DHCP assigned
+IP. Therefore, after setting a static IP address, you must also get a
+new DHCP-assigned IP address.
+
+A DHCP (Dynamic Host Configuration Protocol) server is a network service that automatically assigns IP addresses, subnet masks, default gateways, and DNS information to devices (clients) on a network. It eliminates manual configuration, preventing IP conflicts and simplifying network management. DHCP servers use a "DORA" process (Discover, Offer, Request, Acknowledge). 
+Common Usage Examples:
+Wi-Fi Networks: Home, office, and public Wi-Fi hotspots use DHCP to instantly connect new devices.
+Corporate Networks: IT departments use it to assign addresses to laptops, desktop computers, and tablets automatically.
+IoT Devices: Automatically managing IP addresses for numerous, often changing, smart devices. 
+
+Linux has a Dynamic Host Configuration Protocol (DHCP) server that runs
+a daemon (a process that runs in the background) called dhcpd, or the dhcp
+daemon. The DHCP server assigns IP addresses to all the systems on the
+subnet and keeps logfiles of which IP address is allocated to which machine
+at any one time.
+
+
+
+To do this, you can always reboot your
+system, but I’ll show you how to retrieve a new DHCP without having to
+shut your system down and restart it.
+To request an IP address from DHCP, simply call the DHCP server with the
+command dhclient followed by the interface to which you want the address
+assigned. Different Linux distributions use different DHCP clients, but Kali
+is built on Debian, which uses dhclient, so you can assign a new address like
+this:
+kali> sudo dhclient eth0
+The dhclient command sends a DHCPDISCOVER request from the network
+interface specified (here, eth0). It then receives an offer (DHCPOFFER) from the
+DHCP server (192.168.181.131 in this case) and confirms the IP assignment
+to the DHCP server with a dhcp request:
+kali> ifconfig
+eth0: Linkencap:EthernetHWaddr 00:0c:29:ba:82:0f
+inet addr:192.168.181.131 Bcast:192.168.181.131 M
+Depending on the configuration of the DHCP server, the IP address
+assigned in each case might be different.
+Now when you enter ifconfig, you should see that the DHCP server has
+assigned a new IP address, a new broadcast address, and a new netmask to
+your eth0 network interface.

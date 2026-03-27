@@ -17,6 +17,10 @@ Group	g	Users who are members of the file's group.
 Others	o	All other users not in the above categories.
 All	a	All users (u, g, and o).
 
+u - owner of file
+g - group
+o - guest or all other users
+
 Permission Symbol	Octal Value	Description
 Read	     r	            4	                  Allows viewing file contents or listing directory contents.
 Write	     w	             2	                 Allows modifying/deleting a file or creating/deleting files in a directory.

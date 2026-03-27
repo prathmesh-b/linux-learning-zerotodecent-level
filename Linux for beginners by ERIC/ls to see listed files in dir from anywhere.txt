@@ -1,0 +1,15 @@
+You can also use this command on any particular directory, not just the one
+you are currently in, by listing the directory name after the command; for
+example, ls /etc shows what’s in the /etc directory.
+
+so basically u can see files of any dir from anywhere, you don't have to present in same directiory
+
+see eg
+
+~/planets$ pwd
+/home/kayaba/planets
+
+:~/planets$ ls /etc
+PackageKit                     debconf.conf    init.d          modprobe.d           rc1.d          sudo.conf
+X11                            debian_version  inputrc         modules              rc2.d          sudo_logsrvd.conf
+

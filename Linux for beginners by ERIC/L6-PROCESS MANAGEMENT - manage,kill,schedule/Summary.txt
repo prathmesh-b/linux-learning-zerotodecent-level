@@ -1,0 +1,8 @@
+=========== Summary ===========
+
+Managing processes in Linux is a key skill for every Linux user and hacker.
+You must be able to view, find, kill, prioritize, and schedule processes to
+manage your Linux instance optimally. A hacker often will need to find
+processes on the target they want to kill, such as the antivirus software or a
+firewall. They will also need to manage multiple processes in an attack and
+prioritize them.

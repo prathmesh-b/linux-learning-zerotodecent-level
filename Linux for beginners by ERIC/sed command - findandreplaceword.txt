@@ -8,13 +8,21 @@ orange is citrus family food and act like medicine to reduce heat in the body.
 orange is citrus friend food and act like medicine to reduce heat in the body.
 
 This replaces word family with friend. In each line of file. It did not overwrited file.
+here old word - family replaced with new word - friend
 ========
+
+
+
+
 
 -- how to overwrite the file -- aka find and replace
 
 just add -i after sed command.  
 syntax - 
   sed -i 's/oldword/newword' filename
+
+
+
 
 =====
 sed -i 's/family/friend/' orange.txt
@@ -32,6 +40,10 @@ This changed the word family with dog in file permanently.
 
 =====
 
+
+
+
+
 sed -i 's/family/friend/' orange.txt
 
 Here / is delimener and this command can also work with . if / not worked
@@ -46,6 +58,12 @@ apple is called doctor of fruit because it helps to cure diseseases.
 linuxofpratham@Pratham:~$ sed 's/apple/citrus fruits/' redapple.txt > redapple2.txt
 linuxofpratham@Pratham:~$ cat redapple2.txt
 citrus fruits is called doctor of fruit because it helps to cure diseseases.
+
+
+
+
+
+
 
 ---- what if want to replace /etc word starting with / ----
 

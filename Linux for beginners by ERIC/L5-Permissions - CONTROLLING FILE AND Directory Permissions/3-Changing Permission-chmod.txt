@@ -1,0 +1,180 @@
+Changing Permissions
+
+We can use the Linux command chmod (or change mode) to change the
+permissions. Only a root user or the file’s owner can change permissions.
+
+we use chmod to change permissions of file using
+two different methods. 
+1-  use a numerical representation of permissions, and then we 
+2- use a symbolic representation.
+
+------------
+-- chmod ---
+------------
+
+
+The chmod command in Linux (short for change mode) is used to modify the access permissions of files and directories. 
+Permissions determine who can read, write, or execute a file, 
+and are assigned to three classes of users: the file's owner (u), members of the file's group (g), and others (o). 
+
+syntax
+chmod ___ filename/dir
+
+Syntax
+The basic syntax is chmod [options] mode file_name. You can specify the mode using either symbolic (letters and symbols) or numeric (octal numbers) notation. 
+
+----------------------------------------------------------------------------------------------------------
+
+================================ Changing Permissions with UGO ==============================
+
+Although the numeric method is probably the most common method for
+changing permissions in Linux, some people find chmod’s symbolic method
+more intuitive. Both methods work equally well, so choose the one that
+suits you. The symbolic method is often referred to as UGO syntax, which
+stands for 
+
+UGO =   user (or owner), group, and others.
+
+
+====== Permissions and User Classes =====
+
+Class 	Symbol	Description
+User	u	The owner of the file.
+Group	g	Users who are members of the file's group.
+Others	o	All other users not in the above categories.
+All	a	All users (u, g, and o).
+
+u - owner of file
+g - group
+o - guest or all other users
+
+Permission Symbol	Octal Value	Description
+Read	     r	            4	                  Allows viewing file contents or listing directory contents.
+Write	     w	             2	                 Allows modifying/deleting a file or creating/deleting files in a directory.
+Execute	     x	              1	                 Allows running an executable file or entering (searching) a directory.
+
+
+chmod ___ filename/dir
+__ will include who  what  which
+
+so combination of who/what/which comes
+
+who include u/g/o
+what include -/+/=
+which include r/w/x
+
+chmod u+x sample.txt
+
+here i want to give u user + x execute permssion
+
+$ ls -l
+-rw-r--r-- 1 linuxofpratham pratham   534 Dec  4 11:10 fruits.txt
+-rw-r--r-- 1 linuxofpratham pratham 10240 Nov  9 14:28 fruitszipped.tar
+-rw-r--r-- 1 linuxofpratham pratham   160 Dec 11 15:08 gracias.txt
+-rw-r--r-- 1 linuxofpratham pratham     0 Nov 14 06:34 hello.txt
+
+$ chmod u+x gracias.txt
+~$ ls -lah
+
+-rwxr--r--  1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
+-rw-r--r--  1 linuxofpratham pratham    0 Nov 14 06:34 hello.txt
+
+here i given/added permssion to user to execute gracias txt
+
+
+==== eg 2 let's give permission to others to execute x
+
+chmod o+w gracias.txt
+
+before -
+-rwxr--r--  1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
+
+after permission
+-rwxr--rw- 1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
+
+see  w permission at last  -rw-
+
+here other user means who is on your system 
+
+===== lets try = permission of +/-/= 
+chmod o=w gracias.txt
+
+so here i want other user to set permission of write only if read/x permission was aleady available it will be removed
+
+chmod o=w gracias.txt
+
+see last chracter rw 
+
+before
+-rwxr--rw- 1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
+after
+-rwxr---w- 1 linuxofpratham pratham  160 Dec 11 15:08 gracias.txt
+
+
+You can also change multiple permissions with just one command. If you
+want to give both the user and other users (not including the group) the
+execute permission, you could enter the following:
+
+kali> sudo chmod u+x, o+x hashcat.hcstat
+
+This command tells Linux to add the execute permission for the user as well
+as the execute permission for others for the hashcat.hcstat file.
+
+----------------------------------------------------------------------------------------------------------
+
+================================ Changing Permissions with Decimal Notation ==============================
+
+
+We can use a shortcut to refer to permissions by using a single number to
+represent one rwx set of permissions. Like everything underlying the
+operating system, permissions are represented in binary, so ON and OFF
+switches are represented by 1 and 0, respectively. You can think of the rwx
+permissions as three ON/OFF switches, so when all permissions are
+granted, this equates to 111 in binary.
+
+We can then easily represent a binary set like this as a single digit by
+converting it into octal, an eight-digit number system that starts with 0 and
+ends with 7. An octal digit represents a set of three binary digits, meaning
+we can represent an entire rwx set with one digit.
+
+r-read w-write x-execute
+
+Binary Octal rwx 
+000      0   ---
+001      1   --x
+010      2   -w-
+011      3   -wx
+100      4   r--  to set only read permission to file 
+101      5   r-x
+110      6   rw-
+111      7   rwx
+
+
+if we want to set only the read permission
+r w x
+4 - -
+
+if we want to set all permission of read write/modify and execute using number 
+in table ocatal 7 has rwx 
+also if we add octal no individually for r,w,x permission like:
+
+r---   -w-  --x
+4      2      1
+4+2+1 = 7 we also equal to rwx of 7
+
+We see that in Linux, when all the permission switches
+are on, they are represented by the octal equivalent of 7.
+
+so to represent all permissions for the owner, group, and all users,
+we write 7 7 7 for rwx for 
+
+By passing chmod three octal digits (one
+for each rwx set), followed by a filename, we can change permissions on that
+file for each type of user.
+
+
+
+-rw-r--r-- 1 linuxofpratham pratham    76 Jan  6 12:06 orange.txt
+:~$ sudo chmod 774 orange.txt
+
+-rwxrwxr-- 1 linuxofpratham pratham    76 Jan  6 12:06 orange.txt

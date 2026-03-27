@@ -1,0 +1,81 @@
+===== Viewing Processes ====
+how to view the prcesses running currently
+
+run ps command
+
+linuxofpratham@HP-LapyMachine:~$ ps
+    PID TTY          TIME CMD
+    339 pts/0    00:00:00 bash
+    471 pts/0    00:00:00 ps
+
+LINUX KERNEL the inner core of operating system that controls everything it assign unique process ID called PID to each process sequentially as process created.
+
+Need to remember PID no which is more impt than just process name.
+
+== ps aux ===
+This command tells more details then ps only. 
+we’d like to know about processes run by other users and by the system in the background. Without this information, we won’t understand much of what is actually taking place on our system. 
+
+Running the command with the
+ps option aux
+will display all processes running on the system for all users.
+
+==== impt columns to know in ps process ====
+
+USER - The user who invoked/started the process
+PID - The process ID
+%CPU - The percent of CPU this process is using
+%MEM - The percent of memory this process is using
+COMMAND - The name of the command that started the process
+
+
+====== Filtering by Process Name =====
+we usually don’t want every single process displayed on the screen. we want to find information about a single process. how to do that
+
+=== ps aux | grep <what u want to find> ===
+
+below i want to find any process related to python running
+linuxofpratham@HP-LapyMachine:~$ ps aux | grep python
+
+root         222  0.0  0.5  30136 18816 ?        Ss   13:33   0:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+root         262  0.0  0.5 107164 21248 ?        Ssl  13:33   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+linuxof+     581  0.0  0.0   4028  2176 pts/0    S+   13:54   0:00 grep --color=auto python
+
+
+=== Find process which using most resources using top command ===
+If u run ps command, it display process started in sequences but what if we want to check currently running processes using high memory or cpu usuage.
+
+it displays the processes ordered by resources used, starting with the largest.
+Unlike the ps command, which gives us a one-time snapshot, toprefreshes
+the list every three seconds by default. This lets you monitor those resource hungry
+processes.
+
+System administrators often keep top running in a terminal to 1 dedicated monitor the
+use of process resources.
+especially if you have multiple tasks running on your system. While you
+have running, pressing the H or ? key will bring up a list of interactive
+top commands, and pressing Q will quit top.
+
+when top is running, press H for diff option menu , press q to quit
+
+
+
+
+=== top command ===
+~$ top
+top - 13:58:58 up 27 min,  1 user,  load average: 0.00, 0.00, 0.00
+Tasks:  23 total,   1 running,  22 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   3573.2 total,   3061.5 free,    354.6 used,    157.1 buff/cache
+MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   3145.1 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    593 linuxof+  20   0    7788   3584   3072 R   0.3   0.1   0:00.06 top
+      1 root      20   0  165936  10612   7924 S   0.0   0.3   0:01.34 systemd
+      2 root      20   0    3072   1664   1664 S   0.0   0.0   0:00.02 init-systemd(Ub
+      6 root      20   0    3088   1920   1920 S   0.0   0.1   0:00.01 init
+     66 root      19  -1   47812  14208  13440 S   0.0   0.4   0:00.45 systemd-journal
+     95 root      20   0   22716   5632   4608 S   0.0   0.2   0:00.41 systemd-udevd
+    153 systemd+  20   0   25672  13436   9088 S   0.0   0.4   0:00.25 systemd-resolve
+    170 systemd+  20   0   89364   7040   6272 S   0.0   0.2   0:00.47 systemd-timesyn
+    215 root      20   0    4308   2688   2432 S   0.0   0.1   0:00.03 cron

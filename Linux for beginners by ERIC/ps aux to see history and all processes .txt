@@ -1,0 +1,47 @@
+I want to see all the processes running on my Linux
+system. In this case, I can use the ps (processes) command followed by the
+aux
+
+
+
+~$ ps aux
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.2 165936 10584 ?        Ss   11:24   0:01 /sbin/init
+root           2  0.0  0.0   3120  2048 ?        Sl   11:24   0:00 /init
+root           6  0.0  0.0   3136  1792 ?        Sl   11:24   0:00 plan9 --control-socket 7 --log-level 4 --server-fd 8 --pipe-
+root          66  0.0  0.5  64216 18688 ?        S<s  11:24   0:00 /lib/systemd/systemd-journald
+root          92  0.0  0.1  22840  5760 ?        Ss   11:24   0:00 /lib/systemd/systemd-udevd
+systemd+     184  0.0  0.3  25672 13240 ?        Ss   11:24   0:00 /lib/systemd/systemd-resolved
+systemd+     200  0.0  0.1  89364  7040 ?        Ssl  11:24   0:00 /lib/systemd/systemd-timesyncd
+root         209  0.0  0.0   4308  2560 ?        Ss   11:24   0:00 /usr/sbin/cron -f -P
+message+     211  0.0  0.1   8580  4224 ?        Ss   11:24   0:00 @dbus-daemon --system --address=systemd: --nofork --nopidfil
+root         219  0.0  0.4  30136 18036 ?        Ss   11:24   0:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-
+syslog       220  0.0  0.1 222404  5120 ?        Ssl  11:24   0:00 /usr/sbin/rsyslogd -n -iNONE
+root         223  0.0  0.1  15516  7168 ?        Ss   11:24   0:00 /lib/systemd/systemd-logind
+root         249  0.0  0.0   3240  2176 hvc0     Ss+  11:24   0:00 /sbin/agetty -o -p -- \u --noclear --keep-baud console 11520
+root         252  0.0  0.0   3196  2176 tty1     Ss+  11:24   0:00 /sbin/agetty -o -p -- \u --noclear tty1 linux
+root         259  0.0  0.5 107164 21760 ?        Ssl  11:24   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-u
+root         334  0.0  0.0   3124   768 ?        Ss   11:24   0:00 /init
+root         335  0.0  0.0   3140  1152 ?        S    11:24   0:00 /init
+linuxof+     336  0.0  0.1   6216  5120 pts/0    Ss   11:24   0:00 -bash
+root         337  0.0  0.1   7524  4736 pts/1    Ss   11:24   0:00 /bin/login -f
+linuxof+     385  0.0  0.2  16952  9472 ?        Ss   11:24   0:00 /lib/systemd/systemd --user
+linuxof+     386  0.0  0.1 168984  5176 ?        S    11:24   0:00 (sd-pam)
+linuxof+     400  0.0  0.1   6236  5120 pts/1    S+   11:24   0:00 -bash
+root         563  0.0  0.1   8056  4896 pts/0    S    11:28   0:00 su kayaba
+kayaba       565  0.0  0.2  17044  9472 ?        Ss   11:28   0:00 /lib/systemd/systemd --user
+kayaba       566  0.0  0.1 168984  5196 ?        S    11:28   0:00 (sd-pam)
+kayaba       575  0.0  0.1   6216  5120 pts/0    S    11:28   0:00 bash
+kayaba       923  0.0  0.0   7484  3072 pts/0    R+   12:39   0:00 ps aux
+
+
+
+but what if I want to find just one process to see if it is running?
+I can do this by piping the output from ps to grep and searching for a
+keyword.
+
+:~$ ps aux | grep bash
+linuxof+     336  0.0  0.1   6216  5120 pts/0    Ss   11:24   0:00 -bash
+linuxof+     400  0.0  0.1   6236  5120 pts/1    S+   11:24   0:00 -bash
+kayaba       575  0.0  0.1   6216  5120 pts/0    S    11:28   0:00 bash
+kayaba       948  0.0  0.0   4028  2176 pts/0    S+   12:45   0:00 grep --color=auto bash

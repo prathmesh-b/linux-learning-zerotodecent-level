@@ -1,0 +1,415 @@
+Managing Processes
+During the work u need to handle multiprocesses.manage these processes efficiently to best use system resources and complete tasks.
+
+
+Nice value is impt concept in linux
+
+
+========== Changing Process Priority(How much CPU a process gets) with nice ============
+
+You have option to influence priority of a process. when we ran ps command, numerous processes run on the system at once for available resouces. kernel have final say over priority of process but using nice command u can priortise process.
+
+The idea behind the use of the term nice is that, when you use it, you’re
+determining how nice you’ll be to other users; if your process is using most
+of the system resources, you aren’t being very nice.
+
+Think like this:
+- many processes want CPU
+- Linux decides who gets more time
+- nice command tells Linux: "Be nice to others, don't take too much CPU"
+
+There is value pass range for nice from 
+-20 -> Highest priority (very aggressive)
+ to 
+
+  0 = being default value.
+
+ +19 -> Lowest priority (very polite)
+ 
+-- Rules to remember ----
+Low Nice value translate to: high priority (meaning you're not being so nice to other users/processes).
+High Nice value translate to: low priority
+
+-- Simple analogy ---
+Imagine CPU is pizza
+
+Nice = 0   --> normal slice
+Nice = 10   --> small slice
+Nice = -10   --> big slice
+
+
+When a process is started, it inherits the nice value of its parent process. 
+The owner of the process can lower the priority of the process but cannot increase its priority. 
+
+Of superuser or root user can arbitrarily set the nice value to whatever they please.
+
+
+When you start a process, you can set the priority level with the nice
+command and then alter the priority after the process has started running
+with the renice command.
+
+The nice command requires that you increment the nice value, 
+whereas the renice command wants an absolute value for niceness.
+
+---------------------------------
+--- Start a process with nice ---
+
+Syntax: nice -n VALUE command
+
+example1 ---- Run low priority task
+nice -n 10 python script.py
+
+this means : "This task is not urgent", System gives CPU to other tasks first
+
+example2 ---- Very low priority task
+nice -n 19 backup.sh
+
+perfect for: backups, downloads, background jobs
+
+example3 ---- HIGH priority (important) task
+nice -n -5 python important.py
+
+this gives more CPU, But: ONLY ROOT user can use negative values
+
+
+
+
+
+--------- Setting the Priority When Starting a Process -----------
+For demonstration purposes, let’s assume we have a process named slowprocess that’s located at /bin/slowprocess. 
+
+If we wanted it to speed up its completion, we could start the process with the nice command:
+kali> sudo nice -n -10 /bin/slowprocess
+
+This command would increment the nice value by -10, increasing its priority and allocating it more resources.
+On the other hand, if we want to be nice to our fellow users and processes
+and give slowprocess a lower priority, 
+
+we could increment its nice value positively by 10:
+kali> sudo nice -n 10 /bin/slowprocess
+
+
+
+
+===============================================================================================================
+============= 3. Changing the Priority of a Running Process with renice ==================================
+
+You can change priority after starting process or of alreadt running processes
+
+Step 1 - Find PID of process
+ps aux | grep process name 
+
+ps aux | grep process python
+
+example: user 2345 ... python script.py
+
+Step 2 - Change priortiy , here PID of python script.py is 2345
+renice -n 10 -p 2345 
+
+Now process becomes less important
+
+-- Increase priority (requires root):
+sudo renice -n -5 -p 2345
+---------------------------------------------------------
+
+renice requires you to supply the PID of the process you are targeting rather than its name.
+
+So, if slowprocess is using an inordinate amount of resources on your system and you want to
+give it a lower priority to allow other processes access to more resources,
+you could renice the slowprocess (which has a PID of 6996) and give it a
+much higher nice value, like so:
+kali> sudo renice 19 6996
+
+As with nice, only the root user can renice a process to a negative value to
+give it higher priority, but any user can reduce priority.
+
+
+
+----- top utility to change the nice value -----------
+
+You can also use the top utility to change the nice value. With the top utility
+running, simply press the R key and then supply the process’s PID and a
+nice value. Listing 6-4 shows the top utility running and its output when I
+press the R key and supply the PID and nice value.
+
+top - 21:36:56 up 21:41, 2 users, load averag
+Tasks: 128 total, 1 running, 127 sleeping, 0
+%Cpu(s): 1.5 us, 0.7 sy, 0.0 ni, 96.7 id, 1.1
+KiB Mem: 511864 total, 500780 used, 11084 fr
+KiB Swap: 901116 total, 14444 used, 886672
+➊ PID to renice
+|
+PID USER PR NI VIRT RES SHR S %CPU
+5451 root 20 0 1577m 19m 14m S 5.3
+2766 root 20 0 55800 20m 5480 S 2.6
+5456 root 20 0 6356 4272 1780 S 1.3
+7 root 20 0 0 0 0 S 0.3
+5762 root 20 0 174m 20m 17m S 0.3
+
+Listing 6-4: Changing a nice value when top is in use
+When I press the R key, I’m asked for the PID ➊ with the text renice PID
+[value] to value. The output should then change to reflect the new priorities.
+
+----------------------------------------------------------------
+
+
+====================================================================
+============= 4. Check NICE value ==================================
+
+command : top
+
+Look for column: NI - nice value   PR - priority
+
+
+====================================================================
+============= REAL Life Scenarios ==================================
+
+Scenario 1 --- Heavy script slowing laptop
+
+Problem: python script using 100% CPU
+System lagging
+
+we decreasing the priortiy of task
+Solution: nice -n 15 python heavy.py
+
+Now: laptop becomes smooth, script runs slower but fine
+
+
+
+Scenario 2 --- Backup process
+nice -n 19 tar -czf backup.tar.gz /home
+
+Backup runs quietly in background
+
+
+
+Scenario 3 --- Imporatnt production task
+sudo nice -n -10 pyton critical.py
+
+Gets CPU faster than others
+
+==============================================
+============= IMPORATANT Rules ===============
+
+-- Rule 1 --
+You can only increase nice value (lower priority) as normal user
+
+Allowed: renice -n 10 -p PID
+Not allowed: renice -n -5 -p PID #needs root
+
+-- Rule 2 --
+Nice affects CPU scheduling only
+- Not memory
+- Not disk
+
+-- Rule 3 --
+Nice does NOT guarantee CPU - just influences it
+
+========================================================
+============= Difference: nice vs renice ===============
+
+nice command    use- Start new process
+renice command  use- Change running process
+
+
+use Nice when: Running heavy scripts,  system lagging
+
+
+========================================================
+============= Important guidelines about nice and renice ===============
+
+Wrong idea: Nice controls how much CPU i can use
+Correct idea: Nice controls priority compared to other processes
+
+how it acutally works----------------
+
+- default process --> nice = 0
+- You (normal user) can: 
+	- increase nice --> +5, +10, +19 (lower priority allowed)
+- You CANNOT: 
+	- Decrease nice --> -5, -10 (higher priority NEEDS ROOT)
+
+Key Insight (very impt) -----------------
+Even with nice = 0, your process can still use 100% CPU
+
+python heavy.py
+if no competition --> it will use full CPU
+No root needed
+
+case: multiple processes competing
+nice -n 10 python task1.py
+python task2.py
+
+Result: task2.py (nice 0) gets more CPU, task1.py (nice 10) gets less CPU
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+========== Killing Processes ============
+
+Zombie Process- At times, a process will consume way too many system resources, exhibit
+unusual behavior, or, at worst, freeze. Such a process is called zombie processes.
+
+Problem is wasted resources which can be better allocated to other useful processes.
+
+you can stop that with kill command
+
+There are many ways to kill a program, as the kill command
+has 64 kill signals, and each does something slightly different. Here, we
+focus on a few you will likely find most useful.
+
+-- syntax of kill command: kill -signalPID
+
+where the signal switch is optional. If you don’t
+provide a signal flag, it defaults to SIGTERM.
+
+Signalname, Number for option, Description
+
+SIGHUP, 1, This is known as the Hangup (HUP) signal.
+It stops the designated process and restarts
+it with the same PID.
+
+SIGINT, 2, This is the Interrupt (INT) signal. It is a
+weak kill signal that isn’t guaranteed to work but does in most cases.
+
+SIGQUIT, 3, This is known as the core dump. It
+terminates the process and saves the process information in memory. Then it
+saves this information in the current working directory to a file named core.(The reasons for doing this are beyond the scope of this book.)
+
+SIGTERM, 15, This is the Termination (TERM) signal. It is
+the kill command’s default kill signal.
+
+SIGKILL, 9, This is the absolute kill signal. It forces the
+process to stop by sending the process’s
+resources to a special device, /dev/null.
+
+
+Using the top command, you can identify which processes are using too
+many resources; often, those processes will be legitimate, but there may
+also be malicious processes taking resources that you’ll want to kill.
+
+If you merely want to restart a process with the HUP signal, enter the -1
+option with kill, like so:
+
+kali> sudo kill -1 6996
+
+here 6996 is example of PID
+In the case of a zombie or a malicious process, you likely want to send the
+kill -9 signal, the absolute kill signal, to the process. This makes sure the
+process is terminated.
+
+kali> sudo kill -9 6996
+
+
+If you don’t know a process’s PID, you can use the killall command to kill
+the process. This command takes the name of the process, instead of the
+PID, as an argument.
+
+command: killall
+
+For example, you could terminate a hypothetical zombieprocess like this:
+kali> sudo killall -9 zombieprocess
+
+
+===--- How to terminate process in top command ------===----
+when u type top command and u see list of all processes.
+
+Press K key and then enter the PID of the offending process.
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+========== Running Processes in the Background ============
+
+In Linux, whether you’re working from the command line or the GUI,
+you’re operating in a shell. 
+
+All commands you run are executed from within that shell, even if they run from the graphical interface. 
+When you execute a command, the shell waits until the command is completed before offering
+another command prompt.
+
+
+Sometimes you want to run the process in the background, rather than
+having to wait for it to complete in that terminal.
+
+for eg we want to work on a script in a text editor. We’d enter the following to call our text
+editor (nano): sudo nano newscript
+
+The bash shell will open nano to create newscript. While we work in
+nano, the terminal will be busy running it and won’t display a new
+prompt that would allow us to enter more commands.
+
+We could open another terminal to run more commands but better option to save resources and managing different terminal screen 
+will be -- start text editor running in the background. --          
+
+Running a process in the background simply means that it will continue to run without needing the terminal. In
+this way, the terminal is freed up for other duties.
+
+----------- How to open text editor in the background? ----------------
+just add & at end of command 
+
+sudo nano newscript &
+
+$ sudo nano newscript2 &
+[1] 469
+
+
+ nano newscript3 &
+[2] 475
+
+[1]+  Stopped                 sudo nano newscript2
+
+here when u do nano newscript2 & u given PID that show command running in background and when u try to enter new command: nano newscript3 &  
+the previous process of PID 469 get closed.
+
+ps aux | grep 493
+linuxof+     493  0.0  0.0   4156  2944 pts/0    T    12:25   0:00 nano newscript4
+linuxof+     500  0.0  0.0   4028  2176 pts/0    S+   12:26   0:00 grep --color=auto 493
+
+u can run other command eg 
+~$ ls
+15febfile.txt              citrus.txt              gracias.txt        newday                projectbash
+30ot.txt                   cloudcomputing          hello.log          newempty              randominfo.txt
+Downloads                  codecloud               hello.txt
+
+------------------------------------------------------------------------------------------
+Now, when the text editor opens, the terminal returns a new command
+prompt so we can enter other commands on our system while also editing
+our newscript. This is effective for any process that may run for a
+significant length of time when you want to use the terminal.
+
+--------- we also killed PID 493 where newscrip4 nano running in background 
+$ ps
+    PID TTY          TIME CMD
+    323 pts/0    00:00:00 bash
+    475 pts/0    00:00:00 nano
+    493 pts/0    00:00:00 nano
+    521 pts/0    00:00:00 ps
+
+$ sudo kill -9 493
+[3]+  Killed                  nano newscript4
+linuxofpratham@HP-LapyMachine:~$ ps
+    PID TTY          TIME CMD
+    323 pts/0    00:00:00 bash
+    475 pts/0    00:00:00 nano
+    530 pts/0    00:00:00 ps
+--------------------------------------------
+You can also move a process to the background using the bg command
+followed by the PID of the process. If you don’t know the PID, you can use
+the ps command to find it.
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+========== Moving a Process to the Foreground ============
+
+If you want to move a process running in the background to the foreground,
+you can use the fg (foreground) command. The fg command requires the
+name of the process you want to return to the foreground, as shown here:
+
+kali> sudo fg newscript
