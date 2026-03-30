@@ -1,0 +1,28 @@
+2-Changing the Default Shell to Bash ===============================
+
+What we often refer to as the terminal is technically a “shell.” 
+
+It provides us with access through the command line to the operating system, in this case,
+Linux. Almost from its birth, Linux has used the Bourne-Again SHell
+(BASH) as its default shell.
+
+Z shell (zsh), which offers some new and different features from the bash
+shell. It was recently adopted by both Apple and the developers of Kali. 
+
+Bash is used on nearly every other Linux distribution
+you might work on, except Kali. For that reason, I think it is best, at this
+point in time, to change the default shell in our Kali system to the more
+widely used bash.
+
+sudo kali-tweaks
+
+After pressing ENTER, a simple graphical interface will pop up, bringing you fond memories of Windows 98 (a simple
+design with primary colors).
+
+Press the down arrow until Shell & Prompt is highlighted, then press
+ENTER to select it. The next screen should offer you three choices: Configure
+Prompt, Set the Default Login Shell, and Reset the Shell Config files.
+Highlight the second option and press ENTER.
+Now you should see two options for the default login shell, bash or Z shell.
+Highlight bash, press the spacebar to select it, then click Apply. Close the
+shell and log out. When you log back in, you will be in the bash shell.

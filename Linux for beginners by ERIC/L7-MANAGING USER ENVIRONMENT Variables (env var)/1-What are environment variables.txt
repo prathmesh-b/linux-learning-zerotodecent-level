@@ -1,0 +1,116 @@
+What are environment Variables?
+Environment variables are key-value pairs stored in the system that affect how processes behave. Th ane "key" is the name of the variable(usually written in ALL CAPS)and "value" is data stored inside it.
+
+Think of them like: "Global settings" that programs can read.
+
+Environment variables are used in web apps, databases, devops, containers, apis. without them modern software development is almost impossible.
+
+eg 	USER=pratham
+	HOME=/home/pratham
+	PATH=/usr/bin:/bin:/usr/local/bin
+
+USER--> your username of linux
+HOME--> ur home directory, path to current user home dir
+PATH--> where system looks for commands
+
+
+
+
+======= Why are environment variables imporatant? ========
+They help:
+- Programs find files and executables
+- Store configuration (like database URL,API Keys)
+- Customize user environment
+
+eg when u type ls command, Linux searches for ls inside directories listed in PATH	
+
+
+
+
+
+
+======= How to view and using variables? ========
+
+To see what's currently in your "memory," you can use the 
+printenv or env to see your all variables of linux system
+or 
+echo command to view specific variable eg echo $USER
+
+~$ printenv
+SHELL=/bin/bash
+WSL2_GUI_APPS_ENABLED=1
+WSL_DISTRO_NAME=Ubuntu-22.04
+NAME=LapyMachine
+PWD=/home/pratham
+LOGNAME=pratham
+MOTD_SHOWN=update-motd
+HOME=/home/linuxofpratham
+LANG=C.UTF-8
+WSL_INTEROP=/run/WSL/xxx_interop
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37:
+WAYLAND_DISPLAY=wayland-0
+LESSCLOSE=/usr/bin/lesspipe %s %s
+TERM=xterm-256color
+LESSOPEN=| /usr/bin/lesspipe %s
+USER=lipratham
+DISPLAY=:0
+SHLVL=1
+XDG_RUNTIME_DIR=/run/user/1000/
+WSLENV=
+XDG_DATA_DIRS=/usr/local/share:/usr/share:/var/lib/snapd/desktop
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/WindowsApps/CanonicalGroupLimited.Ubuntu22.04LTS_2204.5.10021.0_x64__79rhkp1fndgsc:/mnt/c/python_fix:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files/Cloudflare/Cloudflare WARP:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Java/jdk-18.0.1.1/bin:/mnt/c/msys64/mingw64/bin:/mnt/c/Program Files/Amazon/AWSCLIV2/:/mnt/c/Users/B/AppData/Local/Programs/Python/Python310/Scripts/:/mnt/c/Users/B/AppData/Local/Programs/Python/Python310/:/mnt/c/Users/ B/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/PRB /AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files/JetBrains/IntelliJ IDEA Community Edition 2022.1.3/bin:/snap/bin
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+HOSTTYPE=x86_64
+PULSE_SERVER=unix:/mnt/wslg/PulseServer
+_=/usr/bin/printenv
+
+
+this was all of mine wsl linux
+
+
+========= Types of Variables ==========
+1. Local Variables - Only available in current shell and temporary , Not passed to child processes 
+eg name ="Honey"
+   echo $name
+
+2. Environment Variables = Available system-wide (or session-wide), Passed to child processes
+eg export name="Honey"
+
+
+======= Managing Variables (The "How-to")=========
+Managing variables depends on how long you want them to last.
+
+Temporary Variables(Shell session only)
+if you define a variable directly in the terminal, it disappears the moment you close that terminal window.
+
+MY_PROJ="Secret Weapon"
+echo $MY_PROJ
+
+Exporting Variables -
+By default, a variable you create isn't shared with "child" processses (like a script you run). To share it, you use export:
+
+export API_KEY="3857984"
+
+Permanent Variables(the Config Files)
+To make a variable stick around even after a reboot, you add it to your shell's configuration file (usually .bashrc  or .zshrc in your home folder).
+1. Open the file: nano ~/.bashrc
+2. Add your line at the bottom:
+	export TOOL_PATH="/opt/tools"
+3. Save and referesh: source ~/.bashrc
+
+
+======== Simple example: The "greeting" script==========
+Let's say you are building a script that needs to know your favorite color to customize the output.
+
+1. Set the variable
+	export FAV_COLOR="Orange"
+
+2. Create a bash script (greet.sh):
+	echo "Hello $USER, I see your favorite color is $FAV_COLOR."
+3. Run it:
+The script will pull $USER from the system and $FAV_COLOR from what you just defined. If you change FAV_COLOR="Red" and run it again, the script adapts without you having to change the code.
+
+
+=================== $PATH Variable ==============
+The most imporatant environment variable is $PATH. When you type ls or python, the system doesn't know where those programs live. 
+It looks through the folders listed in $PATH one by one until it finds them. If you install a new tool and the terminal says "command not found" it usually means you need to add that tool's folder to your $PATH.

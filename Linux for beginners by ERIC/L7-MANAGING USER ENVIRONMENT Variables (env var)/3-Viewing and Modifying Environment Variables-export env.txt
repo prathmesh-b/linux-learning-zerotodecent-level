@@ -1,0 +1,173 @@
+3-Viewing and Modifying Environment Variables===========
+
+You can view all your default environment variables by entering 
+env 
+into your terminal from any directory
+
+kali> env
+
+XDG_VTNR=7
+SSHAGENT_PID=922
+XDG_SESSION_ID=2
+XDG_GREETER_DATA_DIR=/var/lib/lightdm/data/root
+GLADE_PIXMAP_PATH=:echo
+TERM=xterm-256color
+SHELL=/bin/bash
+--snip--
+USER=kali
+--snip--
+PATH=/usr/local/sbin :usr/local/bin:/usr/sbin:/sb
+--snip--
+HOME=/kali
+
+
+As shown here, variables are simply strings in key-value pairs. Generally,
+each pair follows the format KEY=value, 
+though variables with multiple values will look like this: KEY=value1:value2. 
+
+As with most things in Linux, if the value contains spaces, they need to be contained in quotation marks.
+
+--- Environment variables are always uppercase, as in HOME, PATH, SHELL, and so on.-------------
+
+
+
+================== Viewing All Environment Variables ===============================
+====================================================================================
+
+To view all environment variables, including shell variables, local variables,
+and shell functions, such as any user-defined variables and command
+aliases, use the set command.
+
+This command lists all environment variables
+unique to your system, which in most cases will give you an output so long
+you won’t be able to view it all on a single screen. You can request to view
+each variable, line by line, in a more accessible fashion using set and piping
+it to the more command
+
+set | more
+
+BASH=/bin/bash
+BASHOPTS=checkwinsize:cmdlist:complete_fullquote
+BASH_ALIASES=()
+BASH_ARGC=([0] = "0")
+BASH_ARGV=()
+
+use up and down arrow key to view all
+
+whenever you use the more command
+for output, you can enter q to quit (or exit) and return to the command
+prompt.
+
+
+
+================== Filtering for Particular Variables ===============================
+=====================================================================================
+
+Although using set with more gives more manageable results than looking
+through the huge chunk of variable names you get with set alone, it can still
+be rather tedious if you’re looking for a particular variable. Instead, you can
+use the filtering command grep to find your variable of interest.
+
+use set | grep variablename which u looking 
+
+for eg: we want to find variable HISTSIZE This variable contains the
+maximum number of commands your command history file will store. 
+
+The command history file contains the commands you’ve previously typed into
+your command prompt in this session, which you can retrieve with the up
+and down arrow keys.
+
+Note that HISTSIZE doesn’t store the commands
+themselves, just the number of them that can be stored.
+
+$ set | grep HISTSIZE
+HISTSIZE=1000
+
+By default, it is probably set to 1000 on your system. This indicates
+that the terminal will store your last 1,000 commands by default.
+
+
+
+================== Changing Variable Values for a Session (temporary) ===============================
+=========================================================================================
+
+Now let’s see how to change a variable’s value. 
+
+we want to change value of As noted, the HISTSIZE
+variable contains the number of commands to store in the history file.
+Sometimes, you won’t want your system to save past commands.
+
+because in for hackers they don't want to leave evidence of acitivity that they were inside target vicitm pc. In that case you can set the HISTSIZE variable to 0 
+so the system won’t store any of your past commands. Because this variable has a single
+value, you can simply assign it a new value
+
+simple type command in terminal
+~$ HISTSIZE=0
+
+so now if you try to do up or down you will not able to see previous history commands you used. system don't store
+
+This change is saved for temporary for this session only.
+
+
+================== Making Variable Value Changes Permanent ===============================
+=========================================================================================
+
+When you change an environment variable, that change occurs only in that
+particular environment (in this case, the bash shell session). 
+
+This means that when you close the terminal, any changes you made are lost, and values
+return to their defaults. If you want to make the changes permanent, you
+need to use the export command.
+
+This command exports the new value from your current environment to the rest of the system, making it available in
+every environment until you change and export a new value.
+
+
+======---- some precautions to follow before making change permanent to the system -----======
+
+Variables are strings, so if you run on the cautious side, it isn’t a bad idea to
+save their contents to a text file before you modify them. 
+
+for eg: we're about to change the PS1 variable, which controls the information you
+display in the prompt.
+
+BEFORE THAT we want to save existing setting 
+you can first run the following command to save the
+existing values to a text file in the current user’s home directory:
+
+command: echo $HISTSIZE> ~/valueofHISTSIZE.txt
+
+---------------------------------------------------
+practice
+ echo $HISTSIZE> ~/valueofHISTSIZE.txt
+:~$ find valueofH*
+valueofHISTSIZE.txt
+:~$ cat valueofHISTSIZE.txt
+1000
+----------------------------------------------------
+
+This way you can undo the changes if something bad happens.
+
+
+---2nd To be even more cautious ----- and create a text file with all the current settings, you can save the output of the set command to a text file
+
+we storing existing settings of system via set command to txt file
+
+kali> set> ~/original-defaultvalueofALLofsetvalue.txt
+
+
+---------------------------------------------------------------
+Now lets change the value to permanent
+
+simple type command in terminal
+~$ HISTSIZE=0
+
+and then
+~$ export HISTSIZE
+
+Now the HISTSIZE variable will still be set to 0 in this environment and will
+no longer store your commands.
+
+
+If you want to reset the value follow the change value just recent above and set HISTSIZE = 1000 and then export HISTSIZE
+just we done last time change it to 1000

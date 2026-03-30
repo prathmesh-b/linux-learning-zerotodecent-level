@@ -1,0 +1,13 @@
+4-Changing Your Shell Prompt=======================================
+
+Your shell prompt, another environment variable, provides you with useful
+information such as the user you’re operating as and the directory in which
+you’re currently working.
+
+The default shell prompt in Kali takes the
+following format: username@hostname:current_directory$
+
+If you’re working as the root user, this translates to the following default
+prompt: root@kali:current_directory#
+
+
