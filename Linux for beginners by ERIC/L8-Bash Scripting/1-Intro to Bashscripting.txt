@@ -1,0 +1,27 @@
+any self-respecting Linux administrator must be able to script. Hackers
+often need to automate commands, sometimes from multiple tools, and this
+is most efficiently done through short programs they write themselves.
+
+Python (many hacking tools are Python scripts)
+
+============ A Crash Course in Bash ====================
+
+Shell - A shell is an interface between the user and the operating system that
+enables you to manipulate files and run commands, utilities, programs, and
+much more. The advantage of a shell is that you perform these tasks
+
+immediately from the computer and not through an abstraction, like a GUI,
+which allows you to customize your task to your needs.
+
+main advantage is customise or write programm what we needed for not like installing particular GUI based locking 
+to their options only.
+
+--- Bash Shell ---
+The bash shell can run any system commands, utilities, or applications your
+usual command line can run, but it also includes some of its own built-in
+commands. Table 8-1 later in the chapter provides a reference to some
+useful commands that reside within the bash shell.
+
+You’ll need a text editor to create shell scripts. A text editor is a program
+that can edit plain, unformatted text, like Notepad in Windows or TextEdit
+in macOS. You can use whichever Linux text editor eg nano, vi, vim.

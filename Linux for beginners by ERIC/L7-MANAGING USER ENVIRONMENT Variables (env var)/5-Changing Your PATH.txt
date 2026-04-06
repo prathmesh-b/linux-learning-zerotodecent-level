@@ -1,0 +1,157 @@
+5-Changing Your PATH ===================================
+
+===== PATH variable =====
+Think of the PATH variable as your computer's "speed dial" for software.
+
+In technical terms, it is an 
+environment variable—a dynamic value that the operating system uses to locate the executable files (programs) you want to run from the command line or terminal.
+
+One of the most important variables in your environment is your PATH
+variable, which controls where on your system your shell will look for the
+commands you enter, such as grep, ls, and echo.
+
+
+======== How to check your PATH variables =======
+command: echo $PATH
+
+[Cloud_Spirit@HP-LapyMachine]: ~ $ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/WindowsApps/CanonicalGroupLimited.Ubuntu22.04LTS_2204.5.10021.0_x64__79rhkp1fndgsc:/mnt/c/python_fix:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files/Cloudflare/Cloudflare WARP:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Java/jdk-18.0.1.1/bin:/mnt/c/msys64/mingw64/bin:/mnt/c/Program Files/Amazon/AWSCLIV2/
+
+Most commands are located in the sbin or bin subdirectory, like /usr/local/sbin or /usr/local/bin.
+
+
+
+Your terminal will search the directories listed here for all commands.
+When you enter ls, for example, the system will know to look in each of
+these directories for it, then execute it.
+
+Each directory is separated by a colon (:). Don’t forget to add the $ content
+symbol to PATH. When we put a $ before a variable, we are asking the system
+for the content of the variable.
+
+
+
+
+
+
+--- How it Works ---
+When you type a command like python, git, or npm into your terminal, the computer doesn't inherently know where those programs live on your hard drive. Instead of searching your entire computer (which would take forever), it looks at the PATH.
+
+The Search: Your OS looks at the list of directories stored in the PATH variable.
+The Order: It checks them one by one, from left to right.
+The Result: * If it finds the program in one of those folders, it runs it.
+
+If it reaches the end of the list without finding it, you get the infamous error: "command not found" or "'xyz' is not recognized as an internal or external command."
+
+--- Why should you care? ----
+You usually only encounter the PATH when you install a new development tool. If you've ever installed something and it didn't work until you "added it to your PATH," this is why. By adding the folder location (e.g., C:\Program Files\Java\bin) to the variable, you’re telling your computer: "Hey, whenever I ask for Java, look in this specific folder."
+
+What does it look like?
+The format varies depending on your operating system:
+
+Windows: A semicolon-separated list.
+C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\
+macOS / Linux: A colon-separated list.
+/usr/local/bin:/usr/bin:/bin:/usr/sbin
+
+A Quick Warning
+Be careful when editing your PATH! If you accidentally delete the default entries (like /usr/bin or C:\Windows\system32), basic commands like ls or dir might stop working because the computer "forgot" where they are.
+
+
+-----------------------------------------------------------------------------------------------------------
+
+======================== 2. Adding to the PATH Variable =======================
+
+Suppose u download and install (new tool say, newhackingtool)
+into the /root/newhackingtool directory, you could use commands from that
+tool only when you were in that directory, because that directory is not in
+the PATH variable.
+
+So you can't use that new tool from anywhere, u need to be in that dir /root/newhackingtool, where tool is present its file. 
+
+To be able to use this new tool from any directory, you need to add the
+directory holding this tool to your PATH variable.
+
+------ adding new tool to PATH variable --------------
+
+kali> PATH=$PATH:/root/newhackingtool
+
+This assigns the original PATH variable plus the /root/newhackingtool
+directory to the new PATH variable, so the variable contains everything it did
+before, plus the new tool directory.
+
+If you examine the contents of the PATH variable again, you should see that
+the directory has been appended to the end of PATH
+
+check by entering command: echo $PATH
+
+
+Now you can execute newhackingtool applications from anywhere on your
+system, rather than having to navigate to its directory. 
+The bash shell will
+look in all directories listed for your new tool.
+
+
+---------- NOTE ============
+NOTE
+Adding to PATH can be a useful technique for directories you
+use often but be careful not to add too many directories to
+your PATH variable. Because the system will have to search
+through each and every directory in PATH to find commands,
+adding a lot of directories could slow down your terminal.
+
+
+----------------------------------------------------------------------------------------------------------
+============================ 3. How Not to Add to the PATH Variable ===================================
+
+One mistake commonly made by new Linux users is assigning a new
+directory, such as /root/newhackingtool, directly to the PATH variable in this
+way:
+
+kali> PATH=/root/newhackingtool
+kali> echo $PATH
+/root/newhackingtool
+
+
+If you use this command, your PATH variable will contain only the
+/root/newhackingtool directory and no longer contain the system binaries
+directories such as /bin, /sbin, and others that hold critical commands.
+
+ ---------- because kali> PATH=/root/newhackingtool it is overwriting the existing PATH file, we want to append or add new tool.
+
+When you then go to use any of the system commands, you’ll receive the error
+command not found, as shown next, unless you first navigate to the system
+binaries directory when you execute the command:
+kali> ls
+bash: ls: command not found
+
+Remember that you want to append to the PATH variable, not replace it. If
+you’re in doubt, save the contents of the variable somewhere before you
+modify it.
+
+
+Avoid Overwriting: Always use PATH=$PATH:... to append to the existing PATH. Using just PATH=/root/newhackingtool will erase system paths, causing commands like ls or cd to fail.
+
+
+To append a new directory to your PATH in Kali Linux, use the command export PATH=$PATH:/root/newhackingtool in your terminal. This immediately allows executing scripts from that folder. To make it permanent, add this line to your ~/.zshrc or ~/.bashrc file, then run source ~/.zshrc. 
+
+=====================------------------ Steps to Permanently Add to PATH in linux ----------------------=====================
+1) Open configuration file: Open ~/.bashrc (older) with a text editor.
+command: nano ~/.zshrc
+
+2) Add the command: Scroll to the bottom and add the line:
+command: export PATH=$PATH:/root/newhackingtool
+
+3) Save and Exit: Press Ctrl+O, Enter to save, and Ctrl+X to exit.
+
+4) Reload settings: Apply the changes to the current terminal session.
+command: source ~/.zshrc
+
+5)Verify: Ensure the directory is appended, not replaced.
+command: echo $PATH
+ 
+Important Considerations
+Avoid Overwriting: Always use PATH=$PATH:... to append to the existing PATH. Using just PATH=/root/newhackingtool will erase system paths, causing commands like ls or cd to fail.
+
+Permissions: Ensure the tool inside the directory is executable (chmod +x /root/newhackingtool/toolname).
+Root Folder: Note that /root/ is only accessible by the root user; if you are working as a standard user, use a path in your home directory (e.g., /home/kali/...). 

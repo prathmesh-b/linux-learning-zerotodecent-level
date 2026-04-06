@@ -10,4 +10,58 @@ following format: username@hostname:current_directory$
 If you’re working as the root user, this translates to the following default
 prompt: root@kali:current_directory#
 
+You can change the name in the default prompt by setting the value for the
+PS1 variable, 
+which contains a set of placeholders for the information to
+display in the prompt.
+
+
+\u = The name of the current user
+\h = The hostname
+\w = The base name of the current working directory
+
+This is very useful if you happen to have shells on multiple systems or are
+logged into multiple accounts. By using the \u and \h values, you can tell at
+a glance who you are and what your current system is.
+
+
+-------- let's change the prompt in your terminal ---------
+
+eg 
+kali> PS1="World's Best Hacker: #"
+World's Best Hacker: #
+
+
+PS1="[Cloud_Spirit@\h]: \w \$ "
+here \h will shown host machine name our machine 
+
+\w it show working directory name which currently we are in
+
+
+--- adding colour ---
+(Multi-Color)
+This colors the name, the host, and the directory differently so they are easy to read at a glance.
+
+Name: Cyan
+
+Host: Yellow
+
+Directory: Green
+
+Bash
+PS1="[\[\e[1;36m\]Cloud_Spirit\[\e[m\]@\[\e[1;33m\]\h\[\e[m\]]: \[\e[1;32m\]\w\[\e[m\] \$ "
+
+
+
+[Cloud_Spirit@HP-LapyMachine]: ~/boxing $
+
+
+----------- to make it permanent ---
+command: export PS1
+
+if not done export then when u close current terminal and open next time u can't see change.
+
+
+
+
 

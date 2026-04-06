@@ -1,0 +1,73 @@
+6-Creating a User-Defined Variable =================================
+
+You can create your own custom, user-defined variables in Linux by simply
+assigning a value to a new variable that you name. This may be useful when
+you are doing some more advanced shell scripting or find that you’re often
+using a long command that you get tired of typing over and over.
+
+-------- How to create user defined variable? -----------------
+The syntax is straightforward: enter the name of your variable, followed by
+the assignment symbol (=) without a space, and the value to put in the
+variable.
+
+command: MYNEWVARIABLE="linux is important skill in tech"
+
+This assigns a string to the variable MYNEWVARIABLE. To see the value in that
+variable, use the echo command and the $ content symbol with the variable
+name
+
+command: echo $MYNEWVARIABLE 
+
+[Cloud_Spirit@HP-LapyMachine]: ~ $ MYNEWVARIABLE="linux is important skill in tech"
+[Cloud_Spirit@HP-LapyMachine]: ~ $ echo $MYNEWVARIABLE
+linux is important skill in tech
+
+Just like our system environment variables, user-defined variables must be
+exported to persist to new sessions.
+
+
+To make a newly created user-defined variable permanent in Linux, you must add the export command to a shell configuration file that is loaded upon login or when opening a new terminal. Simply running export VAR=value in the terminal only lasts for that session. 
+
+1. For Current User Only (Most Common)
+Add the variable to your shell's startup file, such as ~/.bashrc (for Bash) or ~/.zshrc (for Zsh). 
+
+Open the file with a text editor (e.g., nano):
+nano ~/.bashrc
+
+Add the export command to the bottom of the file:
+export MY_VARIABLE="my_value"
+
+Save and exit (Ctrl+O, Enter, Ctrl+X).
+
+Apply the changes immediately without logging out:
+source ~/.bashrc
+ 
+Note: Use ~/.profile or ~/.bash_profile if you want the variable to be set only once during login, rather than every time a new terminal opens. 
+
+
+s2. For All Users (System-Wide)
+If you have root privileges, you can set the variable for all users.
+Option A: Using /etc/environment (Best for simple KEY=VALUE pairs, no export needed)
+sudo nano /etc/environment
+Add: MY_GLOBAL_VAR="value"
+Log out and log back in.
+Option B: Using /etc/profile.d/ (Best for scripts that need export)
+Create a new .sh file: sudo nano /etc/profile.d/my-vars.sh
+Add: export MY_GLOBAL_VAR="value"
+Save and log out.
+
+
+
+
+============== How to delete the user variable we created? =================
+
+If you want to delete this new variable, or any variable, use the unset
+command. Always think before deleting a system variable, though, because
+your system will probably operate much differently afterward.
+[Cloud_Spirit@HP-LapyMachine]: ~ $ unset MYNEWVARIABLE
+[Cloud_Spirit@HP-LapyMachine]: ~ $ echo $MYNEWVARIABLE
+[Cloud_Spirit@HP-LapyMachine]: 
+
+As you can see, when you enter unset MYNEWVARIABLE, you delete the variable
+along with its value. If you use echo on that same variable, Linux will now
+return a blank line.

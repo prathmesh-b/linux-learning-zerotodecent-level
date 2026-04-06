@@ -1,0 +1,151 @@
+2-Your First Script: “Hello, Hackers-Arise!”
+-----------------------------------------------------
+
+Your First Script: “Hello, Hackers-Arise!”
+For your first script, we will start with a simple program that returns a
+message to the screen that says Hello, Hackers-Arise! Open your text editor,
+and let’s go.
+
+
+--------- How to Create and Execute Bash scripts ------------
+Script naming conventions
+By naming convention, bash scripts end with .sh. However, bash scripts can run perfectly fine without the sh extension.
+1. Create file name hackerarise.sh
+vi hackerarise.sh
+
+2. Adding the Shebang
+inside script 
+Bash scripts start with a shebang. Shebang is a combination of bash # and bang ! followed by the bash shell path. This is the first line of the script. Shebang tells the shell to execute it via bash shell. Shebang is simply an absolute path to the bash interpreter.
+
+You can also use you could also use the shebang to use other interpreters, such as Perl or Python.
+
+Below is an example of the shebang statement.
+
+#!/bin/bash
+
+3. echo statement
+Next, enter the echo command, which tells the system to simply repeat (or
+echo) back to your monitor whatever follows the command.
+In this case, we want the system to echo back to us Hello, Hackers-Arise!
+
+
+Here, you also see a line that’s preceded by a hash mark (#). This is a
+comment, which is a note you leave to yourself or anyone else reading the
+code, to explain what you’re doing in the script
+# - means comment
+
+---------------- here goes script inside hackerarise.sh----------
+#!/bin/bash
+
+# This is my first bash script. Wish me luck.
+
+echo "Hello, Hackers-Arise!"
+
+-----------------------------------------------------------------
+
+
+
+
+====================== 2. Setting Execute Permissions for our script ===============================
+By default, a newly created bash script is not executable even by you, the
+owner. 
+Let’s look at the permissions on our new file in the command line by ls -l where our script is present.
+
+-rw-r--r-- 1 linuxofp pra  71 Mar 31 11:51 hackerarise.sh
+
+see we have read r and write w but not execute permission(644) as owner.
+
+We want others to have permission and ourselve to execute this script. we done by using chmod command. 
+
+: ~ $ chmod o+x hackerarise.sh   if u see blank screen it worked or add sudo at start of command.
+
+lets verify using ls -l 
+-rw-r--r-x 1 linuxofpratham pratham    71 Mar 31 11:51 hackerarise.sh
+
+at end we see x which says anyone can execute.
+
+
+
+
+
+====================== 3. Running the script ================================
+
+You can run the script using any of the mentioned methods:
+
+sh hackerarise.sh
+bash hackerarise.sh
+./hackerarise.sh
+
+bash scriptname   = choose this easy to remember
+
+$ bash hackerarise.sh
+Hello, Hackers-Arise!
+
+Success! You just completed your first shell script!
+
+
+
+
+------------------------------------------------------------------------------------
+====================== Adding Functionality with Variables and User Input ==========
+
+So, now we have a simple script. All it does is echo back a message to
+standard output. If we want to create more advanced scripts, we will likely
+need to add some variables.
+
+variable - an area of storage that can hold something in memory. That
+“something” might be some letters or words (strings) or numbers. It’s
+known as a variable because the values held within it are changeable; this is
+an extremely useful feature for adding functionality to a script.
+
+
+In new script ---- we will add functionality to prompt the user for their
+name, place whatever they input into a variable, then prompt the user for
+the chapter they’re at in this book, and place that keyboard input into a
+variable. After that, we’ll echo a welcome message that includes their name
+and the chapter back to the user.
+
+
+
+============ WelcomeScript.sh =====================
+#! /bin/bash
+
+
+# ask user for input, place the input in a var
+# display the variable contents in a string.
+
+echo "What is your name?"
+read name
+
+echo "What chapter are you on in Linux Basics Book?"
+read chapter
+
+echo "Welcome $name to Chapter $chapter of Linux Basics Book"
+==================================================
+
+
+ vim WelcomeScript.sh
+[Cloud_Spirit@LapyMachine]: ~ $ chmod o+x WelcomeScript.sh
+[Cloud_Spirit@LapyMachine]: ~ $ bash WelcomeScript.sh
+What is your name?
+nikol
+What chapter are you on in Linux Basics Book?
+9
+Welcome nikol to Chapter 9 of Linux Basics Book
+
+
+We open with #! /bin/bash to tell the system we want to use the bash
+interpreter for this script ➊. We then add a comment that describes the
+script and its functionality ➋. After that, we prompt the user for their name
+and ask the interpreter to read the input and place it into a variable we call
+name ➌. Then we prompt the user to enter the chapter they are currently
+working through in this book, and we again read the keyboard input into a
+variable, this time called chapter ➍.
+In the final line, we construct a line of output that welcomes the reader by
+their name to the chapter they are on ➎. We use the echo command and
+provide the text we want to display on the screen in double quotes. Then, to
+fill in the name and chapter number the user entered, we add the variables
+where they should appear in the message.
+
+--- To use the values contained in the variables, you must precede the variable name with
+the $ symbol.
