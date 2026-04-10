@@ -1,0 +1,263 @@
+🧠 1. The Problem (Before Linux File System Exists)
+
+Imagine a computer without a file system:
+
+You have data (photos, logs, code)
+It’s all just raw bits on disk
+No names, no folders, no structure
+
+👉 Question arises naturally:
+
+How do we find data later?
+How do we organize it?
+How do multiple programs share safely?
+
+💡 Solution = File System
+
+🧩 2. What is a Linux File System?
+
+A Linux File System is a way to organize, store, and retrieve data on disk.
+
+Think of it like:
+
+📚 A library system (not just books, but catalog + shelves + rules)
+
+🌳 3. Core Idea: Everything is a File
+
+In Linux:
+
+“Everything is a file”
+
+That includes:
+
+Text files
+Directories
+Devices (keyboard, disk)
+Processes (in some cases)
+
+👉 This is VERY important.
+
+📁 4. Directory Structure (Tree Model)
+
+Linux uses a hierarchical structure (tree-like)
+
+/
+├── home
+│   └── user
+│       └── file.txt
+├── etc
+├── var
+└── bin
+/ = root (starting point)
+Everything branches from root
+🧱 5. Important Directories (You MUST know for notes)
+📌 /
+Root directory
+Starting point of everything
+📌 /home
+User files stored here
+Example: /home/pratham
+
+👉 AWS analogy:
+
+Like user workspace in an EC2 instance
+📌 /etc
+Configuration files
+
+👉 Example:
+
+network configs
+system settings
+
+👉 AWS analogy:
+
+Like config files in EC2 (nginx.conf, app configs)
+📌 /var
+Variable data (logs, cache)
+
+👉 Example:
+
+/var/log
+
+👉 AWS:
+
+Logs stored on EC2 or sent to CloudWatch
+📌 /bin
+Essential commands
+
+👉 Example:
+
+ls, cp, mv
+📌 /usr
+User-installed programs
+📌 /tmp
+Temporary files
+🧠 6. Types of Files in Linux
+
+Linux doesn’t treat all files the same.
+
+Type	Meaning
+-	Regular file
+d	Directory
+l	Symbolic link
+c	Character device
+b	Block device
+
+👉 Check using:
+
+ls -l
+🔗 7. Inode Concept (VERY IMPORTANT)
+
+Now comes the real core.
+
+❓ Problem:
+
+If files have names, how does system actually store them?
+
+👉 Linux separates:
+
+File name
+File data
+💡 Solution: Inode
+
+An inode stores metadata:
+
+File size
+Permissions
+Owner
+Location of data blocks
+
+👉 BUT:
+❌ It does NOT store filename
+
+🧠 How it works:
+Filename → Inode → Data blocks
+📦 Example:
+file.txt → inode 123 → actual data
+🔥 Why this matters:
+You can have multiple names for same file (hard links)
+System is efficient
+🔗 8. Hard Link vs Soft Link
+🧷 Hard Link
+Points to same inode
+Acts like original file
+ln file1 file2
+
+👉 Both share same data
+
+🔗 Soft Link (Symbolic Link)
+Like shortcut
+Points to filename
+ln -s file1 link1
+
+👉 If original deleted → link breaks
+
+💾 9. File Permissions (Security Layer)
+
+Each file has:
+
+rwx r-x r--
+
+Breakdown:
+
+Symbol	Meaning
+r	Read
+w	Write
+x	Execute
+👥 Three Levels:
+Owner
+Group
+Others
+Example:
+-rwxr-xr--
+AWS Mapping:
+Similar to IAM permissions
+Controls access to resources
+💽 10. Disk Structure (Under the Hood)
+
+A disk is divided into:
+
+Blocks
+Inodes
+Superblock
+📌 Superblock
+Info about filesystem
+Size, status
+📌 Inode Table
+All inode entries
+📌 Data Blocks
+Actual file data
+🔄 11. Mounting Concept (VERY IMPORTANT)
+❓ Problem:
+
+You attach a new disk → how to access it?
+
+💡 Solution: Mounting
+
+Mount = Attach filesystem to directory
+
+mount /dev/sdb1 /mnt
+
+👉 Now disk appears inside /mnt
+
+AWS Mapping:
+Attaching **Amazon EBS volume to **Amazon EC2
+Then mounting it
+🧪 12. File System Types
+
+Common Linux file systems:
+
+ext4 (most used)
+xfs
+btrfs
+🔍 13. Useful Commands (Practical Notes Section)
+Check files
+ls
+ls -l
+Check disk usage
+df -h
+du -sh
+Check inode
+ls -i
+Create file
+touch file.txt
+Create directory
+mkdir dir1
+🧠 14. Real-Life Flow (End-to-End)
+
+When you create a file:
+
+You type:
+
+touch file.txt
+System:
+Creates inode
+Allocates data blocks
+Stores filename → inode mapping
+📘 FINAL NOTES STRUCTURE (You can copy this)
+Linux File System Notes
+1. Definition
+Method to store and organize data
+2. Key Concepts
+Everything is a file
+Hierarchical structure
+3. Important Directories
+/ → root
+/home → user data
+/etc → configs
+/var → logs
+/bin → commands
+4. Inode
+Stores metadata
+Filename not included
+5. Links
+Hard link → same inode
+Soft link → shortcut
+6. Permissions
+rwx for owner/group/others
+7. Mounting
+Attach disk to directory
+8. AWS Mapping
+EC2 → machine
+EBS → disk
+Mount → attach storage

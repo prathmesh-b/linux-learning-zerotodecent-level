@@ -1,0 +1,28 @@
+BOOK CHAPTER - 10
+FILESYSTEM AND STORAGE
+DEVICE MANAGEMENT
+
+-- Intro ---If you are coming from a Windows environment, the way that Linux
+represents and manages storage devices will look rather different to you.
+You’ve already seen that the filesystem has no physical representation of
+the drive, like the C:, D:, or E: system in Windows, but rather has a file tree
+structure with / at the top, or root, of it. This chapter takes a look at how
+Linux represents storage devices such as hard drives, flash drives, and other
+storage devices.
+
+We first look how additional drives and other storage devices are mounted
+upon that filesystem, leading up to the / (root) directory. 
+
+=== Mounting in this context simply means attaching drives or disks to the filesystem to make
+them accessible to the operating system. 
+
+For you as a hacker, it’s necessary
+to understand the file and storage device management system, both on your
+own system and, often, the system of your target. Hackers commonly use
+external media to load data, hacking tools, or even their operating system.
+Once you’re on your target system, you need to understand what you’re
+working with, where to find confidential or other critical files, how to
+mount a drive to the target, and whether and where you can put those files
+on your system. We cover all of these topics, plus how to manage and
+monitor storage devices, in this chapter.
+

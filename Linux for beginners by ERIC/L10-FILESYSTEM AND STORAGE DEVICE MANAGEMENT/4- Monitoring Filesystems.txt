@@ -1,0 +1,138 @@
+4- Monitoring Filesystems
+
+In this section, we look at some commands for monitoring the state of the
+filesystem—a skill necessary for any hacker or system administrator. 
+
+We’ll
+get some information about mounted disks and then check for and fix
+errors. Storage devices are particularly error prone, so it’s worth learning
+this skill.
+
+=============== Getting Information on Mounted Disks ====================
+-------------------------------------------------------------------------
+
+command: df -h
+
+The command df (for disk free) will provide us with basic information on
+any hard disks or mounted devices, such as CD, DVD, and flash drives,
+including how much space is being used and how much is available.
+
+Without any options, df defaults to all mounted drives.
+
+: / $ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+none            1.8G     0  1.8G   0% /usr/lib/modules/6.6.87.2-microsoft-standard-WSL2
+none            1.8G  4.0K  1.8G   1% /mnt/wsl
+drivers         477G  267G  211G  56% /usr/lib/wsl/drivers
+/dev/sdd       1007G  2.4G  954G   1% /
+none            1.8G  100K  1.8G   1% /mnt/wslg
+none            1.8G     0  1.8G   0% /usr/lib/wsl/lib
+rootfs          1.8G  2.7M  1.8G   1% /init
+none            1.8G  528K  1.8G   1% /run
+none            1.8G     0  1.8G   0% /run/lock
+none            1.8G     0  1.8G   0% /run/shm
+none            1.8G   96K  1.8G   1% /mnt/wslg/versions.txt
+none            1.8G   96K  1.8G   1% /mnt/wslg/doc
+C:\             477G  267G  211G  56% /mnt/c
+tmpfs           358M  8.0K  358M   1% /run/user/1000
+
+---------- If you want to check a different drive, simply follow the df command with the
+drive representation you want to check (for example, dfsdb).
+
+kali> df
+Filesystem 1K-Blocks Used Availabl
+Rootfs 19620732 17096196 150478
+udev 10240 0 1024
+--snip--
+/dev/sdb1 29823024 29712544 11048
+Listing 10-4: Getting information on disks and mounted devices with df
+The first line of output here shows category headers, and then we get the
+information. The disk space is given in 1KB blocks. On the second line, we
+see that rootfs has 19,620,732 one-kilobyte blocks, of which it is using
+17,096,196 (or about 92 percent), leaving 1,504,788 available. The df
+command also tells us that this filesystem is mounted on the top of the
+filesystem /.
+In the last line, you can see my USB flash drive. Note that it is designated
+/dev/sdb1, is nearly 100 percent full, and is mounted at /media/USB3.0.
+As a recap, my virtual disk on this system is designated sda1, which breaks
+down as follows:
+sd SATA hard drive
+a First hard drive
+1 First partition on that drive
+My 64GB flash drive is designated as sdb1, and my external drive as sdc1.
+
+
+
+
+
+=============== Checking for Errors and repairs the damage ====================
+-------------------------------------------------------------------------------
+
+command: fsck
+
+The fsck command (short for filesystem check) checks the filesystem for
+errors and repairs the damage, if possible, or else puts the bad area into a
+bad blocks table to mark it as bad. To run the fsck command, you need to
+specify the device file to check. It’s important to note that you must
+unmount the drive before running a filesystem check. 
+
+If you fail to unmount
+the mounted device, you will receive the error message shown
+
+: / $ fsck
+fsck from util-linux 2.37.2
+
+
+kali> fsck
+fsck from util-linux 2.20.1
+e2fsck 1.42.5 (29-Jul-2024
+/dev/sda1 is mounted
+e2fsck: Cannot continue, aborting.
+
+
+Step 1 - So, the first step when performing a filesystem check is to unmount the
+device. In this case, I will unmount my flash drive to do a filesystem check:
+kali> sudo umount /dev/sdb1
+
+Step 2 - I can add the -p option to have fsck automatically repair any problems with
+the device, like so:
+kali> fsck -p /dev/sdb1
+
+With the device unmounted, I can now check for any bad sectors or other
+problems with the device, as follows:
+
+kali> fsck -p /dev/sdb1
+fsck from util-linux 2.30.2
+exfatfsck 1.2.7
+Checking file system on /dev/sdb1.
+File system version 1.0
+Sector size 512 bytes
+Cluster size 32 KB
+Volume size 7648 MB
+Used space 1265 MB
+Available space 6383 MB
+Totally 20 directories and 111 files.
+File system checking finished. No errors found.
+
+
+
+
+
+
+
+
+
+
+
+
+---------- Exercises -------------
+1. Use the mount and umount commands to mount and unmount your flash
+drive.
+2. Check the amount of disk space free on your primary hard drive.
+3. Check for errors on your flash drive with fsck.
+4. Use the dd command to copy the entire contents of one flash drive to
+another, including deleted files.
+5. Use the lsblk command to determine basic characteristics of your block
+devices.
+
+

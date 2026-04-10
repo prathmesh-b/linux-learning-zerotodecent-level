@@ -1,0 +1,436 @@
+============ /dev   Device directory ======================
+
+We begin with the directory known as /dev, which you’ve probably already
+noticed in the directory structure: dev is short for device, and every device
+in Linux is represented by its own file within the /dev directory.
+
+/dev --- 
+Linux has a special directory that contains files representing each attached
+device: the appropriately named /dev directory.
+
+[Cloud_Spirit@HP-LapyMachine]: / $ cd /dev
+
+[Cloud_Spirit@HP-LapyMachine]: /dev $ ls -l
+total 0
+crw-r--r-- 1 root root     10, 235 Apr  6 18:34 autofs
+drwxr-xr-x 2 root root         600 Apr  6 18:34 block
+drwxr-xr-x 2 root root         120 Apr  6 18:34 bsg
+crw------- 1 root root     10, 234 Apr  6 18:34 btrfs-control
+drwxr-xr-x 2 root root        2840 Apr  6 18:34 char
+crw--w---- 1 root tty       5,   1 Apr  6 18:34 console
+lrwxrwxrwx 1 root root          11 Apr  6 18:34 core -> /proc/kcore
+crw------- 1 root root     10, 123 Apr  6 18:34 cpu_dma_latency
+crw------- 1 root root     10, 203 Apr  6 18:34 cuse
+drwxr-xr-x 5 root root         100 Apr  6 18:34 disk
+crw-rw-rw- 1 root root     10, 125 Apr  6 18:34 dxg
+lrwxrwxrwx 1 root root          13 Apr  6 18:34 fd -> /proc/self/fd
+crw-rw-rw- 1 root root      1,   7 Apr  6 18:34 full
+crw-rw-rw- 1 root root     10, 229 Apr  6 18:34 fuse
+crw------- 1 root root     10, 228 Apr  6 18:34 hpet
+drwxr-xr-x 2 root root           0 Apr  6 18:34 hugepages
+crw------- 1 root root    229,   0 Apr  6 18:34 hvc0
+crw------- 1 root root    229,   1 Apr  6 18:34 hvc1
+crw--w---- 1 root tty     229,   2 Apr  6 18:34 hvc2
+crw------- 1 root root    229,   3 Apr  6 18:34 hvc3
+crw------- 1 root root    229,   4 Apr  6 18:34 hvc4
+crw------- 1 root root    229,   5 Apr  6 18:34 hvc5
+crw------- 1 root root    229,   6 Apr  6 18:34 hvc6
+crw------- 1 root root    229,   7 Apr  6 18:34 hvc7
+crw------- 1 root root     10, 183 Apr  6 18:34 hwrng
+lrwxrwxrwx 1 root root          12 Apr  6 18:34 initctl -> /run/initctl
+crw-r--r-- 1 root root      1,  11 Apr  6 18:34 kmsg
+lrwxrwxrwx 1 root root          28 Apr  6 18:34 log -> /run/systemd/journal/dev-log
+crw-rw---- 1 root disk     10, 237 Apr  6 18:34 loop-control
+brw-rw---- 1 root disk      7,   0 Apr  6 18:34 loop0
+brw-rw---- 1 root disk      7,   1 Apr  6 18:34 loop1
+brw-rw---- 1 root disk      7,   2 Apr  6 18:34 loop2
+brw-rw---- 1 root disk      7,   3 Apr  6 18:34 loop3
+brw-rw---- 1 root disk      7,   4 Apr  6 18:34 loop4
+brw-rw---- 1 root disk      7,   5 Apr  6 18:34 loop5
+brw-rw---- 1 root disk      7,   6 Apr  6 18:34 loop6
+brw-rw---- 1 root disk      7,   7 Apr  6 18:34 loop7
+drwxr-xr-x 2 root root          60 Apr  6 18:34 mapper
+crw------- 1 root root     10, 227 Apr  6 18:34 mcelog
+crw-r----- 1 root kmem      1,   1 Apr  6 18:34 mem
+crw------- 1 root root     10, 220 Apr  6 18:34 mptctl
+drwxrwxrwt 2 root root          40 Apr  6 18:34 mqueue
+drwxr-xr-x 2 root root          60 Apr  6 18:34 net
+crw-rw-rw- 1 root root      1,   3 Apr  6 18:34 null
+crw------- 1 root root     10, 144 Apr  6 18:34 nvram
+crw------- 1 root root    108,   0 Apr  6 18:34 ppp
+crw-rw-rw- 1 root tty       5,   2 Apr  6 18:41 ptmx
+crw------- 1 root root    247,   0 Apr  6 18:34 ptp0
+lrwxrwxrwx 1 root root           4 Apr  6 18:34 ptp_hyperv -> ptp0
+drwxr-xr-x 2 root root           0 Apr  6 18:34 pts
+brw-rw---- 1 root disk      1,   0 Apr  6 18:34 ram0
+brw-rw---- 1 root disk      1,   1 Apr  6 18:34 ram1
+brw-rw---- 1 root disk      1,  10 Apr  6 18:34 ram10
+brw-rw---- 1 root disk      1,  11 Apr  6 18:34 ram11
+brw-rw---- 1 root disk      1,  12 Apr  6 18:34 ram12
+brw-rw---- 1 root disk      1,  13 Apr  6 18:34 ram13
+brw-rw---- 1 root disk      1,  14 Apr  6 18:34 ram14
+brw-rw---- 1 root disk      1,  15 Apr  6 18:34 ram15
+brw-rw---- 1 root disk      1,   2 Apr  6 18:34 ram2
+brw-rw---- 1 root disk      1,   3 Apr  6 18:34 ram3
+brw-rw---- 1 root disk      1,   4 Apr  6 18:34 ram4
+brw-rw---- 1 root disk      1,   5 Apr  6 18:34 ram5
+brw-rw---- 1 root disk      1,   6 Apr  6 18:34 ram6
+brw-rw---- 1 root disk      1,   7 Apr  6 18:34 ram7
+brw-rw---- 1 root disk      1,   8 Apr  6 18:34 ram8
+brw-rw---- 1 root disk      1,   9 Apr  6 18:34 ram9
+crw-rw-rw- 1 root root      1,   8 Apr  6 18:34 random
+lrwxrwxrwx 1 root root           4 Apr  6 18:34 rtc -> rtc0
+crw------- 1 root root    249,   0 Apr  6 18:34 rtc0
+brw-rw---- 1 root disk      8,   0 Apr  6 18:34 sda
+brw-rw---- 1 root disk      8,  16 Apr  6 18:34 sdb
+brw-rw---- 1 root disk      8,  32 Apr  6 18:34 sdc
+brw-rw---- 1 root disk      8,  48 Apr  6 18:34 sdd
+crw-rw---- 1 root disk     21,   0 Apr  6 18:34 sg0
+crw-rw---- 1 root disk     21,   1 Apr  6 18:34 sg1
+crw-rw---- 1 root disk     21,   2 Apr  6 18:34 sg2
+crw-rw---- 1 root disk     21,   3 Apr  6 18:34 sg3
+drwxrwxrwt 2 root root          40 Apr  6 18:34 shm
+crw------- 1 root root     10, 231 Apr  6 18:34 snapshot
+drwxr-xr-x 2 root root          60 Apr  6 18:34 snd
+lrwxrwxrwx 1 root root          15 Apr  6 18:34 stderr -> /proc/self/fd/2
+lrwxrwxrwx 1 root root          15 Apr  6 18:34 stdin -> /proc/self/fd/0
+lrwxrwxrwx 1 root root          15 Apr  6 18:34 stdout -> /proc/self/fd/1
+crw-rw-rw- 1 root tty       5,   0 Apr  6 18:34 tty
+crw--w---- 1 root tty       4,   0 Apr  6 18:34 tty0
+crw--w---- 1 root tty       4,   1 Apr  6 18:34 tty1
+crw--w---- 1 root tty       4,  10 Apr  6 18:34 tty10
+crw--w---- 1 root tty       4,  11 Apr  6 18:34 tty11
+crw--w---- 1 root tty       4,  12 Apr  6 18:34 tty12
+crw--w---- 1 root tty       4,  13 Apr  6 18:34 tty13
+crw--w---- 1 root tty       4,  14 Apr  6 18:34 tty14
+crw--w---- 1 root tty       4,  15 Apr  6 18:34 tty15
+crw--w---- 1 root tty       4,  16 Apr  6 18:34 tty16
+crw--w---- 1 root tty       4,  17 Apr  6 18:34 tty17
+crw--w---- 1 root tty       4,  18 Apr  6 18:34 tty18
+crw--w---- 1 root tty       4,  19 Apr  6 18:34 tty19
+crw--w---- 1 root tty       4,   2 Apr  6 18:34 tty2
+crw--w---- 1 root tty       4,  20 Apr  6 18:34 tty20
+crw--w---- 1 root tty       4,  21 Apr  6 18:34 tty21
+crw--w---- 1 root tty       4,  22 Apr  6 18:34 tty22
+crw--w---- 1 root tty       4,  23 Apr  6 18:34 tty23
+crw--w---- 1 root tty       4,  24 Apr  6 18:34 tty24
+crw--w---- 1 root tty       4,  25 Apr  6 18:34 tty25
+crw--w---- 1 root tty       4,  26 Apr  6 18:34 tty26
+crw--w---- 1 root tty       4,  27 Apr  6 18:34 tty27
+crw--w---- 1 root tty       4,  28 Apr  6 18:34 tty28
+crw--w---- 1 root tty       4,  29 Apr  6 18:34 tty29
+crw--w---- 1 root tty       4,   3 Apr  6 18:34 tty3
+crw--w---- 1 root tty       4,  30 Apr  6 18:34 tty30
+crw--w---- 1 root tty       4,  31 Apr  6 18:34 tty31
+crw--w---- 1 root tty       4,  32 Apr  6 18:34 tty32
+crw--w---- 1 root tty       4,  33 Apr  6 18:34 tty33
+crw--w---- 1 root tty       4,  34 Apr  6 18:34 tty34
+crw--w---- 1 root tty       4,  35 Apr  6 18:34 tty35
+crw--w---- 1 root tty       4,  36 Apr  6 18:34 tty36
+crw--w---- 1 root tty       4,  37 Apr  6 18:34 tty37
+crw--w---- 1 root tty       4,  38 Apr  6 18:34 tty38
+crw--w---- 1 root tty       4,  39 Apr  6 18:34 tty39
+crw--w---- 1 root tty       4,   4 Apr  6 18:34 tty4
+crw--w---- 1 root tty       4,  40 Apr  6 18:34 tty40
+crw--w---- 1 root tty       4,  41 Apr  6 18:34 tty41
+crw--w---- 1 root tty       4,  42 Apr  6 18:34 tty42
+crw--w---- 1 root tty       4,  43 Apr  6 18:34 tty43
+crw--w---- 1 root tty       4,  44 Apr  6 18:34 tty44
+crw--w---- 1 root tty       4,  45 Apr  6 18:34 tty45
+crw--w---- 1 root tty       4,  46 Apr  6 18:34 tty46
+crw--w---- 1 root tty       4,  47 Apr  6 18:34 tty47
+crw--w---- 1 root tty       4,  48 Apr  6 18:34 tty48
+crw--w---- 1 root tty       4,  49 Apr  6 18:34 tty49
+crw--w---- 1 root tty       4,   5 Apr  6 18:34 tty5
+crw--w---- 1 root tty       4,  50 Apr  6 18:34 tty50
+crw--w---- 1 root tty       4,  51 Apr  6 18:34 tty51
+crw--w---- 1 root tty       4,  52 Apr  6 18:34 tty52
+crw--w---- 1 root tty       4,  53 Apr  6 18:34 tty53
+crw--w---- 1 root tty       4,  54 Apr  6 18:34 tty54
+crw--w---- 1 root tty       4,  55 Apr  6 18:34 tty55
+crw--w---- 1 root tty       4,  56 Apr  6 18:34 tty56
+crw--w---- 1 root tty       4,  57 Apr  6 18:34 tty57
+crw--w---- 1 root tty       4,  58 Apr  6 18:34 tty58
+crw--w---- 1 root tty       4,  59 Apr  6 18:34 tty59
+crw--w---- 1 root tty       4,   6 Apr  6 18:34 tty6
+crw--w---- 1 root tty       4,  60 Apr  6 18:34 tty60
+crw--w---- 1 root tty       4,  61 Apr  6 18:34 tty61
+crw--w---- 1 root tty       4,  62 Apr  6 18:34 tty62
+crw--w---- 1 root tty       4,  63 Apr  6 18:34 tty63
+crw--w---- 1 root tty       4,   7 Apr  6 18:34 tty7
+crw--w---- 1 root tty       4,   8 Apr  6 18:34 tty8
+crw--w---- 1 root tty       4,   9 Apr  6 18:34 tty9
+crw-rw---- 1 root dialout   4,  64 Apr  6 18:34 ttyS0
+crw-rw---- 1 root dialout   4,  65 Apr  6 18:34 ttyS1
+crw-rw---- 1 root dialout   4,  66 Apr  6 18:34 ttyS2
+crw-rw---- 1 root dialout   4,  67 Apr  6 18:34 ttyS3
+crw-rw---- 1 root dialout   4,  68 Apr  6 18:34 ttyS4
+crw-rw---- 1 root dialout   4,  69 Apr  6 18:34 ttyS5
+crw-rw---- 1 root dialout   4,  70 Apr  6 18:34 ttyS6
+crw-rw---- 1 root dialout   4,  71 Apr  6 18:34 ttyS7
+crw------- 1 root root     10, 223 Apr  6 18:34 uinput
+crw-rw-rw- 1 root root      1,   9 Apr  6 18:34 urandom
+crw------- 1 root root     10, 126 Apr  6 18:34 userfaultfd
+crw-rw---- 1 root tty       7,   0 Apr  6 18:34 vcs
+crw-rw---- 1 root tty       7,   1 Apr  6 18:34 vcs1
+crw-rw---- 1 root tty       7,   2 Apr  6 18:34 vcs2
+crw-rw---- 1 root tty       7,   3 Apr  6 18:34 vcs3
+crw-rw---- 1 root tty       7,   4 Apr  6 18:34 vcs4
+crw-rw---- 1 root tty       7,   5 Apr  6 18:34 vcs5
+crw-rw---- 1 root tty       7,   6 Apr  6 18:34 vcs6
+crw-rw---- 1 root tty       7, 128 Apr  6 18:34 vcsa
+crw-rw---- 1 root tty       7, 129 Apr  6 18:34 vcsa1
+crw-rw---- 1 root tty       7, 130 Apr  6 18:34 vcsa2
+crw-rw---- 1 root tty       7, 131 Apr  6 18:34 vcsa3
+crw-rw---- 1 root tty       7, 132 Apr  6 18:34 vcsa4
+crw-rw---- 1 root tty       7, 133 Apr  6 18:34 vcsa5
+crw-rw---- 1 root tty       7, 134 Apr  6 18:34 vcsa6
+crw-rw---- 1 root tty       7,  64 Apr  6 18:34 vcsu
+crw-rw---- 1 root tty       7,  65 Apr  6 18:34 vcsu1
+crw-rw---- 1 root tty       7,  66 Apr  6 18:34 vcsu2
+crw-rw---- 1 root tty       7,  67 Apr  6 18:34 vcsu3
+crw-rw---- 1 root tty       7,  68 Apr  6 18:34 vcsu4
+crw-rw---- 1 root tty       7,  69 Apr  6 18:34 vcsu5
+crw-rw---- 1 root tty       7,  70 Apr  6 18:34 vcsu6
+drwxr-xr-x 2 root root          60 Apr  6 18:34 vfio
+crw------- 1 root root     10, 127 Apr  6 18:34 vga_arbiter
+crw-rw---- 1 root kvm      10, 238 Apr  6 18:34 vhost-net
+crw-rw---- 1 root kvm      10, 241 Apr  6 18:34 vhost-vsock
+drwxr-xr-x 2 root root         100 Apr  6 18:34 virtio-ports
+crw------- 1 root root    244,   0 Apr  6 18:34 vport0p0
+crw------- 1 root root    244,   1 Apr  6 18:34 vport0p1
+crw------- 1 root root    244,   2 Apr  6 18:34 vport0p2
+crw-rw-rw- 1 root root     10, 124 Apr  6 18:34 vsock
+crw-rw-rw- 1 root root      1,   5 Apr  6 18:34 zero
+
+You may recognize some of the devices, such as cdrom and cpu, but others have rather
+cryptic names.
+
+Each device on your system is represented by a file in the
+/dev directory, including devices you’ve probably never used or even
+realized existed. 
+
+devices sda1, sda2, sda3, sdb, and sdb1, which are usually the hard drive and its partitions and a USB flash drive and its
+partitions.
+
+
+======= How Linux Represents Storage Devices ======
+Linux uses logical labels for drives that are then mounted on the filesystem.
+
+These logical labels will vary depending on where and when the drives are
+mounted, meaning the same hard drive might have different labels at
+different times.
+
+Linux represented floppy drives (remember those?) as fd0 and
+hard drives as hda. but this are gone and you will see 
+
+Drives are sometimes split up into sections known as partitions, which are represented in the labeling system with
+numbers,
+
+When systems have more than one hard drive, Linux simply names them
+serially by incrementing the last letter in alphabetical order
+
+--------- Device-Naming System -------------------
+
+Device
+file               Description
+sda               First SATA hard drive
+sdb               Second SATA hard drive
+sdc               Third SATA hard drive
+sdd               Fourth SATA hard drive
+
+The serial letter after sd is often referred to as the major number.
+
+
+
+==================== Drive Partitions ================
+Some drives can be split into partitions in order to manage and separate
+information. 
+For instance, you may want to separate your hard drive so that
+your swap file, home directory, and / directory are all on separate partitions
+—you might want to do this for a number of reasons, including to share
+resources and to relax the default permissions.
+
+Linux labels each partition
+with a minor number that comes after the drive designation. This way, the
+first partition on the first SATA drive would be sda1. The second partition
+would then be sda2, the third sda3, and so on
+
+
+-------- Partition-Labeling System ---------------
+Partition          Description
+sda1               The first (1) partition on the first (a) SATA drive Partition Description
+sda2               The second (2) partition on the first (a) drive
+sda3               The third (3) partition on the first (a) drive
+sda4               The fourth (4) partition on the first (a) drive
+
+At times, you may want to view the partitions on your Linux system to see
+which ones you have and how much capacity is available in each. 
+
+command: fdisk -l
+You can do this by using the fdisk utility. Using the -l switch with fdisk lists all the
+partitions of all the drives
+
+ sudo fdisk -l
+[sudo] password for linuxuser:
+Disk /dev/ram0: 4 MiB, 4194304 bytes, 8192 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/ram1: 4 MiB, 4194304 bytes, 8192 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/ram2: 4 MiB, 4194304 bytes, 8192 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+Disk /dev/ram15: 4 MiB, 4194304 bytes, 8192 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/sdb: 186.04 MiB, 195080192 bytes, 381016 sectors
+Disk model: Virtual Disk
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 388.61 MiB, 407490560 bytes, 795880 sectors
+Disk model: Virtual Disk
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sdc: 1 GiB, 1073745920 bytes, 2097160 sectors
+Disk model: Virtual Disk
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/sdd: 1 TiB, 1099511627776 bytes, 2147483648 sectors
+Disk model: Virtual Disk
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+
+sda1, sda2, and sda5 are listed These three devices make up the virtual disk from my
+virtual machine with their partitions, including the swap partition (sda5), which acts like virtual RAM—similar to page files in
+Windows—when RAM capacity is exceeded.
+
+
+
+---- Different File types System ----
+Note that fdisk
+indicates that it is an HPFS/NTFS/ExFAT filesystem type. 
+These file types—
+High Performance File System (HPFS), 
+New Technology File System (NTFS),
+and 
+Extended File Allocation Table (exFAT)—are not native to Linux
+systems but rather to macOS and Windows systems.
+recognize file types native to different systems when you investigate. The
+filesystem might indicate what kind of machine the drive was formatted on,
+which can be valuable information.
+
+
+--- window's NTFS filesystem and Linux ---
+
+the Linux filesystem is structured significantly
+differently than are Windows and other proprietary operating systems. On
+top of this, the way files are stored and managed is different in Linux, too.
+
+New versions of Windows use an NTFS filesystem, whereas older Windows
+systems use File Allocation Table (FAT) systems. 
+
+Linux uses a number of different types of filesystems, but the most common are ext2, ext3, and
+ext4. These are all iterations of the ext (or extended) filesystem, with ext4
+being the latest.
+
+
+
+
+
+==== Character and Block Devices ====
+
+Something else to note about the naming of device files in the /dev directory
+is that the first position contains either c or b.
+
+crw------- 1 root root     10, 203 Apr  8 18:26 cuse
+crw------- 1 root root     10, 234 Apr  8 18:26 btrfs-control
+crw-rw---- 1 root kvm      10, 241 Apr  8 18:26 vhost-vsock
+crw-rw---- 1 root kvm      10, 238 Apr  8 18:26 vhost-net
+crw-rw---- 1 root dialout   4,  65 Apr  8 18:26 ttyS1
+
+-- c letter devices are character devices ---
+These letters represent the two ways that devices transfer data in and out.
+The c stands for character, and these devices are known, as you might
+expect, as character devices. 
+
+External devices that interact with the system by sending and receiving data character by character, such as mouse or
+keyboards, are character devices.
+
+
+--- b letter devices are block devices ---
+The b stands for the second type: block devices. They communicate in
+blocks of data (multiple bytes at a time) and include devices like hard drives
+and DVD drives. These devices require higher-speed data throughput and
+therefore send and receive data in blocks (many characters or bytes at a
+time).
+
+brw-rw---- 1 root disk      8,  32 Apr  8 18:26 sdc
+brw-rw---- 1 root disk      8,  48 Apr  8 18:26 sdd
+
+
+
+
+=================== lsblk and lsusb command - List Block Devices and Information with lsblk and lsusb ==============================
+------------------------------------------------------------------------------------------------------------------------------------
+command: lsblk
+
+The Linux command lsblk, short for list block, lists some basic information
+about each block device listed in /dev. The result is similar to the output
+from fdisk -l, but it will also display devices with multiple partitions in a
+kind of tree, showing each device with its partitions as branches, and does
+not require root privileges to run.
+
+: /dev $ lsblk
+NAME MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+sda    8:0    0 388.6M  1 disk
+sdb    8:16   0   186M  1 disk
+sdc    8:32   0     1G  0 disk [SWAP]
+sdd    8:48   0     1T  0 disk /mnt/wslg/distro
+
+
+The output may include the 
+floppy drive as fd0 and DVD drive as sr0, even
+though neither is on my system—this is simply a holdover from legacy
+systems. We can also see information on the mount point of the drive—this
+is the position at which the drive was attached to the filesystem. Note that
+the hard drive sda1 is mounted at / and the flash drive is mounted at /media.
+
+-- command: lsusb -------------
+We can see all attached and ready-to-use USB devices using this simple
+command: lsusb
+
+In addition, at times we may simply want to know whether a USB device is
+mounted to our system. If we plug in a new USB flash drive, keyboard,
+headset, or SDR, for example, they don’t necessarily attach immediately,
+and sometimes not at all. We have a command to check for all attached
+USB devices called lsusb.
+
+Your output may be different based upon what devices are attached to your
+system.
+ 
+

@@ -1,0 +1,97 @@
+3- Mounting and Unmounting
+
+---- Mounting and Unmounting ------
+Most modern operating systems, including most new versions of Linux,
+automount storage devices when they’re attached, meaning the new flash
+drive or hard drive is automatically attached to the filesystem. For those
+new to Linux, mounting might be a foreign subject.
+
+
+-- first mount(attach to system) device physically then connect logically ---
+A storage device must be first physically connected to the filesystem and
+then logically attached to the filesystem in order for the data to be made
+available to the operating system.
+
+even if the device is
+physically attached to the system, it is not necessarily logically attached and
+available to the operating system. 
+
+The term mount is a legacy from the early
+days of computing when storage tapes (before hard drives) had to be
+physically mounted to the computer system—think of those big computers
+with spinning tape drives you might have seen in old sci-fi movies.
+
+--- mountpoint --
+
+As mentioned, the point in the directory tree where devices are attached is
+known as the mount point.
+
+Two main mount points in Linux are 
+1) /mnt
+and
+2) /media.
+
+/mnt = devices such as external USB devices and
+flash drives can be manually mounted at /mnt,
+
+but when automatically
+mounted, the /media directory is used (though technically any directory can
+be used)
+
+
+
+
+================= Mounting Storage Devices Manually =====================
+-------------------------------------------------------------------------
+
+In some versions of Linux, you need to mount a drive manually in order to
+access its content, so this is a skill worth learning.
+
+eg EBS elastic block storage in AWS which act as virtual hardrive can be mounted to ec2 instance to expand or increase the storage and done using mounting
+
+--- command: mount
+To mount a drive on the
+filesystem, use the mount command.
+
+The mount point for the device should
+be an empty directory; if you mount a device on a directory that has
+subdirectories and files, the mounted device will cover the contents of the
+directory, making them invisible and unavailable.
+
+So, to mount the new hard drive sdb1 at the /mnt directory, you would enter the following:
+kali> sudo mount /dev/sdb1 /mnt
+That hard drive should then be available for access. 
+
+If you want to mount the flash drive sdc1 at the /media directory, you would enter this:
+kali> sudo mount /dev/sdc1 /media
+
+
+
+The filesystems on a system that are mounted at boot-time are kept in a file
+at /etc/fstab (short for filesystem table), which is read by the system at every
+bootup. when u do cd /etc u will see fstab
+
+
+
+================= Ejecting/Unmounting with umount for devices which attached like flashdrive etc =====================
+----------------------------------------------------------------------------------------------------------------------
+
+If you’re coming from a Mac or Windows background, you’ve probably
+unmounted a drive without knowing it. Before you remove a flash drive
+from your system, you “eject” it to keep from causing damage to the files
+
+stored on the device. Eject is just another word for unmount.
+
+unmount = eject
+
+Similar to the mount command, you can unmount a second hard drive by
+entering the umount command followed by the file entry of the device in the
+/dev directory, 
+
+such as /dev/sdb. Note that the command is not spelled
+unmount but rather umount (no n).
+kali> sudo umount /dev/sdb1
+
+You cannot unmount a device that is busy, so if the system is reading or
+writing to the device, you will just receive an error.
+
