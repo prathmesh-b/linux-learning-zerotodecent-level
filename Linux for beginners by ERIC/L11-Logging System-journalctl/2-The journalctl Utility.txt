@@ -1,0 +1,65 @@
+The journalctl Utility
+
+newer Linuxes use a software suite known as systemd, 
+which is intended to
+standardize how Linux works across all distributions of Linux.
+
+== journalctl ===
+Systemd has a similar control for logging known as journalctl (a journal in
+computer-speak is a place where the computer stores activities and events—
+in other words, a logging system). This journalctl utility makes retrieving
+and viewing logfiles much easier.
+
+journald stores binary files
+(zero and ones). This means that the end user (you) has a much easier time
+interpreting the logfiles and searching them.
+
+
+command = journalctl
+when we type this command, all of the logs are displayed on the screen via the more command
+
+Dec 18 07:40:46 Pratham kernel: KERNEL supported cpus:
+Dec 18 07:40:46 Pratham kernel:   Intel GenuineIntel
+Dec 18 07:40:46 Pratham kernel:   AMD AuthenticAMD
+Dec 18 07:40:46 Pratham kernel: BIOS-provided physical RAM map:
+Dec 18 07:40:46 Pratham kernel: BIOS-e820: [mem 0x0000000000000000-0x000000000009ffff] usable
+Dec 18 07:40:46 Pratham kernel: BIOS-e820: [mem 0x00000000000e0000-0x00000000000e0fff] reserved
+Dec 18 07:40:46 Pratham kernel: BIOS-e820: [mem 0x0000000000100000-0x00000000001fffff] ACPI data
+Dec 18 07:40:46 Pratham kernel: BIOS-e820: [mem 0x0000000000200000-0x00000000ea5fffff] usable
+Dec 18 07:40:46 Pratham kernel: NX (Execute Disable) protection: active
+Dec 18 07:40:46 Pratham kernel: APIC: Static calls initialized
+Dec 18 07:40:46 Pratham kernel: DMI not present or invalid.
+Dec 18 07:40:46 Pratham kernel: Hypervisor detected: Microsoft Hyper-V
+Dec 18 07:40:46 Pratham kernel: Hyper-V: privilege flags low 0xae7f, high 0x3b8030, hints 0xc2c, misc 0x20bed7b2
+Dec 18 07:40:46 Pratham kernel: Hyper-V: Nested features: 0x0
+line1-37
+
+
+[Cloud_Spirit@HP-LapyMachine]: ~ $ journalctl -help
+journalctl [OPTIONS...] [MATCHES...]
+
+Query the journal.
+
+Options:
+     --system                Show the system journal
+     --user                  Show the user journal for the current user
+  -M --machine=CONTAINER     Operate on local container
+  -S --since=DATE            Show entries not older than the specified date
+  -U --until=DATE            Show entries not newer than the specified date
+  -c --cursor=CURSOR         Show entries starting at the specified cursor
+     --after-cursor=CURSOR   Show entries after the specified cursor
+     --show-cursor           Print the cursor after all the entries
+     --cursor-file=FILE      Show entries after cursor in FILE and update FILE
+  -b --boot[=ID]             Show current boot or the specified boot
+     --list-boots            Show terse information about recorded boots
+  -k --dmesg                 Show kernel message log from the current boot
+  -u --unit=UNIT             Show logs from the specified unit
+     --user-unit=UNIT        Show logs from the specified user unit
+  -t --identifier=STRING     Show entries with the specified syslog identifier
+
+Note that journalctl has options for user (--user), date (--since=DATE), priority
+(-p), and facility (--facility).
+
+
+
+

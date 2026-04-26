@@ -1,0 +1,53 @@
+Disabling Logging
+
+Another option for covering your tracks is simply to disable logging. When
+a hacker takes control of a system, they could immediately disable logging
+to prevent the system from keeping track of their activities. This, of course,
+requires root privileges.
+
+To disable all logging, the hacker could simply stop logging by configuring
+journalctl to send logs to null. This means that instead of writing the logs to
+a storage device such as a hard drive, the system will send the logs into a
+null place (nowhere). We can accomplish this by opening and editing the
+journal daemon configuration file. 
+It is at /etc/systemd/journald.conf. You
+can open with any text editor, but here I opened it with mousepad preceded
+
+by sudo to gain root privileges:
+
+kali> sudo nano /etc/systemd/journald.conf
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it under the
+#  terms of the GNU Lesser General Public License as published by the Free
+#  Software Foundation; either version 2.1 of the License, or (at your option)
+#  any later version.
+#
+# Entries in this file show the compile time defaults. Local configuration
+# should be created by either modifying this file, or by creating "drop-ins" in
+# the journald.conf.d/ subdirectory. The latter is generally recommended.
+# Defaults can be restored by simply deleting this file and all drop-ins.
+#
+# Use 'systemd-analyze cat-config systemd/journald.conf' to display the full config.
+#
+# See journald.conf(5) for details.
+
+[Journal]
+#Storage=auto
+#Compress=yes
+#Seal=yes
+#SplitMode=uid
+#SyncIntervalSec=5m
+
+
+
+Note the line at the end that says #Storage=auto. Change that line to
+Storage=null and delete the comment mark before it (#). Now save the file
+and restart journald:
+
+kali> sudo systemctl restart system-journald
+
+This will stop and start journald, and when it restarts, it will use the new
+configuration file that sends all logs to null.
+Now Linux will stop generating any logfiles until the service is restarted,
+enabling you to operate without leaving behind any evidence in the logfiles!

@@ -1,0 +1,108 @@
+journalctl Queries
+
+One of the major advantages of journalctl is the ability to query the logs
+specifically for events, users, and time, as journalctl has a query language
+that is very similar to normal human language.
+
+For instance, if I wanted to
+see only the events in the last 24 hours, I can query:
+
+kali> journalctl –q –-since "24 hours ago"
+
+[Cloud_Spirit@HP-LapyMachine]: ~ $ journalctl -q --since "24 hours ago"
+Apr 26 05:43:12 HP-LapyMachine kernel: Linux version 6.6.87.2-microsoft-standard-WSL2 (root@439a258ad544) (gcc (GCC) 11.2.0, GNU ld (GNU Binutil>
+Apr 26 05:43:12 HP-LapyMachine kernel: Command line: initrd=\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=12 hv_utils.timesync_implicit=1 console>
+Apr 26 05:43:12 HP-LapyMachine kernel: KERNEL supported cpus:
+Apr 26 05:43:12 HP-LapyMachine kernel:   Intel GenuineIntel
+Apr 26 05:43:12 HP-LapyMachine kernel:   AMD AuthenticAMD
+Apr 26 05:43:12 HP-LapyMachine kernel: BIOS-provided physical RAM map:
+Apr 26 05:43:12 HP-LapyMachine kernel: BIOS-e820: [mem 0x0000000000000000-0x000000000009ffff] usable
+Apr 26 05:43:12 HP-LapyMachine kernel: BIOS-e820: [mem 0x00000000000e0000-0x00000000000e0fff] reserved
+Apr 26 05:43:12 HP-LapyMachine kernel: BIOS-e820: [mem 0x0000000000100000-0x00000000001fffff] ACPI data
+Apr 26 05:43:12 HP-LapyMachine kernel: BIOS-e820: [mem 0x0000000000200000-0x00000000ea5fffff] usable
+Apr 26 05:43:12 HP-LapyMachine kernel: NX (Execute Disable) protection: active
+Apr 26 05:43:12 HP-LapyMachine kernel: APIC: Static calls initialized
+Apr 26 05:43:12 HP-LapyMachine kernel: DMI not present or invalid.
+Apr 26 05:43:12 HP-LapyMachine kernel: Hypervisor detected: Microsoft Hyper-V
+Apr 26 05:43:12 HP-LapyMachine kernel: Hyper-V: privilege flags low 0xae7f, high 0x3b8030, hints 0xc2c, misc 0x20bed7b2
+Apr 26 05:43:12 HP-LapyMachine kernel: Hyper-V: Nested features: 0x0
+Apr 26 05:43:12 HP-LapyMachine kernel: Hyper-V: LAPIC Timer Frequency: 0xc3500
+Apr 26 05:43:12 HP-LapyMachine kernel: Hyper-V: Using hypercall for remote TLB flush
+Apr 26 05:43:12 HP-LapyMachine kernel: clocksource: hyperv_clocksource_tsc_page: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: >
+Apr 26 05:43:12 HP-LapyMachine kernel: clocksource: hyperv_clocksource_msr: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 44079>
+Apr 26 05:43:12 HP-LapyMachine kernel: tsc: Marking TSC unstable due to running on Hyper-V
+Apr 26 05:43:12 HP-LapyMachine kernel: tsc: Detected 2095.992 MHz processor
+Apr 26 05:43:12 HP-LapyMachine kernel: e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
+
+
+This query quietly retrieves the last 24 hours of log events. In this case, the
+-q flag is for “quiet.” It suppresses messages that are very noisy and may
+leave traces of your activity.
+
+
+[Cloud_Spirit@HP-LapyMachine]: ~ $ journalctl -q --since "1 hours ago"
+Apr 26 05:43:12 HP-LapyMachine kernel: Linux version 6.6.87.2-microsoft-standard-WSL2 (root@439a258ad544) (gcc (GCC) 11.2.0, GNU ld (GNU Binutil>
+Apr 26 05:43:12 HP-LapyMachine kernel: Command line: initrd=\initrd.img WSL_ROOT_INIT=1 panic=-1 nr_cpus=12 hv_utils.timesync_implicit=1 console>
+Apr 26 05:43:12 HP-LapyMachine kernel: KERNEL supported cpus:
+Apr 26 05:43:12 HP-LapyMachine kernel:   Intel GenuineIntel
+Apr 26 05:43:12 HP-LapyMachine kernel:   AMD AuthenticAMD
+Apr 26 05:43:12 HP-LapyMachine kernel: BIOS-provided physical RAM map:
+
+
+================= how to serach events logs of USER like root or other ====================
+The journalctl utility also enables you to search for events by user. 
+
+As you
+know, the root user in Linux is designated with the user ID of 1000. So, we
+can search for events linked to the root user by building the journalctl query
+like this:
+
+kali> journalctl _UID=1000 –-since "24 hours ago"
+
+
+[Cloud_Spirit@HP-LapyMachine]: ~ $ journalctl _UID=1000 --since "12 hours ago"
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Queued start job for default target Main User Target.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Created slice User Application Slice.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Reached target Paths.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Reached target Timers.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Listening on GnuPG network certificate management daemon.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Listening on GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Listening on GnuPG cryptographic agent and passphrase cache (restricted).
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Listening on GnuPG cryptographic agent (ssh-agent emulation).
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Listening on GnuPG cryptographic agent and passphrase cache.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Listening on debconf communication socket.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Listening on REST API socket for snapd user session agent.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Reached target Sockets.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Reached target Basic System.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Reached target Main User Target.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Starting WSLg user service...
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Finished WSLg user service.
+Apr 26 05:43:15 HP-LapyMachine systemd[388]: Startup finished in 240ms.
+
+This will help determine whether the root user is online and what they may
+be doing (only if it triggers a log).
+
+
+
+
+
+============= what if kernel is having problem how to check ========================
+The kernel of any operating system is its heart. It controls the entire
+operating system, and it is what makes Linux, Linux. If the kernel is having
+problems, we probably want to be aware of that. To view kernel logs, we
+can use the -k option (kernel). For kernel logs within the last 24 hours, we
+can enter:
+kali> journalctl –k -–since "24 hours ago"
+
+Apr 26 05:43:12 HP-LapyMachine kernel: Hyper-V: Nested features: 0x0
+Apr 26 05:43:12 HP-LapyMachine kernel: Hyper-V: LAPIC Timer Frequency: 0xc3500
+Apr 26 05:43:12 HP-LapyMachine kernel: Hyper-V: Using hypercall for remote TLB flush
+Apr 26 05:43:12 HP-LapyMachine kernel: clocksource: hyperv_clocksource_tsc_page: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: >
+Apr 26 05:43:12 HP-LapyMachine kernel: clocksource: hyperv_clocksource_msr: mask: 0xffffffffffffffff max_cycles: 0x24e6a1710, max_idle_ns: 44079>
+Apr 26 05:43:12 HP-LapyMachine kernel: tsc: Marking TSC unstable due to running on Hyper-V
+Apr 26 05:43:12 HP-LapyMachine kernel: tsc: Detected 2095.992 MHz processor
+Apr 26 05:43:12 HP-LapyMachine kernel: e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
+Apr 26 05:43:12 HP-LapyMachine kernel: e820: remove [mem 0x000a0000-0x000fffff] usable
+Apr 26 05:43:12 HP-LapyMachine kernel: last_pfn = 0xea600 max_arch_pfn = 0x400000000
+Apr 26 05:43:12 HP-LapyMachine kernel: MTRR map: 5 entries (4 fixed + 1 variable; max 20), built from 8 variable MTRRs
+Apr 26 05:43:12 HP-LapyMachine kernel: x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT

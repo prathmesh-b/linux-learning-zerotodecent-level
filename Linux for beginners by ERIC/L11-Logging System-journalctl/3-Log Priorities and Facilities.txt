@@ -1,0 +1,87 @@
+Log Priorities and Facilities
+
+Logging and logfiles reflect the different priorities and facilities of the
+operating system and the system administrator. Some logs are very
+important and are given a priority of 0 or emerg(ency), while others are less
+important and are given priorities of 6 (info) or 7 (debug). 
+
+The system administrator can determine which logs have which priority. In addition, the
+system administrator can select which priority logs they want to view.
+
+------------------------------------------------------------
+Here is a list of the logging system priorities:
+emerg (0)
+alert (1)
+crit (2)
+err (3)
+warning (4)
+notice (5)
+info (6)
+debug (7)
+------------------------------------------------------------
+
+
+To view the highest-priority logfiles, we can construct a journalctl query
+using the -p option, such as:
+journalctl –p "emerg"
+
+$ journalctl -p "emerg"
+-- No entries --
+
+
+-- when filtering for alert priority----
+
+[Cloud_Spirit@HP-LapyMachine]: ~ $ journalctl -p "alert"
+Jan 05 12:11:20 Pratham sudo[420]:   kayaba : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/kayaba ; USER=root ; COMMAND=/usr/sbin/usermod -l prat>
+Jan 05 12:11:42 Pratham sudo[421]:   kayaba : user NOT in sudoers ; TTY=pts/0 ; PWD=/root ; USER=root ; COMMAND=/bin/bash
+Jan 05 12:11:54 Pratham sudo[422]:   kayaba : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/kayaba ; USER=root ; COMMAND=-
+Jan 05 12:13:51 Pratham sudo[436]:   kayaba : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/kayaba ; USER=root ; COMMAND=/usr/bin/passwd root
+Jan 05 12:14:12 Pratham sudo[440]:   kayaba : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/kayaba ; USER=root ; COMMAND=linuxofpratham
+Jan 05 12:18:00 Pratham sudo[521]:   kayaba : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/kayaba ; USER=root ; COMMAND=/usr/sbin/usermod -aG sud>
+Jan 05 12:18:11 Pratham sudo[525]:   kayaba : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/kayaba ; USER=root ; COMMAND=linuxofpratham
+Jan 05 12:21:27 Pratham sudo[433]:   kayaba : user NOT in sudoers ; TTY=pts/0 ; PWD=/home ; USER=root ; COMMAND=tempadim
+-- Boot 3196b09867984b1cab55568d0edb70f4 --
+Jan 12 10:39:59 Pratham sudo[1206]: linuxofpratham : unable to resolve host Pratham: Name or service not known
+Jan 12 10:39:59 Pratham sudo[1206]: linuxofpratham : problem with defaults entries ; TTY=pts/2 ; PWD=/home/linuxofpratham ; USER=root ;
+Jan 12 10:47:23 Pratham sudo[1344]: linuxofpratham : unable to resolve host Pratham: Name or service not known
+Jan 12 10:47:23 Pratham sudo[1344]: linuxofpratham : problem with defaults entries ; TTY=pts/2 ; PWD=/home/linuxofpratham ; USER=root ;
+Jan 12 11:01:38 Pratham sudo[1721]: linuxofpratham : unable to resolve host Pratham: Name or service not known
+Jan 12 11:01:38 Pratham sudo[1721]: linuxofpratham : problem with defaults entries
+
+
+
+we can also use priority number code for setting priority instead of text
+
+here 4 is for warning
+[Cloud_Spirit@HP-LapyMachine]: ~ $ journalctl -p 4
+Dec 18 07:40:46 Pratham kernel: Speculative Return Stack Overflow: IBPB-extending microcode not applied!
+Dec 18 07:40:46 Pratham kernel: Speculative Return Stack Overflow: WARNING: See https://kernel.org/doc/html/latest/admin-guide/hw-vuln/srso.html>
+Dec 18 07:40:46 Pratham kernel: PCI: Fatal: No config space access function found
+Dec 18 07:40:46 Pratham kernel: PCI: System does not support PCI
+Dec 18 07:40:46 Pratham kernel: device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in t>
+Dec 18 07:40:46 Pratham kernel: /dev/sdd: Can't open blockdev
+Dec 18 07:40:46 Pratham kernel: hv_balloon: Cold memory discard hypercall failed with status 1800000005
+Dec 18 07:40:46 Pratham kernel: hv_balloon: Underlying Hyper-V does not support order less than 9. Hypercall failed
+Dec 18 07:40:46 Pratham kernel: hv_balloon: Defaulting to page_reporting_order 9
+Dec 18 07:40:46 Pratham unknown: WSL (2 - init-systemd(Ubuntu-22.04)) WARNING: /etc/resolv.conf updating disabled in /etc/wsl.conf
+Dec 18 07:40:46 Pratham kernel: pulseaudio[274]: memfd_create() called without MFD_EXEC or MFD_NOEXEC_SEAL set
+Dec 18 07:40:46 Pratham unknown: Failed to connect to bus: No such file or directory
+Dec 18 07:40:46 Pratham kernel: misc dxg: dxgk: dxgkio_is_feature_enabled: Ioctl failed: -22
+Dec 18 07:40:46 Pratham kernel: misc dxg: dxgk: dxgkio_query_adapter_info: Ioctl failed: -22
+
+
+========== How to view logs for custom service==================
+
+The journalctl utility also enables us to view the logs of a specific service
+using the -u option. To view the logs associated with the apache2 web
+server, we can construct a query such as:
+
+kali> journalctl –u apache2
+May 28 14:25:48 kali systemd[1]: Starting apache2
+May 28 14:25:48 kali apachectl[118241]: AH00558:
+May 28 14:25:48 kali systemd[1]: Started apache2
+May 29 00:00:31 kali systemd[1]: Reloading apache
+--snip--
+This query can be used to find the logs of any service in Linux simply by
+appending the -u option followed by the name of the service.
+

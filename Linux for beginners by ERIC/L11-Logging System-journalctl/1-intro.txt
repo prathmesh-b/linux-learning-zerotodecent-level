@@ -1,0 +1,21 @@
+For any Linux user, it’s crucial to be knowledgeable in the use of logfiles.
+
+Logfiles store information about events that occur when the operating
+system and applications are run, including any errors and security alerts.
+
+Your system will log information automatically based on the series of rules
+that I will show you how to configure in this chapter.
+
+As a hacker, you should be aware that a system’s logfiles can be a trail to
+your target’s activities and identity, but they can also be a trail to your own
+activities on someone else’s system. A hacker, therefore, needs to know
+what information they can gather, as well as what can be gathered about
+their own actions and methods in order to hide that evidence.
+
+On the other side, anyone securing Linux systems needs to know how to
+manage the logging functions to determine whether a system has been
+attacked and then decipher what actually happened and who did it.
+
+This chapter shows you how to examine and configure logfiles, as well as
+how to remove evidence of your activity and even disable logging
+altogether. First, we’ll look at the daemon that does the logging

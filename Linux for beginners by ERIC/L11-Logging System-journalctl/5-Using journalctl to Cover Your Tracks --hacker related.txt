@@ -1,0 +1,76 @@
+Using journalctl to Cover Your Tracks
+
+--- HACKER RELATED--
+
+-- how to delete specific log files so that noone can find out----
+s
+If you have compromised a system, you want to make certain that you don’t
+leave evidence behind that can be traced back to you. Remember, the best
+hack is the one that the target never knew happened!
+
+If we compromised the apache2 web server to take control of the system,
+the most important place to clean up are the apache2 logs. We can do this
+with journalctl, but here we will need root privileges using the sudo
+command:
+kali> sudo journalctl –u apache2 –-vacuum-time=1d
+This command will delete all the logs associated with the apache2 web
+server in the past day:
+Vacuuming done, freed 0B of archived journals fro
+Deleted archived journal /var/log/journal/d3ab02d
+Deleted archived journal /var/log/journal/d3ab02d
+--snip--
+A better and more secure solution is to shred the logfiles.
+
+shred means corrupt the file so that investigator can't read it.
+
+
+With other file
+deletion systems, a skilled investigator is still able to recover the deleted
+files (deleted files are simply made available to be overwritten by the filesystem;
+they still exist until they are overwritten). But suppose there was a
+way to delete the file and overwrite it several times, making it much harder
+to recover. Lucky for us, Linux has a built-in command, appropriately
+named shred, for just this purpose.
+To understand how the shred command works, take a quick look at the help
+screen by entering the following command:
+kali> shred --help
+Usage: shred [OPTION]...FILE...
+Overwrite the specified FILE(s)repeatedly in orde
+for even very expensive hardware probing to recov
+--snip--
+The full output on your screen shows that the shred command has many
+options. 
+
+
+In its most basic form, the syntax is simple:
+shred <FILE>
+
+On its own, shred will delete the file and overwrite it several times—by
+default, shred overwrites four times. Generally, the more times the file is
+overwritten, the harder it is to recover, but keep in mind that each overwrite
+takes time, so for very large files, shredding may become time-consuming.
+
+Two useful options to include are the -f option, which changes the
+permissions on the files to allow overwriting if a permission change is
+necessary, and the –n option, which lets you choose how many times to
+overwrite the files. 
+
+As an example, we’ll shred all the logfiles in
+/var/log/journal/subdirectory/*.* 10 times using the following command:
+
+kali> shred -f -n 10 /var/log/journal/subdirectory name*.
+
+We need the –f option to give us permission to shred auth files, and we
+follow the –n option with the desired number of times to overwrite. After the
+path of the file we want to shred, we include the wildcard asterisk so we’re
+shredding everything in the subdirectory. 
+
+
+Now try to open a logfile:
+kali> mousepad /var/log/journal/filename
+Once you’ve shredded a file, you’ll see that the contents are indecipherable
+gibberish, as shown in Figure 11-3.
+Figure 11-3: A shredded logfile
+
+Now if the security engineer or forensic investigator examines the logfiles,
+they will find nothing of use because none of it is recoverable!
